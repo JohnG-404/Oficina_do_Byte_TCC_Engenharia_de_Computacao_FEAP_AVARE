@@ -1,0 +1,634 @@
+{
+ "tokens": {
+  "ink": "#0A0E17",
+  "navy900": "#0E1320",
+  "navy800": "#151C2C",
+  "navy700": "#1B2438",
+  "navy600": "#243049",
+  "line": "#34425F",
+  "blue": "#4A8CF7",
+  "blueHi": "#7AAEFF",
+  "blueLo": "#2A63C9",
+  "cyan": "#5FD4E8",
+  "purple": "#9B7BF0",
+  "purpleLo": "#6A4FC4",
+  "gold": "#F5C542",
+  "goldLo": "#C9971C",
+  "green": "#52C98A",
+  "greenLo": "#2F9A63",
+  "red": "#E5646A",
+  "redLo": "#B53E47",
+  "text": "#E8EEF9",
+  "muted": "#9AA8C4",
+  "grey": "#4A5570",
+  "greyLo": "#343C52"
+ },
+ "sprites": {
+  "btn_primario_normal": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_primario_hover": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_primario_pressed": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_primario_focus": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_primario_disabled": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_secundario_normal": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_secundario_hover": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_secundario_pressed": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_secundario_focus": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_secundario_disabled": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_perigo_normal": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_perigo_hover": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_perigo_pressed": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_perigo_focus": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_perigo_disabled": {
+   "size": [
+    112,
+    112
+   ],
+   "border_LBRT": [
+    36,
+    36,
+    36,
+    36
+   ]
+  },
+  "btn_icone_normal": {
+   "size": [
+    96,
+    96
+   ]
+  },
+  "btn_icone_hover": {
+   "size": [
+    96,
+    96
+   ]
+  },
+  "btn_icone_pressed": {
+   "size": [
+    96,
+    96
+   ]
+  },
+  "btn_icone_focus": {
+   "size": [
+    96,
+    96
+   ]
+  },
+  "painel_janela": {
+   "size": [
+    128,
+    128
+   ],
+   "border_LBRT": [
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  "painel_titulo": {
+   "size": [
+    128,
+    72
+   ],
+   "border_LBRT": [
+    30,
+    30,
+    30,
+    30
+   ]
+  },
+  "painel_popup": {
+   "size": [
+    128,
+    128
+   ],
+   "border_LBRT": [
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  "painel_linha": {
+   "size": [
+    64,
+    64
+   ],
+   "border_LBRT": [
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  "painel_linha_foco": {
+   "size": [
+    64,
+    64
+   ],
+   "border_LBRT": [
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  "veu_popup": {
+   "size": [
+    16,
+    16
+   ],
+   "border_LBRT": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "aba_ativa": {
+   "size": [
+    96,
+    72
+   ],
+   "border_LBRT": [
+    28,
+    0,
+    28,
+    28
+   ]
+  },
+  "aba_inativa": {
+   "size": [
+    96,
+    72
+   ],
+   "border_LBRT": [
+    28,
+    0,
+    28,
+    28
+   ]
+  },
+  "aba_foco": {
+   "size": [
+    96,
+    72
+   ],
+   "border_LBRT": [
+    28,
+    0,
+    28,
+    28
+   ]
+  },
+  "slider_trilho": {
+   "size": [
+    64,
+    24
+   ],
+   "border_LBRT": [
+    12,
+    12,
+    12,
+    12
+   ]
+  },
+  "slider_preenchimento": {
+   "size": [
+    64,
+    24
+   ],
+   "border_LBRT": [
+    12,
+    12,
+    12,
+    12
+   ]
+  },
+  "slider_alca_normal": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "slider_alca_foco": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "interruptor_ligado": {
+   "size": [
+    112,
+    72
+   ]
+  },
+  "interruptor_desligado": {
+   "size": [
+    112,
+    72
+   ]
+  },
+  "seletor_caixa": {
+   "size": [
+    96,
+    64
+   ],
+   "border_LBRT": [
+    24,
+    24,
+    24,
+    24
+   ]
+  },
+  "seta_esq": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "seta_dir": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "dropdown_caixa": {
+   "size": [
+    128,
+    64
+   ],
+   "border_LBRT": [
+    24,
+    24,
+    52,
+    24
+   ]
+  },
+  "card_fase_disponivel": {
+   "size": [
+    176,
+    196
+   ]
+  },
+  "card_fase_atual": {
+   "size": [
+    176,
+    196
+   ]
+  },
+  "card_fase_concluida": {
+   "size": [
+    176,
+    196
+   ]
+  },
+  "card_fase_bloqueada": {
+   "size": [
+    176,
+    196
+   ]
+  },
+  "card_fase_foco": {
+   "size": [
+    176,
+    196
+   ]
+  },
+  "selo_numero": {
+   "size": [
+    72,
+    72
+   ]
+  },
+  "selo_check": {
+   "size": [
+    72,
+    72
+   ]
+  },
+  "caminho_ponto": {
+   "size": [
+    32,
+    32
+   ]
+  },
+  "caminho_ponto_feito": {
+   "size": [
+    32,
+    32
+   ]
+  },
+  "pagina_ponto": {
+   "size": [
+    32,
+    32
+   ]
+  },
+  "pagina_ponto_ativo": {
+   "size": [
+    64,
+    32
+   ]
+  },
+  "icone_jogar": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_continuar": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_fases": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_config": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_sair": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_voltar": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_musica": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_som": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_tela": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_controle": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_teclado": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_cadeado": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_check": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_trofeu": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_info": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_acessibilidade": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "icone_codigo": {
+   "size": [
+    64,
+    64
+   ]
+  },
+  "painel_codigo": {
+   "size": [
+    160,
+    160
+   ],
+   "border_LBRT": [
+    66,
+    24,
+    24,
+    64
+   ]
+  },
+  "painel_codigo_brilho": {
+   "size": [
+    64,
+    64
+   ],
+   "border_LBRT": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "cursor_codigo": {
+   "size": [
+    16,
+    32
+   ]
+  },
+  "moldura_logo": {
+   "size": [
+    160,
+    96
+   ],
+   "border_LBRT": [
+    48,
+    40,
+    48,
+    40
+   ]
+  }
+ }
+}

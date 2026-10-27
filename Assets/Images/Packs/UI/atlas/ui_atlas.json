@@ -1,0 +1,408 @@
+{
+  "meta": {
+    "image": "ui_atlas@1x.png",
+    "size": {
+      "w": 1024,
+      "h": 344
+    },
+    "scale": "1x"
+  },
+  "frames": {
+    "ui_panel_bg_default@1x": {
+      "x": 2,
+      "y": 2,
+      "w": 260,
+      "h": 140
+    },
+    "ui_panel_frame_default@1x": {
+      "x": 264,
+      "y": 2,
+      "w": 260,
+      "h": 140
+    },
+    "ui_widget_slot_empty@1x": {
+      "x": 526,
+      "y": 2,
+      "w": 52,
+      "h": 52
+    },
+    "ui_widget_slot_filled@1x": {
+      "x": 580,
+      "y": 2,
+      "w": 52,
+      "h": 52
+    },
+    "ui_widget_slot_selected@1x": {
+      "x": 634,
+      "y": 2,
+      "w": 52,
+      "h": 52
+    },
+    "ui_panel_header_default@1x": {
+      "x": 688,
+      "y": 2,
+      "w": 260,
+      "h": 48
+    },
+    "ui_widget_tooltip_default@1x": {
+      "x": 2,
+      "y": 144,
+      "w": 200,
+      "h": 44
+    },
+    "ui_button_primary_disabled@1x": {
+      "x": 204,
+      "y": 144,
+      "w": 160,
+      "h": 40
+    },
+    "ui_button_primary_hover@1x": {
+      "x": 366,
+      "y": 144,
+      "w": 160,
+      "h": 40
+    },
+    "ui_button_primary_normal@1x": {
+      "x": 528,
+      "y": 144,
+      "w": 160,
+      "h": 40
+    },
+    "ui_button_primary_pressed@1x": {
+      "x": 690,
+      "y": 144,
+      "w": 160,
+      "h": 40
+    },
+    "ui_button_primary_selected@1x": {
+      "x": 852,
+      "y": 144,
+      "w": 160,
+      "h": 40
+    },
+    "ui_button_secondary_disabled@1x": {
+      "x": 2,
+      "y": 190,
+      "w": 160,
+      "h": 40
+    },
+    "ui_button_secondary_hover@1x": {
+      "x": 164,
+      "y": 190,
+      "w": 160,
+      "h": 40
+    },
+    "ui_button_secondary_normal@1x": {
+      "x": 326,
+      "y": 190,
+      "w": 160,
+      "h": 40
+    },
+    "ui_button_secondary_pressed@1x": {
+      "x": 488,
+      "y": 190,
+      "w": 160,
+      "h": 40
+    },
+    "ui_button_secondary_selected@1x": {
+      "x": 650,
+      "y": 190,
+      "w": 160,
+      "h": 40
+    },
+    "ui_widget_textfield_disabled@1x": {
+      "x": 2,
+      "y": 232,
+      "w": 220,
+      "h": 38
+    },
+    "ui_widget_textfield_focus@1x": {
+      "x": 224,
+      "y": 232,
+      "w": 220,
+      "h": 38
+    },
+    "ui_widget_textfield_normal@1x": {
+      "x": 446,
+      "y": 232,
+      "w": 220,
+      "h": 38
+    },
+    "ui_button_icon_disabled@1x": {
+      "x": 668,
+      "y": 232,
+      "w": 36,
+      "h": 36
+    },
+    "ui_button_icon_hover@1x": {
+      "x": 706,
+      "y": 232,
+      "w": 36,
+      "h": 36
+    },
+    "ui_button_icon_normal@1x": {
+      "x": 744,
+      "y": 232,
+      "w": 36,
+      "h": 36
+    },
+    "ui_button_icon_pressed@1x": {
+      "x": 782,
+      "y": 232,
+      "w": 36,
+      "h": 36
+    },
+    "ui_button_icon_selected@1x": {
+      "x": 820,
+      "y": 232,
+      "w": 36,
+      "h": 36
+    },
+    "ui_widget_tab_active@1x": {
+      "x": 858,
+      "y": 232,
+      "w": 96,
+      "h": 34
+    },
+    "ui_widget_tab_hover@1x": {
+      "x": 2,
+      "y": 272,
+      "w": 96,
+      "h": 34
+    },
+    "ui_widget_tab_normal@1x": {
+      "x": 100,
+      "y": 272,
+      "w": 96,
+      "h": 34
+    },
+    "ui_button_close_disabled@1x": {
+      "x": 198,
+      "y": 272,
+      "w": 30,
+      "h": 30
+    },
+    "ui_button_close_hover@1x": {
+      "x": 230,
+      "y": 272,
+      "w": 30,
+      "h": 30
+    },
+    "ui_button_close_normal@1x": {
+      "x": 262,
+      "y": 272,
+      "w": 30,
+      "h": 30
+    },
+    "ui_button_close_pressed@1x": {
+      "x": 294,
+      "y": 272,
+      "w": 30,
+      "h": 30
+    },
+    "ui_icon_activate@1x": {
+      "x": 326,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_close@1x": {
+      "x": 352,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_coin@1x": {
+      "x": 378,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_coins@1x": {
+      "x": 404,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_destroy@1x": {
+      "x": 430,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_door@1x": {
+      "x": 456,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_health@1x": {
+      "x": 482,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_inventory@1x": {
+      "x": 508,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_mana@1x": {
+      "x": 534,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_notification@1x": {
+      "x": 560,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_pause@1x": {
+      "x": 586,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_platform@1x": {
+      "x": 612,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_push@1x": {
+      "x": 638,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_settings@1x": {
+      "x": 664,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_sound@1x": {
+      "x": 690,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_icon_xp@1x": {
+      "x": 716,
+      "y": 272,
+      "w": 24,
+      "h": 24
+    },
+    "ui_widget_toggle_off@1x": {
+      "x": 742,
+      "y": 272,
+      "w": 44,
+      "h": 24
+    },
+    "ui_widget_toggle_on@1x": {
+      "x": 788,
+      "y": 272,
+      "w": 44,
+      "h": 24
+    },
+    "ui_widget_checkbox_checked@1x": {
+      "x": 834,
+      "y": 272,
+      "w": 20,
+      "h": 20
+    },
+    "ui_widget_checkbox_unchecked@1x": {
+      "x": 856,
+      "y": 272,
+      "w": 20,
+      "h": 20
+    },
+    "ui_widget_slider_handle_hover@1x": {
+      "x": 878,
+      "y": 272,
+      "w": 20,
+      "h": 20
+    },
+    "ui_widget_badge_default@1x": {
+      "x": 900,
+      "y": 272,
+      "w": 18,
+      "h": 18
+    },
+    "ui_widget_badge_gold@1x": {
+      "x": 920,
+      "y": 272,
+      "w": 18,
+      "h": 18
+    },
+    "ui_widget_slider_handle_normal@1x": {
+      "x": 940,
+      "y": 272,
+      "w": 18,
+      "h": 18
+    },
+    "ui_bar_bg_default@1x": {
+      "x": 2,
+      "y": 308,
+      "w": 200,
+      "h": 16
+    },
+    "ui_bar_fill_hp@1x": {
+      "x": 204,
+      "y": 308,
+      "w": 200,
+      "h": 16
+    },
+    "ui_bar_fill_mp@1x": {
+      "x": 406,
+      "y": 308,
+      "w": 200,
+      "h": 16
+    },
+    "ui_bar_fill_progress@1x": {
+      "x": 608,
+      "y": 308,
+      "w": 200,
+      "h": 16
+    },
+    "ui_bar_fill_xp@1x": {
+      "x": 810,
+      "y": 308,
+      "w": 200,
+      "h": 16
+    },
+    "ui_bar_frame_default@1x": {
+      "x": 2,
+      "y": 326,
+      "w": 200,
+      "h": 16
+    },
+    "ui_widget_tooltip_tail@1x": {
+      "x": 204,
+      "y": 326,
+      "w": 14,
+      "h": 8
+    },
+    "ui_widget_slider_fill@1x": {
+      "x": 220,
+      "y": 326,
+      "w": 220,
+      "h": 6
+    },
+    "ui_widget_slider_track@1x": {
+      "x": 442,
+      "y": 326,
+      "w": 220,
+      "h": 6
+    },
+    "ui_widget_divider_default@1x": {
+      "x": 664,
+      "y": 326,
+      "w": 260,
+      "h": 1
+    }
+  }
+}

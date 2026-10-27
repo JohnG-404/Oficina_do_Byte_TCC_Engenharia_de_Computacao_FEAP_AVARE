@@ -1,0 +1,38 @@
+<color=#6B7A99>// FÍSICA · mover e pular</color>
+<color=#9B7BF0>void</color> <color=#5FD4E8>FixedUpdate</color>() {
+    <color=#9B7BF0>float</color> x = Input.<color=#5FD4E8>GetAxis</color>(<color=#F5C542>"Horizontal"</color>);
+    rb.linearVelocity = <color=#9B7BF0>new</color> Vector2(x * velocidade, rb.linearVelocity.y);
+}
+<color=#9B7BF0>if</color> (pular && noChao)
+    rb.<color=#5FD4E8>AddForce</color>(Vector2.up * forcaPulo, ForceMode2D.Impulse);
+
+<color=#6B7A99>// FÍSICA · o chão é um Collider2D</color>
+noChao = Physics2D.<color=#5FD4E8>OverlapCircle</color>(pe.position, <color=#F5C542>0.2f</color>, camadaChao);
+
+<color=#6B7A99>// INTERAÇÃO · algo tocou no gatilho</color>
+<color=#9B7BF0>void</color> <color=#5FD4E8>OnTriggerEnter2D</color>(Collider2D outro) {
+    <color=#9B7BF0>if</color> (outro.<color=#5FD4E8>CompareTag</color>(<color=#F5C542>"Player"</color>))
+        porta.<color=#5FD4E8>Abrir</color>();
+}
+
+<color=#6B7A99>// INTERAÇÃO · vida → evento → HUD</color>
+vida = Mathf.<color=#5FD4E8>Clamp</color>(vida - dano, <color=#F5C542>0</color>, vidaMaxima);
+aoMudarVida.<color=#5FD4E8>Invoke</color>(vida);
+<color=#9B7BF0>if</color> (vida == <color=#F5C542>0</color>) <color=#5FD4E8>GameOver</color>();
+
+<color=#6B7A99>// ANIMAÇÃO · o Animator escolhe o sprite</color>
+animator.<color=#5FD4E8>SetFloat</color>(<color=#F5C542>"velocidadeX"</color>, Mathf.<color=#5FD4E8>Abs</color>(x));
+animator.<color=#5FD4E8>SetBool</color>(<color=#F5C542>"noChao"</color>, noChao);
+sprite.flipX = x < <color=#F5C542>0</color>;
+
+<color=#6B7A99>// IA · máquina de estados do guarda</color>
+<color=#9B7BF0>switch</color> (estado) {
+    <color=#9B7BF0>case</color> Estado.Patrulhar: <color=#5FD4E8>Patrulhar</color>(); <color=#9B7BF0>break</color>;
+    <color=#9B7BF0>case</color> Estado.Perseguir: <color=#5FD4E8>Perseguir</color>(); <color=#9B7BF0>break</color>;
+}
+RaycastHit2D visao = Physics2D.<color=#5FD4E8>Raycast</color>(olhos.position, direcao, alcance);
+<color=#9B7BF0>if</color> (visao && visao.collider.<color=#5FD4E8>CompareTag</color>(<color=#F5C542>"Player"</color>))
+    estado = Estado.Perseguir;
+
+<color=#6B7A99>// CÂMERA · seguir o jogador</color>
+transform.position = Vector3.<color=#5FD4E8>Lerp</color>(transform.position, alvo, suavidade * Time.deltaTime);

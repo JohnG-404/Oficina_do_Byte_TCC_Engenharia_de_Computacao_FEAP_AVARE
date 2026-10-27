@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: f6efda48589808f41b021ece2f79d5ee
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 372359103686020407
+    second: icon_rigidbody2d_v2_0
+  - first:
+      213: 623039656700900661
+    second: icon_rigidbody2d_v2_1
+  - first:
+      213: 7881910500278697142
+    second: icon_rigidbody2d_v2_2
+  - first:
+      213: 8128582039066506373
+    second: icon_rigidbody2d_v2_3
+  - first:
+      213: -7593542728177566832
+    second: icon_rigidbody2d_v2_4
+  - first:
+      213: -2273985974762343156
+    second: icon_rigidbody2d_v2_5
+  - first:
+      213: 2715914344251829206
+    second: icon_rigidbody2d_v2_6
+  - first:
+      213: -269792906492815996
+    second: icon_rigidbody2d_v2_7
+  - first:
+      213: 8119761767084744061
+    second: icon_rigidbody2d_v2_8
+  - first:
+      213: 8118075396968871600
+    second: icon_rigidbody2d_v2_9
+  - first:
+      213: -539604118272538872
+    second: icon_rigidbody2d_v2_10
+  - first:
+      213: -3729730782079658591
+    second: icon_rigidbody2d_v2_11
+  - first:
+      213: -5753927226149811679
+    second: icon_rigidbody2d_v2_12
+  - first:
+      213: 6140112885788618308
+    second: icon_rigidbody2d_v2_13
+  - first:
+      213: 6819646235203919480
+    second: icon_rigidbody2d_v2_14
+  - first:
+      213: -2686047722004576046
+    second: icon_rigidbody2d_v2_15
+  - first:
+      213: 5962813209283966766
+    second: icon_rigidbody2d_v2_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_0
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 236
+        width: 24
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73d8618c1a2ea2500800000000000000
+      internalID: 372359103686020407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_1
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 241
+        width: 24
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53573aa444b75a800800000000000000
+      internalID: 623039656700900661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_2
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 226
+        width: 23
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bc788007db226d60800000000000000
+      internalID: 7881910500278697142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_3
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 78
+        width: 143
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 584fd262c468ec070800000000000000
+      internalID: 8128582039066506373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_4
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 215
+        width: 21
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09bb93cfe115e9690800000000000000
+      internalID: -7593542728177566832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_5
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 200
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c05f116ddcd2170e0800000000000000
+      internalID: -2273985974762343156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_6
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 185
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dba481e4bdd0b520800000000000000
+      internalID: 2715914344251829206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_7
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 165
+        width: 11
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 485539de7c0814cf0800000000000000
+      internalID: -269792906492815996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_8
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 148
+        width: 8
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7d52eb8e403fa070800000000000000
+      internalID: 8119761767084744061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_9
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 127
+        width: 8
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b6fa28ef8239a070800000000000000
+      internalID: 8118075396968871600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_10
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 111
+        width: 11
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8070703d9e0f288f0800000000000000
+      internalID: -539604118272538872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_11
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 93
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a55d4a5d955d3cc0800000000000000
+      internalID: -3729730782079658591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_12
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 79
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12a44e56ca1f520b0800000000000000
+      internalID: -5753927226149811679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_13
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 66
+        width: 21
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44eaa3e4320163550800000000000000
+      internalID: 6140112885788618308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_14
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 58
+        width: 22
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87ed82f6e1044ae50800000000000000
+      internalID: 6819646235203919480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_15
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 4
+        width: 40
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d88b2004dd39bad0800000000000000
+      internalID: -2686047722004576046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_rigidbody2d_v2_16
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 52
+        width: 23
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e27b061850b20c250800000000000000
+      internalID: 5962813209283966766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      icon_rigidbody2d_v2_0: 372359103686020407
+      icon_rigidbody2d_v2_1: 623039656700900661
+      icon_rigidbody2d_v2_10: -539604118272538872
+      icon_rigidbody2d_v2_11: -3729730782079658591
+      icon_rigidbody2d_v2_12: -5753927226149811679
+      icon_rigidbody2d_v2_13: 6140112885788618308
+      icon_rigidbody2d_v2_14: 6819646235203919480
+      icon_rigidbody2d_v2_15: -2686047722004576046
+      icon_rigidbody2d_v2_16: 5962813209283966766
+      icon_rigidbody2d_v2_2: 7881910500278697142
+      icon_rigidbody2d_v2_3: 8128582039066506373
+      icon_rigidbody2d_v2_4: -7593542728177566832
+      icon_rigidbody2d_v2_5: -2273985974762343156
+      icon_rigidbody2d_v2_6: 2715914344251829206
+      icon_rigidbody2d_v2_7: -269792906492815996
+      icon_rigidbody2d_v2_8: 8119761767084744061
+      icon_rigidbody2d_v2_9: 8118075396968871600
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

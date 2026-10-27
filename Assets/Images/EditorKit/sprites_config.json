@@ -1,0 +1,333 @@
+{
+ "sprites": [
+  {
+   "name": "barra_ferramentas",
+   "l": 4,
+   "b": 4,
+   "r": 4,
+   "t": 4
+  },
+  {
+   "name": "janela_painel",
+   "l": 16,
+   "b": 16,
+   "r": 16,
+   "t": 40
+  },
+  {
+   "name": "janela_painel_sem_cabecalho",
+   "l": 16,
+   "b": 16,
+   "r": 16,
+   "t": 16
+  },
+  {
+   "name": "janela_sombra",
+   "l": 48,
+   "b": 48,
+   "r": 48,
+   "t": 48
+  },
+  {
+   "name": "aba_ativa",
+   "l": 8,
+   "b": 4,
+   "r": 8,
+   "t": 6
+  },
+  {
+   "name": "aba_inativa",
+   "l": 8,
+   "b": 4,
+   "r": 8,
+   "t": 6
+  },
+  {
+   "name": "cartao_gameobject",
+   "l": 20,
+   "b": 20,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "janela_previa",
+   "l": 20,
+   "b": 20,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "divisoria",
+   "l": 2,
+   "b": 0,
+   "r": 2,
+   "t": 0
+  },
+  {
+   "name": "chao_plataforma",
+   "l": 8,
+   "b": 8,
+   "r": 8,
+   "t": 8
+  },
+  {
+   "name": "moldura_selecao",
+   "l": 10,
+   "b": 10,
+   "r": 10,
+   "t": 10
+  },
+  {
+   "name": "peca_transform",
+   "l": 44,
+   "b": 24,
+   "r": 24,
+   "t": 24
+  },
+  {
+   "name": "peca_rigidbody2d",
+   "l": 44,
+   "b": 24,
+   "r": 24,
+   "t": 24
+  },
+  {
+   "name": "peca_collider2d",
+   "l": 44,
+   "b": 24,
+   "r": 24,
+   "t": 24
+  },
+  {
+   "name": "peca_mass",
+   "l": 44,
+   "b": 24,
+   "r": 24,
+   "t": 24
+  },
+  {
+   "name": "peca_velocity",
+   "l": 44,
+   "b": 24,
+   "r": 24,
+   "t": 24
+  },
+  {
+   "name": "peca_gravityscale",
+   "l": 44,
+   "b": 24,
+   "r": 24,
+   "t": 24
+  },
+  {
+   "name": "peca_addforce",
+   "l": 44,
+   "b": 24,
+   "r": 24,
+   "t": 24
+  },
+  {
+   "name": "peca_base_branca",
+   "l": 44,
+   "b": 24,
+   "r": 24,
+   "t": 24
+  },
+  {
+   "name": "peca_sombra",
+   "l": 44,
+   "b": 24,
+   "r": 24,
+   "t": 24
+  },
+  {
+   "name": "peca_contorno_selecao",
+   "l": 52,
+   "b": 28,
+   "r": 28,
+   "t": 28
+  },
+  {
+   "name": "encaixe_vazio_liso",
+   "l": 44,
+   "b": 24,
+   "r": 24,
+   "t": 24
+  },
+  {
+   "name": "encaixe_destaque",
+   "l": 44,
+   "b": 24,
+   "r": 24,
+   "t": 24
+  },
+  {
+   "name": "caixa_icone",
+   "l": 16,
+   "b": 16,
+   "r": 16,
+   "t": 16
+  },
+  {
+   "name": "botao_primario_normal",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_primario_hover",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_primario_pressionado",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_primario_desabilitado",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_sucesso_normal",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_sucesso_hover",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_sucesso_pressionado",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_sucesso_desabilitado",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_secundario_normal",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_secundario_hover",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_secundario_pressionado",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_secundario_desabilitado",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_perigo_normal",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_perigo_hover",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_perigo_pressionado",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_perigo_desabilitado",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_icone_quadrado_normal",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_icone_quadrado_hover",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_icone_quadrado_pressionado",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_icone_quadrado_desabilitado",
+   "l": 20,
+   "b": 24,
+   "r": 20,
+   "t": 20
+  },
+  {
+   "name": "botao_barra_normal",
+   "l": 9,
+   "b": 9,
+   "r": 9,
+   "t": 9
+  },
+  {
+   "name": "botao_barra_hover",
+   "l": 9,
+   "b": 9,
+   "r": 9,
+   "t": 9
+  },
+  {
+   "name": "botao_barra_ativo",
+   "l": 9,
+   "b": 9,
+   "r": 9,
+   "t": 9
+  }
+ ]
+}

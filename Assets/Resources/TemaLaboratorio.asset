@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b275817c56333b749a05efc379f83fbb, type: 3}
+  m_Name: TemaLaboratorio
+  m_EditorClassIdentifier: Assembly-CSharp::TemaLaboratorio
+  painelJanela: {fileID: 21300000, guid: a5dffe51c06bb1f44a3f0e28262e92cd, type: 3}
+  painelPopup: {fileID: 21300000, guid: c438cef02bdf0eb4d9946658f6258fbb, type: 3}
+  painelTitulo: {fileID: 21300000, guid: 1094e175683a5d645bdc6e48a9aba31b, type: 3}
+  painelLinha: {fileID: 21300000, guid: d645d6e77cff58548a713364a22c5438, type: 3}
+  painelLinhaFoco: {fileID: 21300000, guid: f224dd8d3d452aa4bb4ad360c53a7676, type: 3}
+  painelCodigo: {fileID: 21300000, guid: 8231cdc084247164291b08f3f83c1e68, type: 3}
+  bordaArredondada: {fileID: 21300000, guid: ed15b1bd5b4b6c342b6d1fac1914df59, type: 3}
+  botaoPrimario:
+    normal: {fileID: 21300000, guid: 2a97376f1d8c66c4b8f4d4cf788d6b4f, type: 3}
+    hover: {fileID: 21300000, guid: 85fc1acdc6cfb034b9ac876d82525bc1, type: 3}
+    pressed: {fileID: 21300000, guid: e1c98bda48f603142bde79fee033cc9f, type: 3}
+    focus: {fileID: 21300000, guid: 0d2bfcb5bcb76ab4295fdfa7b8017e06, type: 3}
+    disabled: {fileID: 21300000, guid: 83b30e7afae271f48a3f2a9c364cc3ad, type: 3}
+  botaoSecundario:
+    normal: {fileID: 21300000, guid: 0ad89a5af6773fb49928db9c3b99760d, type: 3}
+    hover: {fileID: 21300000, guid: a73b644c9fcb32a4db165cb0a9fb1647, type: 3}
+    pressed: {fileID: 21300000, guid: ea4130e74716500428db5acb1079d7e8, type: 3}
+    focus: {fileID: 21300000, guid: 2c0af7c706d6d7046ab64ed3d697bd6e, type: 3}
+    disabled: {fileID: 21300000, guid: 05a2f51076301074091079708409f317, type: 3}
+  botaoIcone:
+    normal: {fileID: 21300000, guid: dc7d59ee8044a984bb0b002fcbcddc00, type: 3}
+    hover: {fileID: 21300000, guid: 6a29759834887904b8faa65836c0c0fb, type: 3}
+    pressed: {fileID: 21300000, guid: 08aa2d284efab554ba3f72accc47b772, type: 3}
+    focus: {fileID: 21300000, guid: 34240cb514142fc439c5d99aee062c6e, type: 3}
+    disabled: {fileID: 0}
+  seloNumero: {fileID: 21300000, guid: afe087ef63fedd24ebef0dd3aa658db3, type: 3}
+  seloCheck: {fileID: 21300000, guid: f1d142272c6bc404bbd839a6cc84be62, type: 3}
+  paginaPonto: {fileID: 21300000, guid: 4b470e1b2a4aad145bfe9f8ee09dd851, type: 3}
+  paginaPontoAtivo: {fileID: 21300000, guid: 8faeea82d8b23d448afa098107b0f6dc, type: 3}
+  iconeJogar: {fileID: 21300000, guid: f09c33778e21f1c4282fdf41b29f3d48, type: 3}
+  iconeVoltar: {fileID: 21300000, guid: 471526cbde2db7e4b9dfaa7efb4ec2dd, type: 3}
+  iconeCheck: {fileID: 21300000, guid: fac52945973be3045996078cba6d9fd8, type: 3}
+  iconeInfo: {fileID: 21300000, guid: 4c7af626a0dc9f94197522a403bca588, type: 3}
+  fundoCalmo: {fileID: 21300000, guid: 69bd7e579c2c06c42b85140756abbaf4, type: 3}
+  vidaCheia: {fileID: 21300000, guid: 987889abd629f6a49b241093c397619a, type: 3}
+  vidaVazia: {fileID: 21300000, guid: e4bdf017c8d437847b0d65d161a8d8df, type: 3}
+  retratoProfByte: {fileID: 21300000, guid: 458ff7f9a974efb4d81298e2e5759121, type: 3}
+  portaLamina: {fileID: 21300000, guid: 55a90ed2c9a9e554bb100bc9059fbb2c, type: 3}
+  puzzleGradeFundo: {fileID: 21300000, guid: aabf2752c59c1e94ea95de23f45da0c5, type: 3}
+  puzzleGizmoEixos: {fileID: 21300000, guid: c37e75d092609c14db18e2b6ef1a8e00, type: 3}
+  puzzleJanela: {fileID: 21300000, guid: 02f7489d87e098f46a23c6eef160ae45, type: 3}
+  puzzleAba: {fileID: 21300000, guid: 7069d73380d5dea4cbafe1bc14602177, type: 3}
+  puzzleArea: {fileID: 21300000, guid: 38e0fb63950cb8741b97a61ee85a053b, type: 3}
+  puzzleDivisoria: {fileID: 21300000, guid: 22e1fbee872933a4f94cbd8aa1eb135d, type: 3}
+  puzzleEncaixeVazio: {fileID: 21300000, guid: 295cbf69cc1e7374398e2b3a0c48015a, type: 3}
+  puzzleContornoSelecao: {fileID: 21300000, guid: 6cafbc42b1b14c5459e81b911bd333c3, type: 3}
+  puzzlePecaEncaixada: {fileID: 21300000, guid: a1a8c8391fdfd5143b76a836d38fe74d, type: 3}
+  puzzleLampada: {fileID: 21300000, guid: cb62c0604484ccb40949c5f15d77a487, type: 3}
+  puzzleCaixa: {fileID: 21300000, guid: a9eb8c2277919a04fb2d170d3ca1ec21, type: 3}
+  puzzleChaoPrevia: {fileID: 4487131665376978724, guid: 880341cadfc4e0e47855cef5ee212aba, type: 3}
+  display: {fileID: 11400000, guid: 2073358de46f8c24e91b6cc15cd3dabc, type: 2}
+  corpo: {fileID: 11400000, guid: 20df2e46e7604674ab7bd14c6ac9670b, type: 2}
+  corpoForte: {fileID: 11400000, guid: 3bf69f56b14386a41a6237f5e1b1a5a3, type: 2}
+  mono: {fileID: 11400000, guid: 1c5971b655c1e9b41a68dbccf6590584, type: 2}
+  monoForte: {fileID: 11400000, guid: 83f32f09fbbd71f4da4076f5d8b5e438, type: 2}
