@@ -178,6 +178,10 @@ public class DestaqueItensInteracao : MonoBehaviour
             }
 
             float y = e.embaixo ? local.y - folgaEtiqueta : local.y + folgaEtiqueta;
+            // Item colado no teto (ou no chão): a etiqueta desce (ou sobe) até caber inteira.
+            Rect r = e.raiz.rect;
+            y = Mathf.Min(y, tela.yMax - margemEtiqueta - r.yMax);
+            y = Mathf.Max(y, tela.yMin + margemEtiqueta - r.yMin);
             e.raiz.localPosition = new Vector3(x, y, 0f);
 
             // A ponta continua apontando pro item quando a etiqueta encosta na borda.
@@ -191,7 +195,6 @@ public class DestaqueItensInteracao : MonoBehaviour
 
             if (clarearAtrasDoJogador && e.grupo != null)
             {
-                Rect r = e.raiz.rect;
                 var area = new Rect(x + r.xMin, y + r.yMin, r.width, r.height);
                 float alvo = jogadorNaTela.width > 0f && area.Overlaps(jogadorNaTela) ? alfaAtrasDoJogador : 1f;
                 e.grupo.alpha = Mathf.MoveTowards(e.grupo.alpha, alvo, Time.unscaledDeltaTime * 6f);

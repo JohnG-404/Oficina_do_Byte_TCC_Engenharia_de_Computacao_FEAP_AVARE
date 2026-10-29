@@ -4123,7 +4123,7 @@ MonoBehaviour:
     textoLoopLigado: "<b>Loop ligado:</b> ao chegar no \xFAltimo quadro, volta pro
       primeiro e repete sem parar."
     textoLoopDesligado: "<b>Loop desligado:</b> toca uma vez e para no \xFAltimo
-      quadro, como uma porta abrindo. A pr\xE9via espera um pouco e mostra de novo."
+      quadro, como uma porta fechando. A pr\xE9via espera um pouco e mostra de novo."
     fpsInicial: 24
     loopInicial: 1
     pausaSemLoop: 1.2

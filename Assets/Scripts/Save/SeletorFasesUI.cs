@@ -649,7 +649,30 @@ public class SeletorFasesUI : MonoBehaviour
         }
 
         if (botaoJogarFase != null) botaoJogarFase.interactable = liberada;
-        if (rotuloJogarFase != null) rotuloJogarFase.text = concluida ? "Jogar de novo" : "Jogar fase";
+        if (rotuloJogarFase != null)
+        {
+            rotuloJogarFase.text = concluida ? "Jogar de novo" : "Jogar fase";
+            EncostarIconeNoRotulo();
+        }
+    }
+
+    // O ícone ▶ fica a uma folga fixa do começo do texto, que muda de tamanho
+    // ("Jogar fase" / "Jogar de novo"); com posição fixa ele colava no texto longo.
+    private void EncostarIconeNoRotulo()
+    {
+        Transform icone = botaoJogarFase != null ? botaoJogarFase.transform.Find("Icone") : null;
+        if (icone == null)
+        {
+            return;
+        }
+
+        var rotulo = rotuloJogarFase.rectTransform;
+        var ic = (RectTransform)icone;
+        float larguraTexto = rotuloJogarFase.GetPreferredValues(rotuloJogarFase.text).x;
+        float inicioTexto = rotulo.localPosition.x + rotulo.rect.center.x - larguraTexto * 0.5f;
+        Vector3 p = ic.localPosition;
+        p.x = inicioTexto - 16f - ic.rect.width * 0.5f;
+        ic.localPosition = p;
     }
 
     private InfoFase BuscarInfo(string cena)

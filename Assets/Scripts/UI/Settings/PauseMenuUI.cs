@@ -338,7 +338,8 @@ public class PauseMenuUI : MonoBehaviour
             || CreditosUI.SegurandoEsc
             || SeletorFasesUI.SegurandoEsc
             || ObjetoAnimatorUI.SegurandoEsc
-            || LampadaAnimatorUI.SegurandoEsc;
+            || LampadaAnimatorUI.SegurandoEsc
+            || IADiagramaUI.SegurandoEsc;
     }
 
     private void AtualizarCongelamento()

@@ -20,6 +20,8 @@ public static class MolduraPuzzleUI
 {
     public static readonly Color FundoTela = new Color32(19, 26, 38, 255);
     public static readonly Color TituloAzul = new Color32(0x9F, 0xC2, 0xFF, 0xFF);
+
+    private const float AlfaGrade = 0.15f;
     public static readonly Color TextoClaro = new Color32(0xDC, 0xE6, 0xF5, 0xFF);
     public static readonly Color Apagado = new Color32(0x6F, 0x7D, 0x95, 0xFF);
     public static readonly Color Rotulo = new Color32(0x9A, 0xA6, 0xBA, 0xFF);
@@ -46,7 +48,8 @@ public static class MolduraPuzzleUI
         VidaUI.Esticar(cor.rectTransform);
         if (T != null && T.puzzleGradeFundo != null)
         {
-            Image grade = Img(raizCanvas, "Grade", T.puzzleGradeFundo, Color.white, false);
+            // Mesma força das linhas do fundo da Física e da IA (sprite de mundo, mais apagado).
+            Image grade = Img(raizCanvas, "Grade", T.puzzleGradeFundo, new Color(1f, 1f, 1f, AlfaGrade), false);
             VidaUI.Esticar(grade.rectTransform);
         }
 

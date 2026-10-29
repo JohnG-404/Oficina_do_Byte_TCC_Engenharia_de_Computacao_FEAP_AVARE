@@ -1388,7 +1388,8 @@ public static partial class LaboratorioUIBuilder
         tt.enableAutoSizing = true;
         tt.fontSizeMin = 16;
         tt.fontSizeMax = 22;
-        tt.textWrappingMode = TextWrappingModes.Normal;
+        // Uma linha só: nome comprido ("Animação quadro a quadro") diminui a fonte em vez de quebrar.
+        tt.textWrappingMode = TextWrappingModes.NoWrap;
 
         foreach (string n in new[] { "Conceito", "Status" })
         {
