@@ -22,11 +22,13 @@ using UnityEngine.SceneManagement;
 /// 5. Jogador cai além do limite da tela -> diálogo "passou pelo bloco que
 ///    deveria ser o chão..." -> Puzzle de Colisão (Collider2D).
 /// 6. Puzzle de Colisão resolvido -> ativa a colisão no Player e no chão ->
-///    o personagem para de cair -> diálogo convidando a testar o movimento.
-/// 7. Depois de o jogador andar por um tempo (ou de um tempo máximo de
-///    espera) -> diálogo "vamos incrementar a movimentação" -> Puzzle de Pulo.
+///    o personagem para de cair -> diálogo mandando seguir pela sala.
+/// 7. O jogador empaca no degrau do ObstaculoPulo (agora sólido pra ele)
+///    -> diálogo "andando não passa" -> Puzzle de Pulo. Sem obstáculo na
+///    cena, vale o jeito antigo: andar por um tempo (ou um tempo máximo).
 /// 8. Puzzle de Pulo resolvido -> libera o pulo no Player -> diálogo de como
-///    pular -> primeiro pulo de verdade -> diálogo final -> painel "Fase
+///    pular -> o jogador pula o degrau e pisa do outro lado (sem obstáculo:
+///    primeiro pulo + um tempo testando) -> diálogo final -> painel "Fase
 ///    Concluída!" (LevelCompleteUI, espera Enter) -> próxima cena
 ///    (Aplicacao_Fisica). Cada etapa avisa a faixa de objetivo (ObjetivoFase).
 /// </summary>
@@ -51,6 +53,7 @@ public class GameFlowManager : MonoBehaviour, IDialogueListener
         JumpPuzzle,
         JumpSolvedDialogue,      // lendo "agora é só apertar pular"
         WaitingFirstJump,        // pulo liberado, esperando o jogador pular de fato
+        CrossingObstacle,        // pulo liberado, esperando o jogador passar pelo degrau
         TestingJump,             // jogador testando o pulo por um tempo
         FinalDialogue,           // lendo o fechamento da cena
         Done
@@ -67,6 +70,10 @@ public class GameFlowManager : MonoBehaviour, IDialogueListener
     [SerializeField] private PuzzleControl jumpPuzzle;
     [Tooltip("Opcional — puzzle da câmera, aberto quando o personagem sai da tela depois do puzzle de Movimento.")]
     [SerializeField] private PuzzleControl cameraPuzzle;
+
+    [Header("Obstáculo do pulo")]
+    [Tooltip("Opcional — degraus do terreno que só dá pra passar pulando. Com eles, o Puzzle de Pulo abre quando o jogador empaca no primeiro e a fase termina quando ele passa do último (em vez de esperar um tempo).")]
+    [SerializeField] private ObstaculoPulo obstaculoPulo;
 
     [Header("Câmera")]
     [Tooltip("CameraFollow da Main Camera — começa desligado e é ligado quando o puzzle da câmera é resolvido.")]
@@ -134,15 +141,15 @@ public class GameFlowManager : MonoBehaviour, IDialogueListener
     {
         "Agora sim! Ele pisa no chão e não atravessa mais nada.",
         "Um detalhe: com Rigidbody2D, quem move o corpo é a física. Por isso o Movimento troca o transform.position por rb.linearVelocity, a velocidade do corpo.",
-        "Dá uma voltinha e sente como ficou."
+        "Agora segue pela sala, lá pra direita."
     };
 
     [TextArea(2, 4)]
     [SerializeField]
     private string[] jumpIntroDialogue =
     {
-        "Percebeu? Ele só anda pros lados.",
-        "Personagem de plataforma sem pulo é meio rasteiro, né? Vamos incrementar a movimentação!",
+        "Empacou! Com o Collider2D, esse degrau ficou sólido pra ele também.",
+        "Andando pros lados não tem como passar. Falta o que todo personagem de plataforma tem: pulo!",
         "O próximo puzzle é o do Pulo. Bora montar?"
     };
 
@@ -150,7 +157,7 @@ public class GameFlowManager : MonoBehaviour, IDialogueListener
     [SerializeField]
     private string[] afterJumpDialogue =
     {
-        "Pronto! Aperta {pular} e vê ele sair do chão.",
+        "Pronto! Aperta {pular} e passa pelos degraus. No mais alto, segura a tecla pra subir mais.",
         "Só dá pra pular apoiado no chão. O isGrounded no if barra o pulo no ar. Sem ele, dava pra pular sem parar."
     };
 
@@ -171,11 +178,12 @@ public class GameFlowManager : MonoBehaviour, IDialogueListener
         "Anda mais um pouco pra sentir."
     };
 
-    [Tooltip("Fechamento da cena — mostrado depois do primeiro pulo de verdade, antes de ir pra Aplicacao_Fisica.")]
+    [Tooltip("Fechamento da cena — mostrado quando o jogador passa o degrau (sem obstáculo: depois de testar o pulo), antes de ir pra Aplicacao_Fisica.")]
     [TextArea(2, 4)]
     [SerializeField]
     private string[] finalDialogue =
     {
+        "Passou! Sem o pulo, esses degraus iam barrar ele pra sempre.",
         "Movimento, câmera, gravidade, colisão e pulo. Com esses cinco puzzles você montou o coração de um jogo de plataforma.",
         "Agora vem a parte boa: usar essas mecânicas pra passar de fase."
     };
@@ -247,6 +255,21 @@ public class GameFlowManager : MonoBehaviour, IDialogueListener
         {
             UpdateJumpTest();
         }
+        else if (step == FlowStep.CrossingObstacle)
+        {
+            UpdateObstacleCross();
+        }
+    }
+
+    // Pulo liberado: a fase fecha quando o jogador pisa do outro lado do degrau.
+    private void UpdateObstacleCross()
+    {
+        if (!DialogueManager.IsAnyDialogueActive && obstaculoPulo.JogadorPassou)
+        {
+            step = FlowStep.FinalDialogue;
+            RegistroAprendizagem.Registrar("passou_obstaculo");
+            dialogueManager.StartDialogue(finalDialogue);
+        }
     }
 
     // Deixa o jogador brincar com o pulo por um tempo (a partir do primeiro
@@ -314,6 +337,19 @@ public class GameFlowManager : MonoBehaviour, IDialogueListener
     {
         if (DialogueManager.IsAnyDialogueActive)
         {
+            return;
+        }
+
+        // Com o degrau na sala, o pulo só entra quando o jogador empaca
+        // nele: aí ele já sentiu que andar não basta.
+        if (obstaculoPulo != null)
+        {
+            if (obstaculoPulo.JogadorEmpacou)
+            {
+                step = FlowStep.JumpIntroDialogue;
+                RegistroAprendizagem.Registrar("empacou_no_obstaculo");
+                dialogueManager.StartDialogue(jumpIntroDialogue);
+            }
             return;
         }
 
@@ -389,8 +425,17 @@ public class GameFlowManager : MonoBehaviour, IDialogueListener
                 break;
 
             case FlowStep.JumpSolvedDialogue:
-                // "Aperta Espaço" acabou de ser lido: espera o jogador pular
-                // de fato antes do fechamento da cena.
+                // "Aperta Espaço" acabou de ser lido: com o degrau, espera o
+                // jogador passar por ele (ver UpdateObstacleCross).
+                if (obstaculoPulo != null)
+                {
+                    step = FlowStep.CrossingObstacle;
+                    ObjetivoFase.Ir(EtapaPular);
+                    break;
+                }
+
+                // Sem obstáculo: espera o jogador pular de fato antes do
+                // fechamento da cena.
                 step = FlowStep.WaitingFirstJump;
                 player.OnFirstJump += HandleFirstJump;
                 ObjetivoFase.Ir(EtapaPular);
