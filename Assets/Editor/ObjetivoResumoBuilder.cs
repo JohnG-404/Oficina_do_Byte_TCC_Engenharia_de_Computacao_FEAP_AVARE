@@ -48,9 +48,9 @@ public static class ObjetivoResumoBuilder
                 { "Ande mais um pouco", "Agora a câmera vai junto." },
                 { "Monte o Rigidbody2D", "Ele flutua sem peso: falta gravidade." },
                 { "Monte o Collider2D", "Ele atravessou o chão: falta um corpo sólido." },
-                { "Teste andar com física e colisão", "Dê uma volta pela sala." },
+                { "Siga pela sala", "Ande pra direita e veja o que mudou com a colisão." },
                 { "Monte o código do Pulo", "Personagem de plataforma precisa pular." },
-                { "Pule com Espaço", "Só dá pra pular apoiado no chão." },
+                { "Pule as caixas com {pular}", "Segure {pular} para subir mais alto. Ele só pula pisando no chão." },
             },
         },
         new Dados
