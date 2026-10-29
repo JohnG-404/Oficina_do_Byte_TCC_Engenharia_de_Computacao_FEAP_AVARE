@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -5,26 +6,34 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Monta na cena Fisica a pilha de caixas que só dá pra passar pulando
-/// (ObstaculoPulo) e liga ela no GameFlowManager, junto com as falas e as
-/// etapas da faixa de objetivo que falam das caixas.
+/// Liga os degraus do terreno da cena Fisica (blocos sólidos apoiados no
+/// chão e mais altos que ele, dentro da sala) ao ObstaculoPulo e ao
+/// GameFlowManager, junto com as falas e as etapas da faixa de objetivo que
+/// falam dos degraus.
 ///
-/// Idempotente (apaga e refaz o "ObstaculoPulo" dentro de "Jogo"). Recusa em
-/// Play ou com a Fisica suja. Se a Fisica não estiver aberta, abre por cima
-/// (aditiva), salva e fecha. Backup em SceneBackups/.
+/// Os degraus em si são montados à mão com os tiles do terreno, em qualquer
+/// lugar da hierarquia. Este builder não cria nem move blocos: só cria o
+/// objeto "ObstaculoPulo" em "Jogo" apontando pros colliders deles.
+///
+/// Idempotente (refaz o "ObstaculoPulo"). Recusa em Play ou com a Fisica
+/// suja. Se a Fisica não estiver aberta, abre por cima (aditiva), salva e
+/// fecha. Backup em SceneBackups/.
 /// </summary>
 public static class ObstaculoPuloBuilder
 {
     private const string CaminhoCena = "Assets/Scenes/Fisica.unity";
-    private const string SpriteCaixa = "Assets/Images/Packs/Metal/metal_block.png";
     private const string PastaBackup = "SceneBackups";
 
-    // Caixas de 0.83 (metal_block, 80 PPU): 2 x 2 dá 1.66 de altura. O pulo
-    // segurando sobe ~2.5 e o batido ~1.25, então só passa segurando a tecla.
-    private const int Colunas = 2;
-    private const int Linhas = 2;
-    private const float CentroX = 5.5f;
+    // Topo do chão da sala. Um bloco apoiado nele (ou em outro bloco) e mais
+    // alto que ele faz parte dos degraus.
     private const float TopoDoChao = -4.29f;
+
+    // Entre as paredes da sala (as paredes também são tiles com collider).
+    private const float SalaMinX = -8.5f;
+    private const float SalaMaxX = 26.7f;
+
+    // Mais alto que isso já não é degrau (as peças dos puzzles ficam lá em cima).
+    private const float AlturaMaxima = 3f;
 
     private static readonly string[] FalaDepoisDaColisao =
     {
@@ -35,24 +44,31 @@ public static class ObstaculoPuloBuilder
 
     private static readonly string[] FalaIntroPulo =
     {
-        "Empacou! Com o Collider2D, essas caixas ficaram sólidas pra ele também.",
+        "Empacou! Com o Collider2D, esse degrau ficou sólido pra ele também.",
         "Andando pros lados não tem como passar. Falta o que todo personagem de plataforma tem: pulo!",
         "O próximo puzzle é o do Pulo. Bora montar?",
     };
 
     private static readonly string[] FalaDepoisDoPulo =
     {
-        "Pronto! Aperta {pular} e passa por cima das caixas. Segurando a tecla, ele sobe mais alto.",
+        "Pronto! Aperta {pular} e passa pelos degraus. No mais alto, segura a tecla pra subir mais.",
         "Só dá pra pular apoiado no chão. O isGrounded no if barra o pulo no ar. Sem ele, dava pra pular sem parar.",
     };
 
-    private const string FalaFinalCaixas = "Passou! Sem o pulo, essas caixas iam barrar ele pra sempre.";
+    private const string FalaFinalDegrau = "Passou! Sem o pulo, esses degraus iam barrar ele pra sempre.";
+
+    // Falas que este builder já pôs antes no começo do fechamento.
+    private static readonly string[] FalasFinaisAntigas =
+    {
+        "Passou! Sem o pulo, essas caixas iam barrar ele pra sempre.",
+        "Passou! Sem o pulo, esse degrau ia barrar ele pra sempre.",
+    };
 
     // Etapas 6 (EtapaTestar) e 8 (EtapaPular) do ObjetivoFase da Fisica.
     private static readonly (int indice, string titulo, string dica)[] Etapas =
     {
         (6, "Siga pela sala", "Ande pra direita e veja o que mudou com a colisão."),
-        (8, "Pule as caixas com {pular}", "Segure {pular} para subir mais alto. Ele só pula pisando no chão."),
+        (8, "Pule os degraus com {pular}", "Segure {pular} para pular mais alto. Ele só pula pisando no chão."),
     };
 
     [MenuItem("Tools/Fases/Obstáculo do pulo (Física)")]
@@ -82,9 +98,11 @@ public static class ObstaculoPuloBuilder
 
         try
         {
-            Aplicar(cena);
-            EditorSceneManager.SaveScene(cena);
-            Debug.Log("[ObstaculoPuloBuilder] Caixas do pulo montadas na Fisica.");
+            if (Aplicar(cena))
+            {
+                EditorSceneManager.SaveScene(cena);
+                Debug.Log("[ObstaculoPuloBuilder] Degrau do pulo ligado na Fisica.");
+            }
         }
         finally
         {
@@ -95,7 +113,7 @@ public static class ObstaculoPuloBuilder
         }
     }
 
-    private static void Aplicar(Scene cena)
+    private static bool Aplicar(Scene cena)
     {
         Transform jogo = null;
         GameFlowManager flow = null;
@@ -112,7 +130,25 @@ public static class ObstaculoPuloBuilder
 
         if (jogo == null || flow == null)
         {
-            throw new System.InvalidOperationException("Fisica sem 'Jogo' ou sem GameFlowManager.");
+            Debug.LogError("[ObstaculoPuloBuilder] Fisica sem 'Jogo' ou sem GameFlowManager.");
+            return false;
+        }
+
+        var partes = new List<Collider2D>();
+        foreach (GameObject raiz in cena.GetRootGameObjects())
+        {
+            foreach (Collider2D col in raiz.GetComponentsInChildren<Collider2D>(false))
+            {
+                if (EhDegrau(col))
+                {
+                    partes.Add(col);
+                }
+            }
+        }
+        if (partes.Count == 0)
+        {
+            Debug.LogError("[ObstaculoPuloBuilder] Nenhum bloco acima do chão dentro da sala. Monte os degraus primeiro.");
+            return false;
         }
 
         Transform antigo = jogo.Find("ObstaculoPulo");
@@ -121,49 +157,35 @@ public static class ObstaculoPuloBuilder
             Object.DestroyImmediate(antigo.gameObject);
         }
 
-        Player player = jogo.GetComponentInChildren<Player>(true);
-        Sprite caixa = AssetDatabase.LoadAssetAtPath<Sprite>(SpriteCaixa);
-        float lado = caixa.bounds.size.x;
+        Bounds area = partes[0].bounds;
+        foreach (Collider2D col in partes)
+        {
+            area.Encapsulate(col.bounds);
+        }
 
         var obstaculo = new GameObject("ObstaculoPulo");
         obstaculo.transform.SetParent(jogo, false);
-        obstaculo.transform.position = new Vector3(CentroX, TopoDoChao + lado * Linhas / 2f, 0f);
-
-        for (int linha = 0; linha < Linhas; linha++)
-        {
-            for (int coluna = 0; coluna < Colunas; coluna++)
-            {
-                var go = new GameObject($"Caixa {linha * Colunas + coluna + 1}");
-                go.transform.SetParent(obstaculo.transform, false);
-                go.transform.localPosition = new Vector3(
-                    (coluna - (Colunas - 1) / 2f) * lado,
-                    (linha - (Linhas - 1) / 2f) * lado,
-                    0f);
-                var sr = go.AddComponent<SpriteRenderer>();
-                sr.sprite = caixa;
-                sr.sortingLayerName = "Game";
-                sr.sortingOrder = 2;
-            }
-        }
-
-        // Um collider só pra pilha toda: sem emendas entre as caixas pro
-        // personagem enganchar ao subir ou descer.
-        var col = obstaculo.AddComponent<BoxCollider2D>();
-        col.size = new Vector2(lado * Colunas, lado * Linhas);
+        obstaculo.transform.position = new Vector3(area.center.x, area.center.y, 0f);
 
         var componente = obstaculo.AddComponent<ObstaculoPulo>();
         var so = new SerializedObject(componente);
-        so.FindProperty("player").objectReferenceValue = player;
+        so.FindProperty("player").objectReferenceValue = jogo.GetComponentInChildren<Player>(true);
+        SerializedProperty lista = so.FindProperty("partes");
+        lista.arraySize = partes.Count;
+        for (int i = 0; i < partes.Count; i++)
+        {
+            lista.GetArrayElementAtIndex(i).objectReferenceValue = partes[i];
+        }
         so.ApplyModifiedPropertiesWithoutUndo();
 
         var flowSo = new SerializedObject(flow);
         flowSo.FindProperty("obstaculoPulo").objectReferenceValue = componente;
         // Depois da colisão só a última fala muda ("dá uma voltinha" vira
-        // "segue pra direita"); no fim, a fala das caixas entra na frente.
+        // "segue pra direita"); no fim, a fala do degrau entra na frente.
         TrocarUltima(flowSo.FindProperty("afterCollisionDialogue"), FalaDepoisDaColisao);
         Preencher(flowSo.FindProperty("jumpIntroDialogue"), FalaIntroPulo);
         Preencher(flowSo.FindProperty("afterJumpDialogue"), FalaDepoisDoPulo);
-        ColocarNaFrente(flowSo.FindProperty("finalDialogue"), FalaFinalCaixas);
+        ColocarNaFrente(flowSo.FindProperty("finalDialogue"), FalaFinalDegrau);
         flowSo.ApplyModifiedPropertiesWithoutUndo();
 
         if (objetivo != null)
@@ -183,6 +205,27 @@ public static class ObstaculoPuloBuilder
         }
 
         EditorSceneManager.MarkSceneDirty(cena);
+        Debug.Log($"[ObstaculoPuloBuilder] Degraus com {partes.Count} blocos, de x {area.min.x:0.00} a {area.max.x:0.00}, altura máxima {area.max.y - TopoDoChao:0.00}.");
+        return true;
+    }
+
+    // Bloco fixo do terreno, entre as paredes, apoiado no chão ou em outro
+    // bloco e mais alto que o chão. O Player (que só ganha Rigidbody2D no
+    // Play) e as peças dos puzzles ficam de fora.
+    private static bool EhDegrau(Collider2D col)
+    {
+        if (!col.enabled || col.isTrigger ||
+            col.GetComponentInParent<Rigidbody2D>(true) != null ||
+            col.GetComponentInParent<Player>(true) != null ||
+            col.GetComponentInParent<DragPiece>(true) != null)
+        {
+            return false;
+        }
+
+        Bounds b = col.bounds;
+        return b.size.x > 0.01f && b.min.x > SalaMinX && b.max.x < SalaMaxX &&
+            b.min.y > TopoDoChao - 0.05f &&
+            b.max.y > TopoDoChao + 0.1f && b.max.y < TopoDoChao + AlturaMaxima;
     }
 
     private static void TrocarUltima(SerializedProperty lista, string[] padrao)
@@ -197,9 +240,18 @@ public static class ObstaculoPuloBuilder
 
     private static void ColocarNaFrente(SerializedProperty lista, string texto)
     {
-        if (lista.arraySize > 0 && lista.GetArrayElementAtIndex(0).stringValue == texto)
+        if (lista.arraySize > 0)
         {
-            return;
+            string primeira = lista.GetArrayElementAtIndex(0).stringValue;
+            if (primeira == texto)
+            {
+                return;
+            }
+            if (System.Array.IndexOf(FalasFinaisAntigas, primeira) >= 0)
+            {
+                lista.GetArrayElementAtIndex(0).stringValue = texto;
+                return;
+            }
         }
         lista.InsertArrayElementAtIndex(0);
         lista.GetArrayElementAtIndex(0).stringValue = texto;

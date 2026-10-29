@@ -50,7 +50,7 @@ public static class ObjetivoResumoBuilder
                 { "Monte o Collider2D", "Ele atravessou o chão: falta um corpo sólido." },
                 { "Siga pela sala", "Ande pra direita e veja o que mudou com a colisão." },
                 { "Monte o código do Pulo", "Personagem de plataforma precisa pular." },
-                { "Pule as caixas com {pular}", "Segure {pular} para subir mais alto. Ele só pula pisando no chão." },
+                { "Pule os degraus com {pular}", "Segure {pular} para pular mais alto. Ele só pula pisando no chão." },
             },
         },
         new Dados
