@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Objeto interativo da cena "Interacao": o jogador clica nele pra abrir o
@@ -314,6 +315,75 @@ public class InteractableItem : MonoBehaviour
         InteractionConfigUI.Instance?.OpenFor(this);
     }
 
+    // O OnMouseDown só chega pelo collider sólido do próprio item. Depois de
+    // usado, esse collider pode ter virado trigger (DisablePhysicalBlocking,
+    // laser apagado; o projeto deixa Physics2D.queriesHitTriggers desligado)
+    // ou estar desligado (espinho afundado, plataforma caindo). Aqui o clique
+    // em cima do desenho abre o painel do mesmo jeito, pra o item continuar
+    // reconfigurável.
+    private void AbrirPainelSeClicadoSemColisor()
+    {
+        Mouse mouse = Mouse.current;
+        if (mouse == null || !mouse.leftButton.wasPressedThisFrame)
+        {
+            return;
+        }
+
+        Collider2D own = GetComponent<Collider2D>();
+        Camera cam = Camera.main;
+        if ((own != null && own.enabled && !own.isTrigger) || cam == null)
+        {
+            return;
+        }
+
+        Vector2 mundo = cam.ScreenToWorldPoint(mouse.position.ReadValue());
+        if (!ContemPonto(mundo))
+        {
+            return;
+        }
+
+        // Um item sólido no mesmo ponto já recebe o clique pelo OnMouseDown.
+        Collider2D solido = Physics2D.OverlapPoint(mundo);
+        if (solido != null && (solido.GetComponent<InteractableItem>() != null || solido.GetComponent<PortaSaida>() != null))
+        {
+            return;
+        }
+
+        AbrirPainelPeloClique();
+    }
+
+    /// <summary>
+    /// Se o ponto (no mundo) cai em cima do item: o collider próprio ou, com
+    /// ele desligado, o desenho visível. Espinho afundado conta a altura de
+    /// antes de afundar, pra continuar fácil de clicar. Usado também pelo
+    /// destaque do mouse (DestaqueItensInteracao).
+    /// </summary>
+    public bool ContemPonto(Vector2 mundo)
+    {
+        Bounds area;
+        Collider2D own = GetComponent<Collider2D>();
+        if (own != null && own.enabled)
+        {
+            area = own.bounds;
+        }
+        else
+        {
+            Renderer desenho = GetComponent<Renderer>();
+            if (desenho == null || !desenho.enabled)
+            {
+                return false;
+            }
+            area = desenho.bounds;
+            if (sunk && transform.localScale.y > 0.0001f)
+            {
+                float alturaInteira = area.size.y * sinkStartScale.y / transform.localScale.y;
+                area.SetMinMax(area.min, new Vector3(area.max.x, area.min.y + alturaInteira, area.max.z));
+            }
+        }
+
+        return mundo.x >= area.min.x && mundo.x <= area.max.x && mundo.y >= area.min.y && mundo.y <= area.max.y;
+    }
+
     /// <summary>Configura usando o "Repetir" padrão da Consequência (ver DefaultRepeats).</summary>
     public void Configure(ActionType action, ConsequenceType consequence)
     {
@@ -331,7 +401,7 @@ public class InteractableItem : MonoBehaviour
         ConsequenceType? previous = IsConfigured ? ChosenConsequence : (ConsequenceType?)null;
         if (previous.HasValue)
         {
-            DesfazerConsequenciaAnterior(previous.Value, consequence);
+            DesfazerConsequenciaAnterior(previous.Value);
         }
 
         ChosenAction = action;
@@ -366,13 +436,11 @@ public class InteractableItem : MonoBehaviour
     // (laser apagado, espinho afundado, plataforma escorregadia ou de mão
     // única, parede atravessável, collider que virou trigger depois de usado).
     // O que já aconteceu no mundo (porta aberta, cura, cartão) fica.
-    private void DesfazerConsequenciaAnterior(ConsequenceType anterior, ConsequenceType nova)
+    // Vale também quando a Consequência continua a mesma e só a Ação ou o
+    // Repetir mudou: senão um espinho afundado ou uma Vida já pega em
+    // "Uma vez" ficavam presos assim, sem clique.
+    private void DesfazerConsequenciaAnterior(ConsequenceType anterior)
     {
-        if (anterior == nova)
-        {
-            return;
-        }
-
         if (anterior == ConsequenceType.TurnOnBehindPlayer || anterior == ConsequenceType.DisableForSeconds)
         {
             if (hideRoutine != null) { StopCoroutine(hideRoutine); hideRoutine = null; }
@@ -436,6 +504,8 @@ public class InteractableItem : MonoBehaviour
             IsConfigured && !HasTriggered && playerInRange && !JogoBloqueado.Ativo &&
             (ChosenAction == ActionType.PressButton || ChosenAction == ActionType.PressButtonThreeTimes),
             "Interact", "interagir", displayName);
+
+        AbrirPainelSeClicadoSemColisor();
 
         if (!IsConfigured || HasTriggered)
         {

@@ -306,6 +306,16 @@ public class DestaqueItensInteracao : MonoBehaviour
             }
         }
 
+        // Item com o collider desligado (espinho afundado, plataforma caindo)
+        // não aparece no OverlapPoint, mas continua clicável pelo desenho.
+        foreach (Etiqueta e in etiquetas)
+        {
+            if (e.item != null && e.item.isActiveAndEnabled && e.item.ContemPonto(mundo))
+            {
+                return e.item;
+            }
+        }
+
         return null;
     }
 
