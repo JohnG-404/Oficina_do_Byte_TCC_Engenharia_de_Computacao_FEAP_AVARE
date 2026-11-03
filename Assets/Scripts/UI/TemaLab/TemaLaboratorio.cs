@@ -77,6 +77,16 @@ public class TemaLaboratorio : ScriptableObject
     public Sprite puzzleCaixa;
     public Sprite puzzleChaoPrevia;
 
+    [Header("Cartão de dica dos puzzles (ver CartaoDica)")]
+    [Tooltip("Retângulo arredondado branco cheio (9-slice), tingido pelo cartão.")]
+    public Sprite dicaFundo;
+    [Tooltip("Só o contorno do retângulo arredondado (9-slice).")]
+    public Sprite dicaBorda;
+    [Tooltip("Contorno desfocado com 32 px de sobra em volta (9-slice).")]
+    public Sprite dicaBrilho;
+    public Sprite dicaCirculo;
+    public Sprite dicaAnel;
+
     [Header("Fontes (TextMeshPro)")]
     public TMP_FontAsset display;
     public TMP_FontAsset corpo;

@@ -86,11 +86,11 @@ public static class FisicaPuzzleLayoutBuilder
             pieces = new[]
             {
                 new PieceDef { key = "transform", label = "transform.position", id = 4, description = "A posição do objeto no mundo. Somar a direção a ela, a cada frame, é o que faz o personagem andar." },
-                new PieceDef { key = "vertical", label = "Vertical", id = 5, description = "Nome do eixo cima/baixo. Input.GetAxis(\"Vertical\") devolve -1 pra baixo, 0 parado e 1 pra cima." },
-                new PieceDef { key = "input", label = "Input", id = 1, description = "Classe do Unity que lê teclado, mouse e controle. Sem ela, o jogo não sabe o que você apertou." },
-                new PieceDef { key = "vector2", label = "Vector2", id = 3, description = "Dois números, x e y, que guardam uma direção ou um ponto." },
+                new PieceDef { key = "vertical", label = "Vertical", id = 5, description = "Nome do movimento para cima e para baixo. Input.GetAxis(\"Vertical\") dá -1 (baixo), 0 (parado) ou 1 (cima)." },
+                new PieceDef { key = "input", label = "Input", id = 1, description = "Lê o que você aperta no teclado, no mouse ou no controle. Sem ele, o jogo não sabe qual tecla você usou." },
+                new PieceDef { key = "vector2", label = "Vector2", id = 3, description = "Guarda dois números: x (lado) e y (altura). Serve para dizer uma direção ou um lugar." },
                 new PieceDef { key = "vector3", label = "Vector3", id = 6, description = "Igual ao Vector2, mas com um terceiro número (z). É pra 3D; num jogo 2D, sobra." },
-                new PieceDef { key = "horizontal", label = "Horizontal", id = 2, description = "Nome do eixo esquerda/direita. Input.GetAxis(\"Horizontal\") devolve -1 pra esquerda, 0 parado e 1 pra direita." },
+                new PieceDef { key = "horizontal", label = "Horizontal", id = 2, description = "Nome do movimento para a esquerda e para a direita. Input.GetAxis(\"Horizontal\") dá -1 (esquerda), 0 (parado) ou 1 (direita)." },
             },
         },
         new PuzzleDef
@@ -111,10 +111,10 @@ public static class FisicaPuzzleLayoutBuilder
             pieces = new[]
             {
                 new PieceDef { key = "gravityscale", label = "Gravity Scale", id = 3, description = "Multiplica a gravidade neste objeto: 0 flutua, 1 é a gravidade normal, 4 cai bem mais rápido." },
-                new PieceDef { key = "rigidbody2d", label = "Rigidbody2D", id = 1, description = "Componente que coloca o objeto sob a física 2D do Unity. Sem ele, gravidade e forças não fazem efeito." },
+                new PieceDef { key = "rigidbody2d", label = "Rigidbody2D", id = 1, description = "Liga a física no objeto: ele ganha peso, cai com a gravidade e pode ser empurrado." },
                 new PieceDef { key = "mass", label = "Mass", id = 5, description = "Peso do objeto. Conta em empurrões e colisões, mas não muda a velocidade da queda: no Unity, tudo cai igual." },
                 new PieceDef { key = "freezerotation", art = "transform", label = "Freeze Rotation", id = 4, description = "Trava o giro do personagem. Sem isso ele tombaria como um dado ao esbarrar em algo." },
-                new PieceDef { key = "collider2d", label = "Collider2D", id = 6, description = "Dá ao objeto uma forma pra colisões." },
+                new PieceDef { key = "collider2d", label = "Collider2D", id = 6, description = "Dá ao objeto um contorno para ele bater nas coisas." },
                 new PieceDef { key = "bodytype", art = "rigidbody2d", label = "Body Type: Dynamic", id = 2, description = "Tipo de corpo que reage à gravidade e a forças. Static nunca se move; Kinematic só se move pelo código." },
             },
         },
@@ -132,11 +132,11 @@ public static class FisicaPuzzleLayoutBuilder
                    "void <color=#F5C542>OnCollisionEnter2D</color>(Collision2D c)  →  encostou em algo sólido",
             pieces = new[]
             {
-                new PieceDef { key = "ontriggerenter2d", label = "OnTriggerEnter2D", id = 5, description = "Método chamado quando algo entra num collider marcado como Trigger." },
+                new PieceDef { key = "ontriggerenter2d", label = "OnTriggerEnter2D", id = 5, description = "Roda quando alguém entra numa área que dá para atravessar (Trigger)." },
                 new PieceDef { key = "istrigger_true", art = "istrigger", label = "Is Trigger = true", id = 4, description = "Ligado, o collider vira só uma área que avisa quando alguém entra. Serve pra moedas e sensores, mas o personagem atravessaria o chão." },
-                new PieceDef { key = "rigidbody2d", label = "Rigidbody2D", id = 6, description = "Componente que coloca o objeto sob a física 2D: gravidade e forças passam a agir nele." },
+                new PieceDef { key = "rigidbody2d", label = "Rigidbody2D", id = 6, description = "Liga a física no objeto: ele ganha peso, cai com a gravidade e pode ser empurrado." },
                 new PieceDef { key = "oncollisionenter2d", label = "OnCollisionEnter2D", id = 3, description = "Método chamado no instante em que dois colliders sólidos se encostam. É por ele que o personagem sabe que pisou no chão." },
-                new PieceDef { key = "boxcollider", label = "BoxCollider2D", id = 1, description = "Uma caixa invisível ao redor do objeto, que o Unity usa pra saber onde ele encosta. Só há colisão quando os dois objetos têm collider." },
+                new PieceDef { key = "boxcollider", label = "BoxCollider2D", id = 1, description = "Uma caixa invisível em volta do objeto. É com ela que o Unity sabe onde ele encosta. Só tem batida quando os dois objetos têm collider." },
                 new PieceDef { key = "istrigger_false", art = "istrigger", label = "Is Trigger = false", id = 2, description = "Desligado, o collider é sólido e barra quem encosta. É assim que o chão segura o personagem." },
             },
         },
@@ -161,12 +161,12 @@ public static class FisicaPuzzleLayoutBuilder
                    "}",
             pieces = new[]
             {
-                new PieceDef { key = "velocity", label = "linearVelocity", id = 4, description = "Velocidade atual do Rigidbody2D, com x e y. Trocar o valor muda a velocidade do corpo na hora." },
-                new PieceDef { key = "start", label = "Start", id = 6, description = "Roda uma vez, quando o objeto nasce." },
-                new PieceDef { key = "input", label = "Input", id = 1, description = "Classe do Unity que lê teclado, mouse e controle." },
-                new PieceDef { key = "isgrounded", art = "collider2d", label = "isGrounded", id = 3, description = "Variável que diz se o personagem está pisando em algo: true no chão, false no ar." },
-                new PieceDef { key = "translate", label = "Translate", id = 5, description = "Move o objeto mudando a posição direto, sem passar pela física." },
-                new PieceDef { key = "jump", label = "Jump", id = 2, description = "Nome do botão de pulo no Input Manager (barra de espaço, por padrão). Input.GetButtonDown(\"Jump\") vale verdadeiro só no frame em que o botão é apertado." },
+                new PieceDef { key = "velocity", label = "linearVelocity", id = 4, description = "A velocidade do corpo agora: x é para o lado e y é para cima. Trocar esse valor muda a velocidade na hora." },
+                new PieceDef { key = "start", label = "Start", id = 6, description = "Roda uma vez só, quando o objeto aparece no jogo." },
+                new PieceDef { key = "input", label = "Input", id = 1, description = "Lê o que você aperta no teclado, no mouse ou no controle. Sem ele, o jogo não sabe qual tecla você usou." },
+                new PieceDef { key = "isgrounded", art = "collider2d", label = "isGrounded", id = 3, description = "Diz se o personagem está pisando em algo: true (sim) no chão, false (não) no ar." },
+                new PieceDef { key = "translate", label = "Translate", id = 5, description = "Muda o objeto de lugar direto, sem usar a física." },
+                new PieceDef { key = "jump", label = "Jump", id = 2, description = "Nome do botão de pular (barra de espaço). Input.GetButtonDown(\"Jump\") só vale true no instante em que você aperta." },
             },
         },
         CameraDef,
@@ -195,12 +195,12 @@ public static class FisicaPuzzleLayoutBuilder
                "}",
         pieces = new[]
         {
-            new PieceDef { key = "update", label = "Update", id = 5, description = "Roda uma vez a cada frame, junto com o Update dos outros objetos, sem ordem garantida entre eles." },
-            new PieceDef { key = "target", art = "transform", label = "target", id = 1, description = "Campo público do tipo Transform. Aparece no Inspector, onde dá pra arrastar um objeto pra ele." },
-            new PieceDef { key = "limites", art = "boxcollider", label = "Limites (min/max)", id = 4, description = "Dois números, um mínimo e um máximo. Mathf.Clamp(valor, min, max) mantém o valor entre os dois." },
-            new PieceDef { key = "grudar", art = "transform", label = "position = alvo", id = 6, description = "transform.position = alvo copia a posição do alvo de uma vez, no mesmo frame." },
-            new PieceDef { key = "smoothdamp", art = "velocity", label = "SmoothDamp", id = 3, description = "Leva um valor até o alvo aos poucos, acelerando e freando no caminho." },
-            new PieceDef { key = "lateupdate", art = "update", label = "LateUpdate", id = 2, description = "Roda uma vez a cada frame, depois que o Update de todos os objetos já rodou." },
+            new PieceDef { key = "update", label = "Update", id = 5, description = "Roda a cada quadro (frame) do jogo, junto com os outros objetos. Não dá para saber quem roda primeiro." },
+            new PieceDef { key = "target", art = "transform", label = "target", id = 1, description = "Um espaço que aparece no Inspector. Você arrasta um objeto da cena para ele, e o script passa a conhecer esse objeto." },
+            new PieceDef { key = "limites", art = "boxcollider", label = "Limites (min/max)", id = 4, description = "Dois números: o menor e o maior permitido. Mathf.Clamp não deixa o valor passar desses limites." },
+            new PieceDef { key = "grudar", art = "transform", label = "position = alvo", id = 6, description = "Copia a posição do alvo de uma vez só: a câmera pula direto para lá." },
+            new PieceDef { key = "smoothdamp", art = "velocity", label = "SmoothDamp", id = 3, description = "Leva um valor até o alvo devagar e suave: acelera no começo e freia no final." },
+            new PieceDef { key = "lateupdate", art = "update", label = "LateUpdate", id = 2, description = "Roda a cada quadro (frame) do jogo, mas por último: depois que todos os objetos já se mexeram." },
         },
     };
 

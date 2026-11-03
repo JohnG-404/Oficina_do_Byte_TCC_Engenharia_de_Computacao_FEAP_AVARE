@@ -95,7 +95,7 @@ public class InteractionConfigUI : MonoBehaviour
     [SerializeField] private RectTransform rulesRowsRoot;
     [SerializeField] private string whoActivatesLabel = "Quem ativa:";
     [SerializeField] private string whoActivatesChip = "tag Player";
-    [SerializeField] private string whoActivatesHint = "inimigos e caixas passam sem ativar";
+    [SerializeField] private string whoActivatesHint = "só o seu personagem ativa; inimigos e caixas não";
     [SerializeField] private string repeatLabel = "Repetir:";
     [SerializeField] private string repeatOnceText = "Uma vez";
     [SerializeField] private string repeatAlwaysText = "Sempre";
@@ -151,6 +151,7 @@ public class InteractionConfigUI : MonoBehaviour
     private static readonly Dictionary<ConsequenceType, string> ConsequenceLabels = new Dictionary<ConsequenceType, string>
     {
         { ConsequenceType.HealPlayer, "Curar o jogador" },
+        { ConsequenceType.HealOneHeart, "Curar 1 de vida" },
         { ConsequenceType.OpenDoor, "Abrir uma porta" },
         { ConsequenceType.LaunchPlayer, "Lançar o jogador" },
         { ConsequenceType.CompleteLevel, "Passar a fase" },

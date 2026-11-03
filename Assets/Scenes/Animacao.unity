@@ -14916,7 +14916,7 @@ MonoBehaviour:
   concluidoTexto: "Na pr\xE9via, a moeda gira at\xE9 o Trigger coletada disparar,
     toca o clipe Coletada uma vez e some."
   tituloPrevia: "Pr\xE9via"
-  rodapeDica: "Passe o mouse numa pe\xE7a pra ler aqui o que ela faz."
+  rodapeDica: "Passe o mouse numa pe\xE7a para ler o que ela faz."
   cicloSegundos: 3.4
   reiniciarNoCiclo: 1
   eventos:
@@ -25808,14 +25808,15 @@ MonoBehaviour:
   legendaDiagrama: "ANIMATOR DO PLAYER \xB7 BASE LAYER"
   objetivo: "a anima\xE7\xE3o acompanha a f\xEDsica"
   dicasSetas:
-  - "Seta 1, de Idle para Corrida: o que muda no Rigidbody2D quando o personagem
-    come\xE7a a andar?"
-  - 'Seta 2, de Corrida para Idle: o que fica igual a zero quando o personagem para?'
-  - "Seta 3, de Any State para Pulo: o que deixa de ser verdade quando os p\xE9s
-    saem do ch\xE3o?"
-  - 'Seta 4, de Pulo para Idle: o que avisa que o personagem voltou a pisar em alguma
-    coisa?'
-  rodapeDica: "Passe o mouse numa pe\xE7a pra ler aqui o que ela faz."
+  - "Seta 1 \xB7 Idle \u2192 Corrida|Idle quer dizer parado. Quando o personagem
+    come\xE7a a andar, o que muda no corpo dele?"
+  - "Seta 2 \xB7 Corrida \u2192 Idle|Quando o personagem para de andar, o que vira
+    zero?"
+  - "Seta 3 \xB7 Any State \u2192 Pulo|Any State quer dizer qualquer estado. Quando
+    os p\xE9s saem do ch\xE3o, o que deixa de ser verdade?"
+  - "Seta 4 \xB7 Pulo \u2192 Idle|O que avisa que o personagem pisou no ch\xE3o de
+    novo?"
+  rodapeDica: "Passe o mouse numa pe\xE7a para ler o que ela faz."
   iconesProntas: []
   erroTitulo: "Essa condi\xE7\xE3o n\xE3o serve nessa seta"
   erroTexto: "O Animator foi zerado. Leia as pe\xE7as de novo e pense: o que precisa
@@ -49783,7 +49784,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Repare no desenho do personagem.
+  m_text: Ande e pule. O desenho do personagem muda?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 20df2e46e7604674ab7bd14c6ac9670b, type: 2}
   m_sharedMaterial: {fileID: 2019188368789200677, guid: 20df2e46e7604674ab7bd14c6ac9670b, type: 2}
@@ -50076,8 +50077,8 @@ MonoBehaviour:
     Depois \xE9 s\xF3 seguir at\xE9 a porta."
   maxDeathHints: 2
   deathHintDialogue:
-  - "Faltou dist\xE2ncia! Pule l\xE1 do alto da escada e segure {pular} pra ir mais
-    longe. Olha o painel: no ar, o Animator troca pra Pulo sozinho."
+  - "Faltou pouco! Suba at\xE9 o alto da escada, pule de l\xE1 e segure {pular} para
+    ir mais longe. Repare no painel: no ar, o Animator troca para Pulo sozinho."
 --- !u!4 &533245443
 Transform:
   m_ObjectHideFlags: 0
@@ -56627,7 +56628,7 @@ MonoBehaviour:
   concluidoTexto: "As duas setas t\xEAm condi\xE7\xE3o. Na pr\xE9via, a l\xE2mpada
     acende quando ligada vira true e apaga quando vira false."
   tituloPrevia: "Pr\xE9via"
-  rodapeDica: "Passe o mouse numa pe\xE7a pra ler aqui o que ela faz."
+  rodapeDica: "Passe o mouse numa pe\xE7a para ler o que ela faz."
   spriteApagada: {fileID: 21300000, guid: 631a7ebf26cf02943bfa2bc6f55e6575, type: 3}
   spriteAcesa: {fileID: 21300000, guid: dcbb12681538aac47849cf9ecd96c04a, type: 3}
   inverterPrevia: 1
@@ -60973,7 +60974,7 @@ MonoBehaviour:
   concluidoTexto: "Na pr\xE9via, carga vai de 0 a 2 e o Any State leva direto para
     o estado com o valor certo."
   tituloPrevia: "Pr\xE9via"
-  rodapeDica: "Passe o mouse numa pe\xE7a pra ler aqui o que ela faz."
+  rodapeDica: "Passe o mouse numa pe\xE7a para ler o que ela faz."
   cicloSegundos: 5.4
   reiniciarNoCiclo: 0
   eventos:
@@ -63203,11 +63204,11 @@ MonoBehaviour:
   legendaDiagrama: "ANIMATOR DO PLAYER \xB7 BASE LAYER"
   objetivo: o desenho abaixa junto com o corpo
   dicasSetas:
-  - "Seta 1, de Idle para Agachado: quem avisa o Animator que o jogador agachou?
-    O script liga um par\xE2metro novo enquanto a tecla est\xE1 apertada."
-  - "Seta 2, de Agachado para AndarAgachado: qual par\xE2metro j\xE1 dizia se o personagem
-    est\xE1 andando, l\xE1 na seta da Corrida?"
-  rodapeDica: "Passe o mouse numa pe\xE7a pra ler aqui o que ela faz."
+  - "Seta 1 \xB7 Idle \u2192 Agachado|Como o Animator fica sabendo que voc\xEA agachou?
+    O script liga um aviso novo (um par\xE2metro) enquanto voc\xEA segura a tecla."
+  - "Seta 2 \xB7 Agachado \u2192 AndarAgachado|Lembra da seta da Corrida? Qual pe\xE7a
+    j\xE1 dizia se o personagem est\xE1 andando?"
+  rodapeDica: "Passe o mouse numa pe\xE7a para ler o que ela faz."
   iconesProntas:
   - {fileID: 21300000, guid: c538972bb0df5ac498d23c4a0fc3d2b3, type: 3}
   - {fileID: 21300000, guid: c538972bb0df5ac498d23c4a0fc3d2b3, type: 3}
@@ -83537,17 +83538,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjetivoFase
   etapas:
   - titulo: "Ande e pule pelo laborat\xF3rio"
-    dica: Repare no desenho do personagem.
+    dica: Ande e pule. O desenho do personagem muda?
   - titulo: "Monte as transi\xE7\xF5es do Animator"
-    dica: "Encaixe as condi\xE7\xF5es nas setas."
+    dica: "Cada seta precisa de uma regra que diz quando trocar de anima\xE7\xE3o.
+      Encaixe as pe\xE7as nas setas."
   - titulo: Suba a escada e pule a vala de espinhos
-    dica: Agora ele anima sozinho.
+    dica: Agora o desenho muda sozinho quando ele anda e pula.
   - titulo: "Segure agachar perto do t\xFAnel"
-    dica: Veja o corpo e o desenho.
+    dica: 'Segure agachar e olhe: o corpo abaixa, mas e o desenho?'
   - titulo: Monte as setas do agachar no Animator
-    dica: O desenho precisa abaixar junto.
+    dica: "O desenho tamb\xE9m precisa abaixar junto com o corpo."
   - titulo: "Atravesse o t\xFAnel at\xE9 a porta"
-    dica: Segure agachar pra passar.
+    dica: "Segure agachar para passar pelo t\xFAnel."
   segundosGrande: 3.5
   segundosFade: 0.25
   grupo: {fileID: 845771825}
@@ -101537,7 +101539,7 @@ MonoBehaviour:
   concluidoTexto: "Na pr\xE9via, puxar leva para Puxando, e o Has Exit Time termina
     em Puxada."
   tituloPrevia: "Pr\xE9via"
-  rodapeDica: "Passe o mouse numa pe\xE7a pra ler aqui o que ela faz."
+  rodapeDica: "Passe o mouse numa pe\xE7a para ler o que ela faz."
   cicloSegundos: 3.6
   reiniciarNoCiclo: 1
   eventos:
@@ -146151,7 +146153,7 @@ Transform:
   m_GameObject: {fileID: 1480576227}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1.28, y: 1.28, z: 1.28}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -186800,7 +186802,7 @@ MonoBehaviour:
   concluidoTexto: "Na pr\xE9via, pular leva para Impulso, e o Has Exit Time volta
     para Repouso quando o clipe acaba."
   tituloPrevia: "Pr\xE9via"
-  rodapeDica: "Passe o mouse numa pe\xE7a pra ler aqui o que ela faz."
+  rodapeDica: "Passe o mouse numa pe\xE7a para ler o que ela faz."
   cicloSegundos: 2.6
   reiniciarNoCiclo: 0
   eventos:

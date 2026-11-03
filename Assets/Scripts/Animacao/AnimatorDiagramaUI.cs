@@ -45,6 +45,11 @@ public class AnimatorDiagramaUI
 
     private static readonly Vector2 TamanhoCaixa = new Vector2(230f, 100f);
 
+    // AndarAgachado é o nome mais comprido: a caixa cresce pra direita (a seta
+    // continua chegando na borda esquerda), senão o texto encolhe demais no
+    // painel de canto.
+    private const float LarguraExtraAndarAgachado = 60f;
+
     private static readonly Dictionary<string, Vector2> PosicaoCaixa = new Dictionary<string, Vector2>
     {
         { AnimacaoPlayerFisica.EstadoIdle, new Vector2(-370f, 150f) },
@@ -186,6 +191,11 @@ public class AnimatorDiagramaUI
     {
         Vector2 pos = (PosicaoCaixa[estado] + Desloc) * escala;
         Vector2 tam = TamanhoCaixa * escala;
+        if (estado == AnimacaoPlayerFisica.EstadoAndarAgachado)
+        {
+            tam.x += LarguraExtraAndarAgachado * escala;
+            pos.x += LarguraExtraAndarAgachado * 0.5f * escala;
+        }
         float espessura = Mathf.Max(2f, 4f * escala);
 
         Image borda = VidaUI.NovaImagem(Raiz, "Estado_" + estado, VidaUI.Moldura);

@@ -126,7 +126,7 @@ public static class OficinaAnimacaoBuilder
         Painel(linha, "Painel", new Vector2(EsqX + EsqLarg / 2, 2.05f), new Vector2(EsqLarg, 3.4f), Elevado, Ink, 0);
         NovoTexto(linha, "Rotulo", "LINHA DO TEMPO", fMono, 0.2f, Suave, new Vector2(EsqX + 0.3f, 3.45f), new Vector2(3f, 0.4f), TextAlignmentOptions.Left, 6);
         TMP_Text tituloRodada = NovoTexto(linha, "TituloRodada", "Lâmpada acendendo", fTitulo, 0.3f, Ciano, new Vector2(EsqX + 2.55f, 3.47f), new Vector2(6f, 0.45f), TextAlignmentOptions.Left, 6);
-        TMP_Text frames = NovoTexto(linha, "Frames", "5 frames", fMono, 0.2f, Suave, new Vector2(EsqX + EsqLarg - 0.3f, 3.45f), new Vector2(3f, 0.4f), TextAlignmentOptions.Right, 6);
+        TMP_Text frames = NovoTexto(linha, "Frames", "5 quadros", fMono, 0.2f, Suave, new Vector2(EsqX + EsqLarg - 0.3f, 3.45f), new Vector2(3f, 0.4f), TextAlignmentOptions.Right, 6);
         NovoTexto(linha, "Inicio", "INÍCIO", fMono, 0.17f, Suave, new Vector2(EsqX + 0.3f, 0.6f), new Vector2(2f, 0.3f), TextAlignmentOptions.Left, 6);
         NovoTexto(linha, "Fim", "FIM", fMono, 0.17f, Suave, new Vector2(EsqX + EsqLarg - 0.3f, 0.6f), new Vector2(2f, 0.3f), TextAlignmentOptions.Right, 6);
         var trilho = NovoSprite(linha, "Trilho", sBranco, 1);
@@ -206,7 +206,7 @@ public static class OficinaAnimacaoBuilder
         // --- como jogar ----------------------------------------------------
         var como = NovoGrupo(cenario, "ComoJogar", Vector3.zero);
         Painel(como, "Painel", new Vector2(cx, -1.83f), new Vector2(DirLarg, 1.25f), Elevado, Ink, 0);
-        TMP_Text comoTexto = NovoTexto(como, "Texto", "<b>Arraste ou clique</b>\nClique num frame encaixado para devolver.", fTexto, 0.2f, Texto, new Vector2(DirX + 0.3f, -1.83f), new Vector2(DirLarg - 0.6f, 1.05f), TextAlignmentOptions.Left, 6);
+        TMP_Text comoTexto = NovoTexto(como, "Texto", "<b>Arraste ou clique</b>\nClique num quadro encaixado para devolver.", fTexto, 0.2f, Texto, new Vector2(DirX + 0.3f, -1.83f), new Vector2(DirLarg - 0.6f, 1.05f), TextAlignmentOptions.Left, 6);
         comoTexto.textWrappingMode = TextWrappingModes.Normal;
 
         NovoTexto(cenario, "Rodape", "MOUSE  arrastar     CLIQUE  encaixar ou devolver     ESC  pausa", fMono, 0.17f, Suave, new Vector2(0, -4.62f), new Vector2(16f, 0.3f), TextAlignmentOptions.Center, 6);
@@ -225,13 +225,13 @@ public static class OficinaAnimacaoBuilder
         so.FindProperty("previewLoopCount").intValue = 2;
         so.FindProperty("nextRoundLinePrefix").stringValue = "Boa! Próxima animação: ";
         SetStrings(so.FindProperty("introDialogue"),
-            "Bem-vindo à Oficina de Animação! Uma animação quadro a quadro é uma sequência de imagens (sprites) trocadas bem rápido. Cada imagem é um frame.",
-            "Os frames estão soltos na bandeja. Arraste cada um até a linha do tempo, do encaixe 1 ao último, ou só clique nele.",
-            "Com a linha do tempo cheia, a animação toca no monitor. Cuidado: sempre tem frame que não faz parte.",
+            "Bem-vindo à Oficina de Animação! Uma animação quadro a quadro é uma sequência de imagens (sprites) trocadas bem rápido. Cada imagem é um quadro (em inglês, frame).",
+            "Os quadros estão soltos na bandeja. Arraste cada um até a linha do tempo, do encaixe 1 ao último, ou só clique nele.",
+            "Com a linha do tempo cheia, a animação toca no monitor. Cuidado: sempre tem quadro que não faz parte.",
             "Travou? Clique em Dica.");
         SetStrings(so.FindProperty("wrongOrderDialogueStage1"), "Hmm, não foi dessa vez. Olhe a prévia de novo.");
         SetStrings(so.FindProperty("wrongOrderDialogueStage2"), "Quase! Pense no movimento: o que vem primeiro, e o que vem depois?");
-        SetStrings(so.FindProperty("wrongOrderDialogueStage3"), "Procure o frame em que nada começou ainda: é por ele que a sequência começa.");
+        SetStrings(so.FindProperty("wrongOrderDialogueStage3"), "Procure o quadro em que nada começou ainda: é por ele que a sequência começa.");
         PreencherRodadas(so.FindProperty("rounds"));
         so.ApplyModifiedPropertiesWithoutUndo();
 
@@ -283,20 +283,20 @@ public static class OficinaAnimacaoBuilder
         {
             new Rodada { nome = "Lâmpada", titulo = "Lâmpada acendendo", fps = 8,
                 certos = Seq(Pasta + "Lampada/lampada_", 1, 2, 3, 4, 5), iscas = new[] { Pasta + "Lampada/lampada_isca.png" },
-                dica = "Repare no brilho da lâmpada em cada frame: ele muda aos poucos." },
+                dica = "Olhe o brilho da lâmpada em cada quadro. Ele muda um pouquinho de um quadro para o outro." },
             new Rodada { nome = "Porta", titulo = "Porta do laboratório abrindo", fps = 6,
                 certos = Seq(Pasta + "Porta/porta_", 1, 2, 4, 5), iscas = new[] { Pasta + "Porta/porta_isca.png", Pasta + "Bateria/bateria_isca.png" },
-                dica = "Repare na fresta no meio da porta e na cor da luz em cima dela." },
+                dica = "Olhe a abertura no meio da porta e a cor da luz em cima dela. O que muda de um quadro para o outro?" },
             new Rodada { nome = "Pulo", titulo = "Pulo do personagem", fps = 8,
                 certos = Seq(Pasta + "Pulo/pulo_", 1, 2, 3, 4, 5), iscas = new[] { V + "hurt/player_visor_hurt_02.png" },
-                dica = "Olhe a distância entre o personagem e o chão em cada frame, e a pose do corpo." },
+                dica = "Olhe a altura do personagem em cada quadro e a pose do corpo. Ele está subindo ou descendo?" },
             new Rodada { nome = "Corrida", titulo = "Corrida (loop)", fps = 12, travado = true,
                 certos = new[] { V + "run/player_visor_run_01.png", V + "run/player_visor_run_02.png", V + "run/player_visor_run_03.png" },
                 iscas = new[] { V + "idle/player_visor_idle_01.png", V + "crouch/player_visor_crouch_04.png" },
-                dica = "É um loop e o frame 1 já está no lugar. Compare a altura do corpo e a posição dos pés em cada frame." },
+                dica = "Esta animação se repete sem parar (loop) e o quadro 1 já está no lugar. Olhe os pés e a altura do corpo em cada quadro." },
             new Rodada { nome = "Alavanca", titulo = "Alavanca de ponta a ponta", fps = 8,
                 certos = Seq(Pasta + "Alavanca/alavanca_", 1, 3, 5, 7, 9), iscas = new[] { Pasta + "Alavanca/alavanca_isca.png" },
-                dica = "Repare na inclinação do cabo e na cor da luz em cada frame." },
+                dica = "Olhe para que lado o cabo da alavanca está inclinado e a cor da luz em cada quadro." },
         };
 
         prop.arraySize = lista.Length;

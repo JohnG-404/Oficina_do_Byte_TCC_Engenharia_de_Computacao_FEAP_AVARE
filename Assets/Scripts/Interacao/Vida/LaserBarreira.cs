@@ -13,6 +13,9 @@ using UnityEngine;
 ///   de vez (o jogador "pagou" pra passar). Repelir nunca abre.
 /// - Desligar(segundos) apaga o feixe por um tempo — pronto pra uma
 ///   consequência "Desligar por X s".
+/// - Desligado, o collider vira trigger em vez de sumir: o jogador passa,
+///   a Ação "Tocar nele" ainda percebe o toque e o laser continua clicável
+///   (o InteractableItem abre o painel pelo clique em cima do trigger).
 ///
 /// Orientação Vertical: a raiz fica no chão e o laser sobe até "distancia".
 /// Horizontal: a raiz fica na ponta esquerda e o laser vai pra direita.
@@ -47,7 +50,7 @@ public class LaserBarreira : MonoBehaviour
     [SerializeField] private Color corTempo = new Color(1f, 0.78f, 0.25f, 1f);
 
     [Header("Dica")]
-    [SerializeField] private string dicaSemInteracao = "Laser sem interação. Clique nele para escolher o que ele faz.";
+    [SerializeField] private string dicaSemInteracao = "Este laser ainda não faz nada. Clique nele e escolha o que ele faz.";
 
     private const float AlturaBase = 0.4f;   // laser_base.png: 80 x 40 px a 100 PPU
     private const float CentroLente = 0.35f; // da borda da base até o centro da lente
@@ -194,12 +197,10 @@ public class LaserBarreira : MonoBehaviour
 
         // Dano em "Uma vez": o InteractableItem marca HasTriggered depois do
         // disparo e o jogador "pagou" a passagem. Repelir e as consequências
-        // com tempo nunca abrem de vez.
-        if (item != null && item.IsConfigured && item.HasTriggered && !item.ChosenRepeats
-            && (item.ChosenConsequence == ConsequenceType.DamageOneHeart || item.ChosenConsequence == ConsequenceType.DamageTwoHearts))
-        {
-            desligadoDeVez = true;
-        }
+        // com tempo nunca abrem de vez. Reconfigurar zera o HasTriggered e o
+        // laser volta a ligar.
+        desligadoDeVez = item != null && item.IsConfigured && item.HasTriggered && !item.ChosenRepeats
+            && (item.ChosenConsequence == ConsequenceType.DamageOneHeart || item.ChosenConsequence == ConsequenceType.DamageTwoHearts);
 
         AplicarEstado();
     }
@@ -232,7 +233,8 @@ public class LaserBarreira : MonoBehaviour
 
         if (Application.isPlaying)
         {
-            colisor.enabled = ligado;
+            colisor.enabled = true;
+            colisor.isTrigger = !ligado;
         }
     }
 

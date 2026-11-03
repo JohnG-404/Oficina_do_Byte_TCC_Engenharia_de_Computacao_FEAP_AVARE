@@ -10517,19 +10517,24 @@ MonoBehaviour:
     no alvo dele."
   - "Se ficar sem sa\xEDda, segure {tecla} para recome\xE7ar."
   dicaAlvoGuarda:
-  - "Repara no aliado: ele fica parado na frente do guarda, tentando chamar a aten\xE7\xE3o,
-    e o guarda nem olha pra ele."
-  - "Abra o c\xE9rebro do guarda e veja quem ele persegue."
+  - "Olhe o aliado: ele fica na frente do guarda tentando chamar aten\xE7\xE3o, e
+    o guarda nem olha."
+  - "Clique no guarda para abrir o c\xE9rebro dele. Quem ele est\xE1 programado para
+    perseguir?"
   dicaSeguir:
   - "Seu aliado ficou pra tr\xE1s. Ele s\xF3 sai do lugar quando uma regra manda."
-  - "Abra o c\xE9rebro dele: qual condi\xE7\xE3o faz ele ir de Esperar pra Seguir?"
+  - "Clique no aliado para abrir o c\xE9rebro dele. O que precisa acontecer para
+    ele passar de Esperar para Seguir?"
   dicaDistrair:
-  - "O guarda at\xE9 correria atr\xE1s do aliado, mas o aliado nunca entra em Distrair."
-  - "Pra distrair, ele precisa ver o guarda primeiro. Que condi\xE7\xE3o faz isso?"
+  - "O guarda at\xE9 correria atr\xE1s do aliado, mas o aliado nunca come\xE7a a
+    distrair."
+  - "Para distrair, o aliado precisa enxergar o guarda primeiro. Qual condi\xE7\xE3o
+    faz isso?"
   dicaEsconder:
-  - "Os dois c\xE9rebros est\xE3o certos. Agora \xE9 esconder: suba na plataforma
-    e fique no meio dela, onde a linha do guarda bate na plataforma."
-  - "Quando o aliado levar o guarda embora, des\xE7a e corra pra sa\xEDda."
+  - "Os dois c\xE9rebros est\xE3o certos! Agora se esconda: suba na plataforma e
+    fique no meio dela. Ali a vis\xE3o do guarda bate na plataforma e n\xE3o chega
+    em voc\xEA."
+  - "Quando o aliado levar o guarda embora, des\xE7a e corra para a sa\xEDda."
 --- !u!114 &931891660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10645,7 +10650,7 @@ Transform:
   m_GameObject: {fileID: 936811332}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1.28, y: 1.28, z: 1.28}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17620,11 +17625,11 @@ MonoBehaviour:
   - titulo: "Fa\xE7a o aliado te seguir"
     dica: "Clique no aliado para abrir o c\xE9rebro dele."
   - titulo: "Fa\xE7a o aliado distrair o guarda"
-    dica: Pra distrair, ele precisa ver o guarda primeiro.
+    dica: Para distrair, o aliado precisa ver o guarda primeiro.
   - titulo: "Fa\xE7a o guarda perseguir o aliado"
-    dica: Confira a tag no alvo do guarda.
+    dica: "Abra o c\xE9rebro do guarda e confira a etiqueta (tag) de quem ele persegue."
   - titulo: "Esconda-se e corra para a sa\xEDda"
-    dica: "Suba na plataforma e espere a distra\xE7\xE3o."
+    dica: Suba na plataforma e espere o aliado distrair o guarda.
   segundosGrande: 3.5
   segundosFade: 0.25
   grupo: {fileID: 1587908997}

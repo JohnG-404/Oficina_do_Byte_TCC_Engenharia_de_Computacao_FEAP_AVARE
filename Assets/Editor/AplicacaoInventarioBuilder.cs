@@ -49,21 +49,22 @@ public static class AplicacaoInventarioBuilder
 
     private static readonly Ferramenta[] Ferramentas =
     {
-        new Ferramenta { tipo = ToolType.Fisica, nome = "Rigidbody2D", icone = "icon_rigidbody2d_v2", etiqueta = "COMPONENTE", dica = "Dá gravidade e massa. Sem chão sólido embaixo, cai.", larguraChip = 118f },
-        new Ferramenta { tipo = ToolType.Colisao, nome = "Collider2D", icone = "icon_collider2d_v2", etiqueta = "COMPONENTE", dica = "Deixa sólido: segura, bloqueia e dá pra pisar.", larguraChip = 110f },
-        new Ferramenta { tipo = ToolType.Movimento, nome = "Movimento", icone = "icon_movement_v2", etiqueta = "SCRIPT", dica = "Só no seu personagem: faz andar para os lados.", larguraChip = 102f },
-        new Ferramenta { tipo = ToolType.Pulo, nome = "Pulo", icone = "icon_jump", etiqueta = "SCRIPT", dica = "Só no seu personagem: faz pular.", larguraChip = 62f },
+        new Ferramenta { tipo = ToolType.Fisica, nome = "Rigidbody2D", icone = "icon_rigidbody2d_v2", etiqueta = "COMPONENTE", dica = "Dá peso e gravidade. Se não tiver nada sólido embaixo, cai.", larguraChip = 118f },
+        new Ferramenta { tipo = ToolType.Colisao, nome = "Collider2D", icone = "icon_collider2d_v2", etiqueta = "COMPONENTE", dica = "Deixa o objeto sólido: dá para pisar nele e ele bloqueia a passagem.", larguraChip = 110f },
+        new Ferramenta { tipo = ToolType.Movimento, nome = "Movimento", icone = "icon_movement_v2", etiqueta = "SCRIPT", dica = "Só funciona no seu personagem: faz ele andar para os lados.", larguraChip = 102f },
+        new Ferramenta { tipo = ToolType.Pulo, nome = "Pulo", icone = "icon_jump", etiqueta = "SCRIPT", dica = "Só funciona no seu personagem: faz ele pular.", larguraChip = 62f },
     };
 
     // Chips "Você tem" com 18 px numa grade 2x2 e
     // etiquetas COMPONENTE/SCRIPT com 16 px (antes 13 px e 10 px).
     private const float Pad = 16f, LarguraCartao = 118f, AlturaCartao = 140f, GapCartao = 12f, TopoCartoes = 56f;
     private const float FonteChip = 18f, AlturaChip = 30f, GapChip = 6f, XChips = Pad + 92f;
-    private const float FonteEtiqueta = 16f, AlturaEtiqueta = 22f;
+    // Etiqueta com 15 px e menos folga: com 16 px o "COMPONENTE" ocupava o cartão de ponta a ponta.
+    private const float FonteEtiqueta = 15f, AlturaEtiqueta = 22f, FonteSubtitulo = 17f;
     private static float LarguraPainel => Pad * 2 + LarguraCartao * 4 + GapCartao * 3;
     private static float AlturaPainel => TopoCartoes + AlturaCartao + Pad + 84f;
     private static float YLinhaVoceTem => -(TopoCartoes + AlturaCartao + Pad - 2f);
-    private static float LarguraEtiqueta(string texto) => texto.Length * 9.8f + 16f;
+    private static float LarguraEtiqueta(string texto) => texto.Length * 9.2f + 10f;
 
     [MenuItem("Tools/Aplicação/Chips e etiquetas do inventário maiores")]
     public static void AumentarTextosMenu()
@@ -88,6 +89,10 @@ public static class AplicacaoInventarioBuilder
         {
             PosicionarVoceTem(voceTem);
         }
+        if (painel.Find("Subtitulo") is RectTransform sub && sub.GetComponent<TMP_Text>() is TMP_Text tSub)
+        {
+            tSub.fontSize = FonteSubtitulo;
+        }
         for (int i = 0; i < Ferramentas.Length; i++)
         {
             if (painel.Find("Chip_" + Ferramentas[i].nome) is RectTransform chip)
@@ -100,7 +105,7 @@ public static class AplicacaoInventarioBuilder
             }
         }
         EditorSceneManager.MarkSceneDirty(scene);
-        Debug.Log("[AplicacaoInventarioBuilder] Chips (18 px) e etiquetas (16 px) ajustados; painel com " + AlturaPainel + " px de altura.");
+        Debug.Log("[AplicacaoInventarioBuilder] Chips (18 px), etiquetas (15 px) e subtítulo (17 px) ajustados; painel com " + AlturaPainel + " px de altura.");
     }
 
     private static void PosicionarVoceTem(RectTransform rt)
@@ -231,7 +236,7 @@ public static class AplicacaoInventarioBuilder
         // Cabeçalho
         Imagem(painel, "Marca", "inv_arredondado.png", ToolColors.Fisica, new Vector2(18f, -17f), new Vector2(22f, 22f), 3f);
         Rotulo(painel, "Titulo", "Inventário", "Nunito-ExtraBold SDF", 24, Texto, new Vector2(50f, -10f), new Vector2(150f, 34f), TextAlignmentOptions.MidlineLeft);
-        Rotulo(painel, "Subtitulo", "arraste até o objeto", "Nunito-Bold SDF", 16, TextoApagado, new Vector2(176f, -12f), new Vector2(200f, 32f), TextAlignmentOptions.MidlineLeft);
+        Rotulo(painel, "Subtitulo", "arraste até o objeto", "Nunito-Bold SDF", FonteSubtitulo, TextoApagado, new Vector2(176f, -12f), new Vector2(200f, 32f), TextAlignmentOptions.MidlineLeft);
         // "Segure [R] p/ recomeçar": a tecla é a atual da ação Reiniciar fase (RotuloTeclaUI).
         float kx = largura - pad - 120f;
         Rotulo(painel, "Segure", "segure", "Nunito-Bold SDF", 15, TextoApagado, new Vector2(kx - 58f, -12f), new Vector2(52f, 30f), TextAlignmentOptions.MidlineRight);

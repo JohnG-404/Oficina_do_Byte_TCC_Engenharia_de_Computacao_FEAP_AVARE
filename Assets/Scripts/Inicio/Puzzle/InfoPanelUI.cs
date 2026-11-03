@@ -53,6 +53,10 @@ public class InfoPanelUI : MonoBehaviour
     [Tooltip("Área da descrição dentro do painel, em % (0 a 1) da área útil.")]
     [SerializeField] private Rect defaultDescriptionArea = new Rect(0f, 0f, 1f, 0.62f);
 
+    [Header("Cartão de dica (opcional)")]
+    [Tooltip("Com um CartaoDica (Tools > Dicas > Aplicar cartão de dica), o painel vira o cartão amarelo: dica em âmbar, peça sob o mouse em azul, pronto em verde e erro em vermelho. Os textos e o ícone acima passam a ser do cartão.")]
+    [SerializeField] private CartaoDica cartao;
+
     [Header("Aviso de peça errada")]
     [SerializeField] private string avisoErroTitulo = "Essa peça não vai aqui.";
     [SerializeField] private string avisoErroTexto = "O código voltou ao começo.";
@@ -66,6 +70,8 @@ public class InfoPanelUI : MonoBehaviour
     private string pedidoTitulo = "";
     private string pedidoTexto = "";
     private Sprite pedidoIcone;
+    private bool pedidoPadrao = true;
+    private CartaoDica.Modo modoPadrao = CartaoDica.Modo.Dica;
 
     // Aviso de peça errada (fundo vermelho escuro, borda vermelha, ✕).
     private bool avisoAtivo;
@@ -214,14 +220,50 @@ public class InfoPanelUI : MonoBehaviour
     /// <summary>Mostra título + descrição + ícone de uma peça.</summary>
     public void ShowDescription(string title, string description, Sprite icon)
     {
+        Mostrar(title, description, icon, false);
+    }
+
+    private void Mostrar(string title, string description, Sprite icon, bool padrao)
+    {
         pedidoTitulo = title;
         pedidoTexto = description;
         pedidoIcone = icon;
+        pedidoPadrao = padrao;
         if (avisoAtivo) return;
 
+        if (cartao != null)
+        {
+            MostrarNoCartao();
+            return;
+        }
+
         if (titleText != null) titleText.text = title;
-        if (descriptionText != null) descriptionText.text = description;
+        if (descriptionText != null) descriptionText.text = CartaoDica.SemLocal(description);
         SetIcon(icon);
+    }
+
+    // Texto padrão = dica (ou "pronto"); o lugar vem antes da barra no texto
+    // ou, sem barra, do título quando ele não é só "Dica" (ex. "Regra 1").
+    private void MostrarNoCartao()
+    {
+        if (!pedidoPadrao)
+        {
+            cartao.Mostrar(CartaoDica.Modo.Peca, pedidoTitulo, pedidoTexto, pedidoIcone);
+            return;
+        }
+
+        CartaoDica.Separar(pedidoTexto, out string local, out string corpo);
+        if (modoPadrao == CartaoDica.Modo.Pronto)
+        {
+            cartao.Mostrar(CartaoDica.Modo.Pronto, "", corpo);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(local) && !string.IsNullOrEmpty(pedidoTitulo) && pedidoTitulo != "Dica")
+        {
+            local = pedidoTitulo;
+        }
+        cartao.Mostrar(CartaoDica.Modo.Dica, local, corpo);
     }
 
     /// <summary>
@@ -230,16 +272,26 @@ public class InfoPanelUI : MonoBehaviour
     /// </summary>
     public void DefinirPadrao(string title, string description)
     {
+        modoPadrao = CartaoDica.Modo.Dica;
         defaultTitle = title;
         defaultDescription = description;
         Clear();
         // (Durante o aviso de erro, Clear só guarda o pedido.)
     }
 
+    /// <summary>Como DefinirPadrao, mas é o texto de "tudo encaixado" (verde no cartão).</summary>
+    public void DefinirPronto(string title, string description)
+    {
+        modoPadrao = CartaoDica.Modo.Pronto;
+        defaultTitle = title;
+        defaultDescription = description;
+        Clear();
+    }
+
     /// <summary>Volta ao texto padrão (chamado quando o mouse sai da peça).</summary>
     public void Clear()
     {
-        ShowDescription(defaultTitle, defaultDescription, defaultIcon);
+        Mostrar(defaultTitle, defaultDescription, defaultIcon, true);
     }
 
     /// <summary>
@@ -253,11 +305,18 @@ public class InfoPanelUI : MonoBehaviour
         if (!avisoAtivo)
         {
             avisoAtivo = true;
-            AplicarVisualAviso(true);
+            if (cartao == null) AplicarVisualAviso(true);
         }
 
-        if (titleText != null) titleText.text = $"<b>{avisoErroTitulo}</b>";
-        if (descriptionText != null) descriptionText.text = avisoErroTexto;
+        if (cartao != null)
+        {
+            cartao.Mostrar(CartaoDica.Modo.Erro, "", $"{avisoErroTitulo} {avisoErroTexto}");
+        }
+        else
+        {
+            if (titleText != null) titleText.text = $"<b>{avisoErroTitulo}</b>";
+            if (descriptionText != null) descriptionText.text = avisoErroTexto;
+        }
 
         if (avisoRotina != null) StopCoroutine(avisoRotina);
         avisoRotina = isActiveAndEnabled ? StartCoroutine(EsperarAviso(segundos)) : null;
@@ -274,8 +333,8 @@ public class InfoPanelUI : MonoBehaviour
 
         if (!avisoAtivo) return;
         avisoAtivo = false;
-        AplicarVisualAviso(false);
-        ShowDescription(pedidoTitulo, pedidoTexto, pedidoIcone);
+        if (cartao == null) AplicarVisualAviso(false);
+        Mostrar(pedidoTitulo, pedidoTexto, pedidoIcone, pedidoPadrao);
     }
 
     private System.Collections.IEnumerator EsperarAviso(float segundos)

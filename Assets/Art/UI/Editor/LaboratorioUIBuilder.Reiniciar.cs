@@ -72,8 +72,15 @@ public static partial class LaboratorioUIBuilder
         t.SetSiblingIndex(pausa.Find("ContinuarButton").GetSiblingIndex() + 1);
 
         Button b = BotaoPainel(pausa, "ReiniciarButton", "secundario", "Reiniciar fase", "icone_reiniciar", 96);
+        // O texto fica com a mesma área dos outros botões (centrado igual a eles);
+        // "Reiniciar fase" é curto e não chega no chip da tecla.
         var label = (RectTransform)t.Find("Label");
-        label.offsetMax = new Vector2(-96, 0); // espaço pro chip da tecla
+        var labelModelo = (RectTransform)pausa.Find("ConfiguracoesButton/Label");
+        if (labelModelo != null)
+        {
+            label.offsetMin = labelModelo.offsetMin;
+            label.offsetMax = labelModelo.offsetMax;
+        }
 
         RectTransform chip = ChipTecla(t, "Tecla", "R", 26);
         Pos(chip, new Vector2(1, 0.5f), new Vector2(1, 0.5f), new Vector2(1, 0.5f), new Vector2(-24, 0), new Vector2(56, 52));

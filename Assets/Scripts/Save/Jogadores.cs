@@ -22,7 +22,7 @@ using UnityEngine;
 /// agora?" antes de Jogar/Continuar, pra um aluno não seguir o progresso do
 /// outro sem querer. Sem jogador escolhido (ex.: fase aberta direto no
 /// Editor), o progresso usa o arquivo antigo Save/progresso.json, que também
-/// aparece na lista como "Sem nome (antigo)" quando tem progresso de verdade.
+/// aparece na lista como "Sem nome" quando tem progresso de verdade.
 /// Fora de uma fase, nada é salvo sem jogador (ver ProgressoJogo.Salvar).
 /// Nada é apagado nem movido.
 ///
@@ -49,7 +49,7 @@ public static class Jogadores
         {
             get
             {
-                if (id == IdAntigo) return "Sem nome (antigo)";
+                if (id == IdAntigo) return "Sem nome";
                 return anonimo ? $"Jogador {numero:000}" : apelido;
             }
         }

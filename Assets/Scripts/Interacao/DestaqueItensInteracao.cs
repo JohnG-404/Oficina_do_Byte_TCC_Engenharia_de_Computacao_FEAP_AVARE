@@ -146,10 +146,13 @@ public class DestaqueItensInteracao : MonoBehaviour
 
             InteractableItem item = e.item;
             bool mostrar = liberado && item != null && item.isActiveAndEnabled && item.IsConfigured;
+            // Item em que o robô sobe (pular em cima, ficar em cima): a etiqueta vai
+            // pra baixo dele, senão o robô parado ali fica bem em cima do texto.
+            bool embaixo = e.embaixo || (mostrar && RoboSobeNoItem(item.ChosenAction));
             Vector2 local = Vector2.zero;
             if (mostrar)
             {
-                Vector3 ancora = e.embaixo ? BaseDoItem(item) : TopoDoItem(item);
+                Vector3 ancora = embaixo ? BaseDoItem(item) : TopoDoItem(item);
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(pai, cam.WorldToScreenPoint(ancora), CameraDaUi(), out local);
                 // Com manterNaTela, item fora da tela não deixa etiqueta grudada na borda.
                 mostrar = !manterNaTela || (local.x >= tela.xMin && local.x <= tela.xMax);
@@ -177,8 +180,19 @@ public class DestaqueItensInteracao : MonoBehaviour
                 x = Mathf.Clamp(x, tela.xMin + margemEtiqueta + meia, Mathf.Max(tela.xMin + margemEtiqueta + meia, tela.xMax - margemEtiqueta - meia));
             }
 
-            float y = e.embaixo ? local.y - folgaEtiqueta : local.y + folgaEtiqueta;
+            // Pelo retângulo, não pelo pivô: a mesma etiqueta pode ir pra cima ou pra baixo do item.
+            Rect r = e.raiz.rect;
+            float y = embaixo ? local.y - folgaEtiqueta - r.yMax : local.y + folgaEtiqueta - r.yMin;
+            // Item colado no teto (ou no chão): a etiqueta desce (ou sobe) até caber inteira.
+            y = Mathf.Min(y, tela.yMax - margemEtiqueta - r.yMax);
+            y = Mathf.Max(y, tela.yMin + margemEtiqueta - r.yMin);
             e.raiz.localPosition = new Vector3(x, y, 0f);
+
+            // Etiqueta de cima que foi pra baixo do item: a ponta passa pra borda de cima.
+            if (e.ponta == null && !e.embaixo)
+            {
+                VirarPonta(e.raiz, embaixo);
+            }
 
             // A ponta continua apontando pro item quando a etiqueta encosta na borda.
             if (e.ponta != null)
@@ -191,13 +205,25 @@ public class DestaqueItensInteracao : MonoBehaviour
 
             if (clarearAtrasDoJogador && e.grupo != null)
             {
-                Rect r = e.raiz.rect;
                 var area = new Rect(x + r.xMin, y + r.yMin, r.width, r.height);
                 float alvo = jogadorNaTela.width > 0f && area.Overlaps(jogadorNaTela) ? alfaAtrasDoJogador : 1f;
                 e.grupo.alpha = Mathf.MoveTowards(e.grupo.alpha, alvo, Time.unscaledDeltaTime * 6f);
             }
         }
     }
+
+    private static void VirarPonta(RectTransform raiz, bool emCima)
+    {
+        var ponta = raiz.Find("Ponta") as RectTransform;
+        if (ponta == null) return;
+        float ancora = emCima ? 1f : 0f;
+        if (Mathf.Approximately(ponta.anchorMin.y, ancora)) return;
+        ponta.anchorMin = ponta.anchorMax = new Vector2(0.5f, ancora);
+        ponta.anchoredPosition = new Vector2(ponta.anchoredPosition.x, emCima ? -1f : 1f);
+    }
+
+    private static bool RoboSobeNoItem(ActionType acao) =>
+        acao == ActionType.JumpOnTop || acao == ActionType.StayOnTop;
 
     // Retângulo do desenho do jogador no espaço do destaque.
     private Rect RetanguloDoJogador(RectTransform pai)
@@ -303,6 +329,16 @@ public class DestaqueItensInteracao : MonoBehaviour
             if (item != null && item.isActiveAndEnabled)
             {
                 return item;
+            }
+        }
+
+        // Item com o collider desligado (espinho afundado, plataforma caindo)
+        // não aparece no OverlapPoint, mas continua clicável pelo desenho.
+        foreach (Etiqueta e in etiquetas)
+        {
+            if (e.item != null && e.item.isActiveAndEnabled && e.item.ContemPonto(mundo))
+            {
+                return e.item;
             }
         }
 

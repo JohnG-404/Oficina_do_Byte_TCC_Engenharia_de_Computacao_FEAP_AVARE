@@ -799,7 +799,9 @@ public static partial class LaboratorioUIBuilder
         label.SetParent(conteudo, false);
         var txt = label.GetComponent<TMP_Text>();
         txt.text = rotulo;
-        Estilo(txt, fTitulo, 32, TextoSuave, TextAlignmentOptions.Midline);
+        // Center (pela altura da linha), não Midline (pelas letras): com Midline o
+        // "Jogo" (J e g descem) ficava uns 6 px acima do "Áudio" (acento sobe).
+        Estilo(txt, fTitulo, 32, TextoSuave, TextAlignmentOptions.Center);
         txt.textWrappingMode = TextWrappingModes.NoWrap;
 
         var aba = Garantir<AbaVisualUI>(t.gameObject);
@@ -1382,13 +1384,15 @@ public static partial class LaboratorioUIBuilder
 
         var titulo = (RectTransform)c.Find("Titulo");
         // Nome embaixo do cartão (no bloqueado o cadeado ocupa o meio do sprite).
-        Pos(titulo, new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0.5f, 1), new Vector2(0, -4), new Vector2(230, 56));
+        Pos(titulo, new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0.5f, 1), new Vector2(0, -4), new Vector2(280, 56));
         var tt = titulo.GetComponent<TMP_Text>();
         Estilo(tt, fTexto, 22, Texto, TextAlignmentOptions.Top);
         tt.enableAutoSizing = true;
         tt.fontSizeMin = 16;
         tt.fontSizeMax = 22;
-        tt.textWrappingMode = TextWrappingModes.Normal;
+        // Uma linha só, com 280 px (a coluna tem 296): "Animação quadro a quadro" e
+        // "IA: o cérebro do guarda" cabem em 22 px como os outros nomes.
+        tt.textWrappingMode = TextWrappingModes.NoWrap;
 
         foreach (string n in new[] { "Conceito", "Status" })
         {

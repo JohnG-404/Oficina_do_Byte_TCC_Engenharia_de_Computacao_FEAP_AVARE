@@ -231,14 +231,14 @@ public class OficinaAnimacaoHUD : MonoBehaviour
 
         Definir(textoContagem, $"{indice + 1} / {Mathf.Max(total, indice + 1)}");
         Definir(textoTituloRodada, rodada.Titulo);
-        Definir(textoFrames, $"{frames} frames");
+        Definir(textoFrames, $"{frames} quadros");
         Definir(textoIscas, iscas == 1 ? "1 não faz parte" : $"{iscas} não fazem parte");
         Definir(textoFps, $"{Mathf.RoundToInt(fps)} FPS");
         DefinirComoJogar(rodada.TemFixos
-            ? "<b>Falta um frame!</b>\nOs outros já estão no lugar. Ache o que falta."
+            ? "<b>Falta um quadro!</b>\nOs outros já estão no lugar. Ache o que falta."
             : rodada.primeiroFrameTravado
-            ? "<b>É um loop!</b>\nO frame 1 já está no lugar. Monte o resto do ciclo."
-            : "<b>Arraste ou clique</b>\nArraste cada frame da bandeja até a linha do tempo, ou só clique nele. Clique num frame encaixado para devolver.");
+            ? "<b>É um loop!</b>\nEssa animação repete sem parar. O quadro 1 já está no lugar: monte o resto da volta."
+            : "<b>Arraste ou clique</b>\nArraste cada quadro da bandeja até a linha do tempo, ou só clique nele. Clique num quadro encaixado para devolver.");
         EstadoPrevia(false);
     }
 

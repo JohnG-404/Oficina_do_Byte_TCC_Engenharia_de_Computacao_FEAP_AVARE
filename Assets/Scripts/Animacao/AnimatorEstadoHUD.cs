@@ -86,7 +86,9 @@ public class AnimatorEstadoHUD : MonoBehaviour
     private void Montar(RectTransform raiz, string titulo)
     {
         Vector2 tamDiagrama = AnimatorDiagramaUI.Tamanho(comAgachar) * Escala;
-        var tamPainel = new Vector2(tamDiagrama.x + 30f, tamDiagrama.y + 100f);
+        // Com o agachar a caixa AndarAgachado passa da borda direita do diagrama: painel um pouco mais largo.
+        float folgaLateral = comAgachar ? 60f : 30f;
+        var tamPainel = new Vector2(tamDiagrama.x + folgaLateral, tamDiagrama.y + 100f);
 
         // Canto superior direito (onde ficava o antigo inventário de animações).
         RectTransform painel = VidaUI.CaixaComBorda(raiz, "PainelAnimator", Vector2.zero, tamPainel, VidaUI.Moldura, VidaUI.Fundo);
@@ -98,7 +100,7 @@ public class AnimatorEstadoHUD : MonoBehaviour
         VidaUI.Centro(VidaUI.NovoTexto(painel, "Titulo", titulo, 20, VidaUI.Amarelo, TextAlignmentOptions.Left, FontStyles.Bold).rectTransform,
             new Vector2(0f, tamPainel.y * 0.5f - 22f), new Vector2(tamPainel.x - 24f, 28f));
 
-        diagrama = AnimatorDiagramaUI.Criar(painel, new Vector2(0f, 2f), Escala, false, comAgachar);
+        diagrama = AnimatorDiagramaUI.Criar(painel, new Vector2(comAgachar ? -10f : 0f, 2f), Escala, false, comAgachar);
 
         parametros = VidaUI.NovoTexto(painel, "Parametros", "", 17, VidaUI.TextoApagado, TextAlignmentOptions.Center);
         VidaUI.Centro(parametros.rectTransform, new Vector2(0f, -tamPainel.y * 0.5f + 22f), new Vector2(tamPainel.x - 20f, 26f));

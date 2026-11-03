@@ -400,9 +400,14 @@ MonoBehaviour:
   lateralLaunchDuration: 0.45
   laserOffSeconds: 3
   doorOpenSeconds: 5
+  lampOnSeconds: 5
   effectSeconds: 3
   sinkSeconds: 3
   stayOnTopSeconds: 1
+  comecaConfigurado: 0
+  acaoInicial: 7
+  consequenciaInicial: 7
+  repetirInicial: 1
   proximityRadius: 1.6
   topZoneHeight: 0.4
 --- !u!212 &5617528
@@ -6421,11 +6426,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjetivoFase
   etapas:
   - titulo: "Configure um objeto: A\xE7\xE3o e Consequ\xEAncia"
-    dica: Clique num objeto da sala.
+    dica: Clique em um objeto da sala para escolher o que ele faz.
   - titulo: "Teste a combina\xE7\xE3o no objeto"
     dica: "V\xE1 at\xE9 ele e fa\xE7a a a\xE7\xE3o que voc\xEA escolheu."
   - titulo: "Abra o caminho at\xE9 a sa\xEDda"
-    dica: "Combine a\xE7\xF5es e consequ\xEAncias at\xE9 liberar a passagem."
+    dica: "Teste combina\xE7\xF5es: uma a\xE7\xE3o (o que voc\xEA faz) e uma consequ\xEAncia
+      (o que acontece) at\xE9 abrir a passagem."
   - titulo: "Chegue \xE0 porta de sa\xEDda"
     dica: Clique na porta e escolha Passar a fase.
   segundosGrande: 3.5
@@ -7786,9 +7792,14 @@ MonoBehaviour:
   lateralLaunchDuration: 0.45
   laserOffSeconds: 3
   doorOpenSeconds: 5
+  lampOnSeconds: 5
   effectSeconds: 3
   sinkSeconds: 3
   stayOnTopSeconds: 1
+  comecaConfigurado: 0
+  acaoInicial: 7
+  consequenciaInicial: 7
+  repetirInicial: 1
   proximityRadius: 1.6
   topZoneHeight: 0.4
 --- !u!1 &449595623
@@ -15530,9 +15541,14 @@ MonoBehaviour:
   lateralLaunchDuration: 0.45
   laserOffSeconds: 3
   doorOpenSeconds: 5
+  lampOnSeconds: 5
   effectSeconds: 3
   sinkSeconds: 3
   stayOnTopSeconds: 1
+  comecaConfigurado: 0
+  acaoInicial: 7
+  consequenciaInicial: 7
+  repetirInicial: 1
   proximityRadius: 1.6
   topZoneHeight: 0.4
 --- !u!212 &826041883
@@ -17980,7 +17996,7 @@ MonoBehaviour:
   rulesRowsRoot: {fileID: 315261370}
   whoActivatesLabel: 'Quem ativa:'
   whoActivatesChip: tag Player
-  whoActivatesHint: inimigos e caixas passam sem ativar
+  whoActivatesHint: "s\xF3 o seu personagem ativa; inimigos e caixas n\xE3o"
   repeatLabel: 'Repetir:'
   repeatOnceText: Uma vez
   repeatAlwaysText: Sempre
@@ -25285,9 +25301,14 @@ MonoBehaviour:
   lateralLaunchDuration: 0.45
   laserOffSeconds: 3
   doorOpenSeconds: 5
+  lampOnSeconds: 5
   effectSeconds: 3
   sinkSeconds: 3
   stayOnTopSeconds: 1
+  comecaConfigurado: 0
+  acaoInicial: 7
+  consequenciaInicial: 7
+  repetirInicial: 1
   proximityRadius: 1.6
   topZoneHeight: 0.4
 --- !u!1 &1284505306
@@ -27082,7 +27103,8 @@ MonoBehaviour:
   firstConfigHint: "Boa! Agora vai l\xE1 testar."
   firstDoorHint: "Show! Essa combina\xE7\xE3o funcionou."
   firstRestartHint: "N\xE3o foi dessa vez. Vamos tentar de novo!"
-  firstDamageHint: Ai! Cada armadilha tira vida. Fica de olho nos quadrados.
+  firstDamageHint: Ai! Cada armadilha tira vida. Fique de olho nos quadrados de vida
+    no canto da tela.
   firstHealHint: Vida recuperada!
   restartHintDelay: 0.8
   completeUI: {fileID: 1052003711}
@@ -29191,7 +29213,7 @@ Transform:
   m_GameObject: {fileID: 1486433557}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1.28, y: 1.28, z: 1.28}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -32802,7 +32824,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Clique num objeto da sala.
+  m_text: Clique em um objeto da sala para escolher o que ele faz.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 20df2e46e7604674ab7bd14c6ac9670b, type: 2}
   m_sharedMaterial: {fileID: 2019188368789200677, guid: 20df2e46e7604674ab7bd14c6ac9670b, type: 2}
@@ -35486,9 +35508,14 @@ MonoBehaviour:
   lateralLaunchDuration: 0.45
   laserOffSeconds: 3
   doorOpenSeconds: 5
+  lampOnSeconds: 5
   effectSeconds: 3
   sinkSeconds: 3
   stayOnTopSeconds: 1
+  comecaConfigurado: 0
+  acaoInicial: 7
+  consequenciaInicial: 7
+  repetirInicial: 1
   proximityRadius: 1.6
   topZoneHeight: 0.4
 --- !u!212 &1743125236
@@ -41645,9 +41672,14 @@ MonoBehaviour:
   lateralLaunchDuration: 0.45
   laserOffSeconds: 3
   doorOpenSeconds: 5
+  lampOnSeconds: 5
   effectSeconds: 3
   sinkSeconds: 3
   stayOnTopSeconds: 1
+  comecaConfigurado: 0
+  acaoInicial: 7
+  consequenciaInicial: 7
+  repetirInicial: 1
   proximityRadius: 1.6
   topZoneHeight: 0.4
 --- !u!1 &2048164350
@@ -42034,9 +42066,14 @@ MonoBehaviour:
   lateralLaunchDuration: 0.45
   laserOffSeconds: 3
   doorOpenSeconds: 5
+  lampOnSeconds: 5
   effectSeconds: 3
   sinkSeconds: 3
   stayOnTopSeconds: 1
+  comecaConfigurado: 0
+  acaoInicial: 7
+  consequenciaInicial: 7
+  repetirInicial: 1
   proximityRadius: 1.6
   topZoneHeight: 0.4
 --- !u!114 &2050584771
@@ -42529,9 +42566,14 @@ MonoBehaviour:
   lateralLaunchDuration: 0.45
   laserOffSeconds: 3
   doorOpenSeconds: 5
+  lampOnSeconds: 5
   effectSeconds: 3
   sinkSeconds: 3
   stayOnTopSeconds: 1
+  comecaConfigurado: 0
+  acaoInicial: 7
+  consequenciaInicial: 7
+  repetirInicial: 1
   proximityRadius: 1.6
   topZoneHeight: 0.4
 --- !u!114 &2080635192

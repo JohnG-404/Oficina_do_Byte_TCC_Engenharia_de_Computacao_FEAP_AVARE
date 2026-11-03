@@ -101,11 +101,13 @@ public static class InteracaoVidaTerrenoBuilder
                 var so = new SerializedObject(follow);
                 so.FindProperty("followVertical").boolValue = true;
                 so.FindProperty("useBounds").boolValue = true;
-                so.FindProperty("minPosition").vector2Value = new Vector2(7.7f, 2.2f);
+                // y 3.0: a sala fica no meio da tela (com 2.2 sobrava um quarto de chão
+                // liso embaixo e a faixa de objetivo encostava no laser do teto).
+                so.FindProperty("minPosition").vector2Value = new Vector2(7.7f, 3.0f);
                 so.FindProperty("maxPosition").vector2Value = new Vector2(28.3f, 3.4f);
                 so.ApplyModifiedPropertiesWithoutUndo();
             }
-            cam.transform.position = new Vector3(7.7f, 2.2f, cam.transform.position.z);
+            cam.transform.position = new Vector3(7.7f, 3.0f, cam.transform.position.z);
         }
 
         EditorSceneManager.MarkSceneDirty(cena);

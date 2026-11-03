@@ -29,7 +29,7 @@ public static class NovasInteracoesTool
             consequencias = new[] { ConsequenceType.ReturnToSafePoint, ConsequenceType.SinkIntoGround } } },
         { "Vida", new Extras {
             acoes = new[] { ActionType.RequiresMissingHealth },
-            consequencias = new[] { ConsequenceType.ShieldForSeconds, ConsequenceType.IncreaseMaxHealth } } },
+            consequencias = new[] { ConsequenceType.HealOneHeart, ConsequenceType.IncreaseMaxHealth } } },
         { "Vida Falsa", new Extras {
             acoes = new[] { ActionType.RequiresMissingHealth },
             consequencias = new[] { ConsequenceType.SlowPlayer, ConsequenceType.InvertControls } } },

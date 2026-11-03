@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>
@@ -16,8 +17,9 @@ using UnityEngine.UI;
 /// do jeito errado, e o jogador vê o resultado ao fechar.
 ///
 /// Montado em runtime (Canvas próprio), como o CodigoMontadoUI — a cena só
-/// precisa de um EventSystem. Fecha pelo botão "Fechar" ou clicando fora da
-/// janela (Esc fica com o menu de pausa).
+/// precisa de um EventSystem. Fecha pelo botão "Fechar", pelo Esc (a pausa
+/// não abre junto, ver PauseMenuUI.EscDeOutraJanela) ou clicando fora da
+/// janela.
 /// </summary>
 public class IADiagramaUI : MonoBehaviour
 {
@@ -26,6 +28,9 @@ public class IADiagramaUI : MonoBehaviour
 
     /// <summary>Frame em que o painel fechou (evita reabrir com o mesmo clique).</summary>
     public static int FrameFechado { get; private set; } = -1;
+
+    /// <summary>True com o painel aberto e no frame em que fechou — pra o Esc não abrir a pausa junto.</summary>
+    public static bool SegurandoEsc => EstaAberto || Time.frameCount == FrameFechado;
 
     /// <summary>(cérebro, encaixe, id da opção) — disparado a cada condição encaixada.</summary>
     public static event Action<ICerebroConfiguravel, int, string> OnConfigAlterada;
@@ -143,6 +148,14 @@ public class IADiagramaUI : MonoBehaviour
     {
         if (!aberto)
         {
+            return;
+        }
+
+        // Esc fecha só o painel (com a pausa aberta por cima, o Esc é dela).
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame
+            && (PauseMenuUI.Instance == null || !PauseMenuUI.Instance.PausaAberta))
+        {
+            FecharPainel();
             return;
         }
 
@@ -332,7 +345,7 @@ public class IADiagramaUI : MonoBehaviour
         b.colors = cores;
         b.onClick.AddListener(FecharPainel);
 
-        TMP_Text t = NovoTexto(img.rectTransform, "Texto", "Fechar", 26f, FontStyles.Bold, CorTexto, TextAlignmentOptions.Center);
+        TMP_Text t = NovoTexto(img.rectTransform, "Texto", "Fechar  <size=80%><color=#8A97AD>Esc</color></size>", 26f, FontStyles.Bold, CorTexto, TextAlignmentOptions.Center);
         Esticar(t.rectTransform, 0f);
     }
 

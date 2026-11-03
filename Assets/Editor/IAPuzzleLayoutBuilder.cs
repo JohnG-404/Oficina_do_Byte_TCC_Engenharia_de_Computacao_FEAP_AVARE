@@ -123,9 +123,9 @@ public static class IAPuzzleLayoutBuilder
             linhas = new[] { $"<color={CorTy}>Patrulhar</color>", $"<color={CorTy}>Perseguir</color>", $"<color={CorTy}>Atacar</color>" },
             dicas = new[]
             {
-                "Patrulhar: o que o guarda faz enquanto não vê ninguém?",
-                "Perseguir: como o guarda vai atrás do jogador?",
-                "Atacar: o que o guarda faz quando alcança o jogador?",
+                "Patrulhar (vigiar)|O que o guarda faz enquanto não vê ninguém?",
+                "Perseguir|Como o guarda vai atrás de você?",
+                "Atacar|O que o guarda faz quando te alcança?",
             },
         },
         new Info
@@ -136,10 +136,10 @@ public static class IAPuzzleLayoutBuilder
             linhas = new[] { Seta("Patrulhar", "Perseguir"), Seta("Perseguir", "Patrulhar"), Seta("Perseguir", "Atacar"), Seta("Atacar", "Perseguir") },
             dicas = new[]
             {
-                "Regra 1: o que faz o guarda começar a perseguir?",
-                "Regra 2: quando o guarda desiste?",
-                "Regra 3: quando dá pra atacar?",
-                "Regra 4: quando ele para de atacar e volta a perseguir?",
+                "Regra 1 · Patrulhar → Perseguir|Quando o guarda começa a correr atrás de você?",
+                "Regra 2 · Perseguir → Patrulhar|Quando o guarda desiste e volta a vigiar?",
+                "Regra 3 · Perseguir → Atacar|Em que momento o guarda consegue te atacar?",
+                "Regra 4 · Atacar → Perseguir|Quando ele para de atacar e volta a correr atrás de você?",
             },
         },
         new Info
@@ -150,7 +150,7 @@ public static class IAPuzzleLayoutBuilder
             linhas = new[] { Seta("Patrulhar", "Perseguir"), Seta("Perseguir", "Patrulhar"), Seta("Perseguir", "Atacar"), Seta("Atacar", "Perseguir") },
             dicas = new[]
             {
-                "Dica: lembre o que o guarda fez quando você estava atrás da parede. Qual das quatro regras deixou ele te ver? Troque a peça dessa regra.",
+                "Conserto|Você estava atrás da parede e mesmo assim o guarda te viu. Qual das quatro regras deixou isso acontecer? Troque a peça dela.",
             },
         },
     };

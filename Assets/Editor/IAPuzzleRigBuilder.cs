@@ -171,7 +171,7 @@ public static class IAPuzzleRigBuilder
             depuracao = true,
             zoneIds = new[] { 1 },
             preview = IAPuzzlePreview.Modo.Raycast,
-            dica = "Dica: lembre o que o guarda fez quando você estava atrás da parede. Qual das quatro regras deixou ele te ver? Troque a peça dessa regra.",
+            dica = "Conserto|Você estava atrás da parede e mesmo assim o guarda te viu. Qual das quatro regras deixou isso acontecer? Troque a peça dela.",
             pecas = new[]
             {
                 new PecaDef { key = "raycast", rotulo = "Physics2D.Raycast", rotuloUnity = "", id = 1, art = "isgrounded",

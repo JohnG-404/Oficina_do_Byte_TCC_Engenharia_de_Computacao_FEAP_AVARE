@@ -128,6 +128,22 @@ public class Questionario : MonoBehaviour
     private const float AlturaJanela = 920f;
     private const float MargemX = 80f;
 
+    // Título das perguntas: faixa de 2 linhas na fonte 50. Enunciado que
+    // passa disso (ex.: pergunta 9, 3 linhas) ganha a versão "longa": fonte
+    // um pouco menor, faixa de 3 linhas e opções mais baixas, pra caber tudo
+    // sem a 3ª linha ficar escondida atrás da opção A.
+    private const float TopoTitulo = 50f;
+    private const float AlturaTitulo = 136f;
+    private const float AlturaTituloLongo = 192f;
+    private const float FonteTitulo = 50f;
+    private const float FonteTituloLongo = 42f;
+    private const float TopoOpcoes = 200f;
+    private const float AlturaOpcao = 96f;
+    private const float AlturaOpcaoCompacta = 84f;
+    private const float EspacoOpcoes = 16f;
+    private const float EspacoOpcoesCompacto = 12f;
+    private float alturaOpcaoAtual = AlturaOpcao;
+
     private Modo modo;
     // Pós-teste aberto pelo modo professor (Ctrl+Shift+U na Seleção) antes de
     // todas as fases concluídas: a abertura avisa e a nota sai marcada no CSV.
@@ -289,6 +305,7 @@ public class Questionario : MonoBehaviour
         placa.text = modo == Modo.Pre ? "Questionário inicial" : "Questionário final";
         cabecalho.text = modo == Modo.Pre ? "QUESTIONÁRIO · ANTES DO JOGO" : "QUESTIONÁRIO · DEPOIS DO JOGO";
         titulo.text = modo == Modo.Pre ? "Antes de começar" : "Última parada";
+        LayoutDoTitulo(false);
         titulo.fontSize = 76f;
         corpo.text = modo == Modo.Pre
             ? $"São {perguntas.Length} perguntas rápidas sobre o que você vai ver no jogo. Não vale nota: elas servem só pra comparar com o que você sabe no final."
@@ -327,7 +344,11 @@ public class Questionario : MonoBehaviour
 
         cabecalho.text = $"PERGUNTA {atual + 1} DE {perguntas.Length} · {p.bloco.ToUpperInvariant()}";
         titulo.text = p.enunciado;
-        titulo.fontSize = 50f;
+        titulo.fontSize = FonteTitulo;
+        // Mede na largura do conteúdo, que não muda (a faixa estica na horizontal).
+        float largura = LarguraJanela - MargemX * 2f;
+        bool longo = titulo.GetPreferredValues(p.enunciado, largura, 0f).y > AlturaTitulo + 20f;
+        LayoutDoTitulo(longo);
         corpo.gameObject.SetActive(false);
         botaoPrincipal.gameObject.SetActive(false);
 
@@ -454,6 +475,7 @@ public class Questionario : MonoBehaviour
         placa.text = "Questionário final";
         cabecalho.text = modoProfessor ? "RESULTADO · MODO PROFESSOR" : "FIM DO JOGO";
         titulo.text = "Resultado";
+        LayoutDoTitulo(false);
         titulo.fontSize = 64f;
         corpo.gameObject.SetActive(false);
         if (modoProfessor)
@@ -556,7 +578,7 @@ public class Questionario : MonoBehaviour
 
         titulo = TemaLabUI.Texto(conteudo, "Titulo", "", 50f, TemaLabUI.CorTexto, TemaLabUI.Fonte.Display, TextAlignmentOptions.TopLeft);
         titulo.lineSpacing = -24f;
-        Faixa(titulo.rectTransform, 50f, 136f);
+        Faixa(titulo.rectTransform, TopoTitulo, AlturaTitulo);
 
         corpo = TemaLabUI.Texto(conteudo, "Corpo", "", 33f, TemaLabUI.TextoSuave, TemaLabUI.Fonte.Corpo, TextAlignmentOptions.TopLeft);
         corpo.lineSpacing = 14f;
@@ -587,9 +609,9 @@ public class Questionario : MonoBehaviour
         opcoesRoot.anchorMin = new Vector2(0f, 0f);
         opcoesRoot.anchorMax = new Vector2(1f, 1f);
         opcoesRoot.offsetMin = new Vector2(0f, 136f);
-        opcoesRoot.offsetMax = new Vector2(0f, -200f);
+        opcoesRoot.offsetMax = new Vector2(0f, -TopoOpcoes);
         var layout = opcoesRoot.gameObject.AddComponent<VerticalLayoutGroup>();
-        layout.spacing = 16f;
+        layout.spacing = EspacoOpcoes;
         layout.childAlignment = TextAnchor.UpperCenter;
         layout.childControlHeight = true;
         layout.childControlWidth = true;
@@ -643,6 +665,26 @@ public class Questionario : MonoBehaviour
         faixa.gameObject.SetActive(false);
     }
 
+    // Versão normal (2 linhas) ou longa (3 linhas) do título das perguntas.
+    // Na longa a fonte encolhe sozinha se ainda assim não couber.
+    private void LayoutDoTitulo(bool longo)
+    {
+        float altura = longo ? AlturaTituloLongo : AlturaTitulo;
+        Faixa(titulo.rectTransform, TopoTitulo, altura);
+        titulo.enableAutoSizing = longo;
+        if (longo)
+        {
+            titulo.fontSizeMax = FonteTituloLongo;
+            titulo.fontSizeMin = 32f;
+            titulo.fontSize = FonteTituloLongo;
+        }
+
+        float empurrao = longo ? altura - AlturaTitulo : 0f;
+        opcoesRoot.offsetMax = new Vector2(0f, -(TopoOpcoes + empurrao));
+        opcoesRoot.GetComponent<VerticalLayoutGroup>().spacing = longo ? EspacoOpcoesCompacto : EspacoOpcoes;
+        alturaOpcaoAtual = longo ? AlturaOpcaoCompacta : AlturaOpcao;
+    }
+
     // Faixa horizontal que ocupa a largura do conteúdo, a partir do topo.
     private static void Faixa(RectTransform rect, float topo, float altura)
     {
@@ -688,8 +730,8 @@ public class Questionario : MonoBehaviour
     {
         Button button = TemaLabUI.Linha(opcoesRoot, "Opcao");
         var element = button.gameObject.AddComponent<LayoutElement>();
-        element.minHeight = 96f;
-        element.preferredHeight = 96f;
+        element.minHeight = alturaOpcaoAtual;
+        element.preferredHeight = alturaOpcaoAtual;
 
         var linha = button.gameObject.AddComponent<HorizontalLayoutGroup>();
         linha.padding = new RectOffset(28, 32, 10, 10);
@@ -794,7 +836,7 @@ public class Questionario : MonoBehaviour
         float wTabela = largura - xTabela;
         RectTransform cab = TemaLabUI.Novo(resultadoRoot, "CabecalhoTabela");
         Caixa(cab, xTabela, 150f, wTabela, 40f);
-        LinhaTabela(cab, "BLOCO", "ANTES", "DEPOIS", "DE", true);
+        LinhaTabela(cab, "BLOCO", "ANTES", "DEPOIS", "TOTAL", true);
 
         float y = 196f;
         foreach (string bloco in ordemDosBlocos)
@@ -933,9 +975,10 @@ public class Questionario : MonoBehaviour
         }
 
         Coluna("Bloco", bloco, 20f, 300f, TextAlignmentOptions.MidlineLeft, cor);
-        Coluna("Antes", antes, 330f, 80f, TextAlignmentOptions.Center, cor);
-        Coluna("Seta", cabecalhoTabela ? "" : "→", 410f, 40f, TextAlignmentOptions.Center, TemaLabUI.TextoSuave);
-        Coluna("Depois", depois, 450f, 90f, TextAlignmentOptions.Center, cor);
+        // Antes/seta/depois um pouco à esquerda: o cabeçalho "TOTAL" é mais largo que o antigo "DE".
+        Coluna("Antes", antes, 310f, 80f, TextAlignmentOptions.Center, cor);
+        Coluna("Seta", cabecalhoTabela ? "" : "→", 390f, 40f, TextAlignmentOptions.Center, TemaLabUI.TextoSuave);
+        Coluna("Depois", depois, 430f, 90f, TextAlignmentOptions.Center, cor);
         Coluna("Total", total, 540f, 80f, TextAlignmentOptions.Center, cabecalhoTabela ? cor : TemaLabUI.TextoSuave);
     }
 

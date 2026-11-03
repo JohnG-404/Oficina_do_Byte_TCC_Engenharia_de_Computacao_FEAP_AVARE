@@ -168,7 +168,7 @@ public class IAFlow : MonoBehaviour, IDialogueListener, IPuzzleListener, IReinic
     [Tooltip("Dica mostrada no painel Descrição quando a regra errada fica vermelha.")]
     [TextArea(2, 4)]
     [SerializeField]
-    private string dicaRegraErrada = "A regra 1 está em vermelho. Compare o que ela mede com o que aconteceu quando você estava atrás da parede.";
+    private string dicaRegraErrada = "A regra 1 ficou vermelha. Pense: ela olha se tem uma parede no meio do caminho?";
 
     // Progresso sobrevive ao recarregamento da própria fase (vida zerou) e é
     // zerado quando o jogador chega vindo de outra cena.

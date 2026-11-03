@@ -66,17 +66,25 @@ public class CameraFollow : MonoBehaviour
             return;
         }
 
-        float targetY = followVertical ? target.position.y + offset.y : lockedY;
-        Vector3 desired = new Vector3(target.position.x + offset.x, targetY, transform.position.z);
-        Vector3 smoothed = Vector3.SmoothDamp(transform.position, desired, ref velocity, smoothTime, maxSpeed);
+        Vector3 smoothed = Vector3.SmoothDamp(transform.position, DesiredPosition(), ref velocity, smoothTime, maxSpeed);
+        transform.position = ClampToBounds(smoothed);
+    }
 
+    private Vector3 DesiredPosition()
+    {
+        float targetY = followVertical ? target.position.y + offset.y : lockedY;
+        return new Vector3(target.position.x + offset.x, targetY, transform.position.z);
+    }
+
+    private Vector3 ClampToBounds(Vector3 position)
+    {
         if (useBounds)
         {
-            smoothed.x = Mathf.Clamp(smoothed.x, minPosition.x, maxPosition.x);
-            smoothed.y = Mathf.Clamp(smoothed.y, minPosition.y, maxPosition.y);
+            position.x = Mathf.Clamp(position.x, minPosition.x, maxPosition.x);
+            position.y = Mathf.Clamp(position.y, minPosition.y, maxPosition.y);
         }
 
-        transform.position = smoothed;
+        return position;
     }
 
     /// <summary>Define o alvo em runtime — útil se o Player só existir depois da câmera (ex: instanciado por outro sistema).</summary>
@@ -101,5 +109,20 @@ public class CameraFollow : MonoBehaviour
     {
         velocity = Vector3.zero;
         enabled = true;
+    }
+
+    /// <summary>
+    /// Volta a seguir o alvo já posicionada em cima dele, sem a viagem suave
+    /// desde o ponto do <see cref="FocarEm"/> — usado quando o personagem vai
+    /// fazer algo logo em seguida que o jogador precisa ver (ex: cair depois
+    /// do puzzle de Física).
+    /// </summary>
+    public void RetomarNoAlvo()
+    {
+        Retomar();
+        if (target != null)
+        {
+            transform.position = ClampToBounds(DesiredPosition());
+        }
     }
 }

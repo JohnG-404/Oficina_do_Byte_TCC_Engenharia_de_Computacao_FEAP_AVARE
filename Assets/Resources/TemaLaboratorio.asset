@@ -62,6 +62,11 @@ MonoBehaviour:
   puzzleLampada: {fileID: 21300000, guid: cb62c0604484ccb40949c5f15d77a487, type: 3}
   puzzleCaixa: {fileID: 21300000, guid: a9eb8c2277919a04fb2d170d3ca1ec21, type: 3}
   puzzleChaoPrevia: {fileID: 4487131665376978724, guid: 880341cadfc4e0e47855cef5ee212aba, type: 3}
+  dicaFundo: {fileID: 21300000, guid: f580e3e94b52f3448b7d59d7d4e09b6f, type: 3}
+  dicaBorda: {fileID: 21300000, guid: d2c9d478697fac94390aa35f99174c8c, type: 3}
+  dicaBrilho: {fileID: 21300000, guid: 3157d6fd6da8e8b4fb26f6495ebb23b0, type: 3}
+  dicaCirculo: {fileID: 21300000, guid: 0cd47c2d924a9b04094ef33991ffec8c, type: 3}
+  dicaAnel: {fileID: 21300000, guid: 9f75390d0bb678b48acb4c30daae36e4, type: 3}
   display: {fileID: 11400000, guid: 2073358de46f8c24e91b6cc15cd3dabc, type: 2}
   corpo: {fileID: 11400000, guid: 20df2e46e7604674ab7bd14c6ac9670b, type: 2}
   corpoForte: {fileID: 11400000, guid: 3bf69f56b14386a41a6237f5e1b1a5a3, type: 2}

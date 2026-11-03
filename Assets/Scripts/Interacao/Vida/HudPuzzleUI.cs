@@ -83,9 +83,9 @@ public class HudPuzzleUI : MonoBehaviour
 
         [Header("Dica")]
         [Tooltip("Linha apagada embaixo da Dica.")]
-        public string instrucao = "Arraste cada peça até o encaixe certo. Passe o mouse numa peça pra ler aqui o que ela faz.";
+        public string instrucao = CartaoDica.RodapePadrao;
         public string descricaoTitulo = "Dado, evento, tela";
-        [TextArea(2, 4)] public string descricaoPadrao = "O dado muda, o evento avisa, a tela redesenha. A barra só mostra a vida nova se alguém avisar ela.";
+        [TextArea(2, 4)] public string descricaoPadrao = "O dado muda, o evento avisa, a tela redesenha. A barra só mostra a vida nova se alguém avisar.";
         public string erroTitulo = "Essa peça não entra aí";
         [TextArea(2, 4)] public string erroTexto = "O puzzle recomeçou. Leia a descrição das peças e tente de novo.";
     }
@@ -378,16 +378,12 @@ public class HudPuzzleUI : MonoBehaviour
 
     internal void MostrarDescricao(Peca dados)
     {
-        dica.titulo.color = MolduraPuzzleUI.TituloAzul;
-        dica.titulo.text = dados.nome;
-        dica.texto.text = dados.descricao;
+        dica.MostrarPeca(dados.nome, dados.descricao);
     }
 
     internal void MostrarPadrao()
     {
-        dica.titulo.color = MolduraPuzzleUI.TituloAzul;
-        dica.titulo.text = textos.descricaoTitulo;
-        dica.texto.text = textos.descricaoPadrao;
+        dica.MostrarDica(textos.descricaoPadrao, textos.descricaoTitulo);
     }
 
     /// <summary>Chamado pela peça ao ser solta.</summary>
@@ -417,9 +413,7 @@ public class HudPuzzleUI : MonoBehaviour
         erros++;
         RegistroAprendizagem.RegistrarErro("puzzle_peca_errada", $"{conceito} | encaixe {alvo.numero} | {peca.Dados.nome}");
         Resetar();
-        dica.titulo.text = textos.erroTitulo;
-        dica.titulo.color = VidaUI.Vermelho;
-        dica.texto.text = textos.erroTexto;
+        dica.MostrarErro(textos.erroTitulo, textos.erroTexto);
         StartCoroutine(PiscarErro(alvo));
     }
 

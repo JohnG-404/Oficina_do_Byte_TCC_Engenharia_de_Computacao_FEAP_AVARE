@@ -52,3 +52,7 @@ crashlytics-build.properties
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Backups de cena e relatórios ficam só no PC
+/SceneBackups/
+/Relatorios/

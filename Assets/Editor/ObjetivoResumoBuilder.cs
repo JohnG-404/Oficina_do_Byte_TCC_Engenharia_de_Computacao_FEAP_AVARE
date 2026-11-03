@@ -42,15 +42,15 @@ public static class ObjetivoResumoBuilder
             cena = "Fisica",
             etapas = new[,]
             {
-                { "Monte o código do Movimento", "Arraste cada peça pro espaço certo." },
+                { "Monte o código do Movimento", "Arraste cada peça até o espaço vazio que combina com ela." },
                 { "Ande com o personagem", "Setas ou A/D." },
-                { "Monte o script da Câmera", "A câmera precisa ir atrás do personagem." },
-                { "Ande mais um pouco", "Agora a câmera vai junto." },
-                { "Monte o Rigidbody2D", "Ele flutua sem peso: falta gravidade." },
-                { "Monte o Collider2D", "Ele atravessou o chão: falta um corpo sólido." },
-                { "Teste andar com física e colisão", "Dê uma volta pela sala." },
-                { "Monte o código do Pulo", "Personagem de plataforma precisa pular." },
-                { "Pule com Espaço", "Só dá pra pular apoiado no chão." },
+                { "Monte o script da Câmera", "O personagem saiu da tela! Ensine a câmera a ir atrás dele." },
+                { "Ande mais um pouco", "Agora a câmera vai junto. Ande e veja!" },
+                { "Monte o Rigidbody2D", "Ele flutua como um balão. Dê peso e gravidade a ele." },
+                { "Monte o Collider2D", "Ele atravessou o chão! Falta um contorno sólido para ele encostar nas coisas." },
+                { "Siga pela sala", "Ande pra direita e veja o que mudou com a colisão." },
+                { "Monte o código do Pulo", "Todo jogo de plataforma tem pulo. Vamos ensinar o personagem a pular!" },
+                { "Pule os degraus com {pular}", "Segure {pular} para pular mais alto. Ele só pula pisando no chão." },
             },
         },
         new Dados
@@ -59,8 +59,8 @@ public static class ObjetivoResumoBuilder
             inicioX = 710f,
             etapas = new[,]
             {
-                { "Arraste as mecânicas do inventário", "Solte cada ícone em quem vai recebê-lo." },
-                { "Dê Movimento e Pulo ao seu personagem", "Movimento e Pulo só funcionam em você." },
+                { "Arraste as mecânicas do inventário", "Arraste um ícone e solte em cima do objeto que vai recebê-lo." },
+                { "Dê Movimento e Pulo ao seu personagem", "Movimento e Pulo só funcionam no seu personagem." },
                 { "Chegue ao objetivo final", "Ficou sem saída? Segure {reiniciar} para recomeçar." },
             },
         },
@@ -69,9 +69,9 @@ public static class ObjetivoResumoBuilder
             cena = "Interacao",
             etapas = new[,]
             {
-                { "Configure um objeto: Ação e Consequência", "Clique num objeto da sala." },
+                { "Configure um objeto: Ação e Consequência", "Clique em um objeto da sala para escolher o que ele faz." },
                 { "Teste a combinação no objeto", "Vá até ele e faça a ação que você escolheu." },
-                { "Abra o caminho até a saída", "Combine ações e consequências até liberar a passagem." },
+                { "Abra o caminho até a saída", "Teste combinações: uma ação (o que você faz) e uma consequência (o que acontece) até abrir a passagem." },
                 // A porta de saída da Interacao é o item Objetivo: só abre depois de configurada.
                 { "Chegue à porta de saída", "Clique na porta e escolha Passar a fase." },
             },
@@ -81,9 +81,9 @@ public static class ObjetivoResumoBuilder
             cena = "Interacao_Vida",
             etapas = new[,]
             {
-                { "Configure um objeto: Ação e Consequência", "Clique num objeto da sala." },
+                { "Configure um objeto: Ação e Consequência", "Clique em um objeto da sala para escolher o que ele faz." },
                 { "Teste a combinação no objeto", "Vá até ele e faça a ação que você escolheu." },
-                { "Abra o caminho até a saída", "Cuidado: cada armadilha tira vida." },
+                { "Abra o caminho até a saída", "Cuidado: cada armadilha tira vida. Olhe os quadrados de vida no canto da tela." },
                 { "Chegue à porta de saída", "A porta abriu: siga em frente." },
             },
         },
@@ -97,12 +97,12 @@ public static class ObjetivoResumoBuilder
             cena = "Animacao",
             etapas = new[,]
             {
-                { "Ande e pule pelo laboratório", "Repare no desenho do personagem." },
-                { "Monte as transições do Animator", "Encaixe as condições nas setas." },
-                { "Suba a escada e pule a vala de espinhos", "Agora ele anima sozinho." },
-                { "Segure agachar perto do túnel", "Veja o corpo e o desenho." },
-                { "Monte as setas do agachar no Animator", "O desenho precisa abaixar junto." },
-                { "Atravesse o túnel até a porta", "Segure agachar pra passar." },
+                { "Ande e pule pelo laboratório", "Ande e pule. O desenho do personagem muda?" },
+                { "Monte as transições do Animator", "Cada seta precisa de uma regra que diz quando trocar de animação. Encaixe as peças nas setas." },
+                { "Suba a escada e pule a vala de espinhos", "Agora o desenho muda sozinho quando ele anda e pula." },
+                { "Segure agachar perto do túnel", "Segure agachar e olhe: o corpo abaixa, mas e o desenho?" },
+                { "Monte as setas do agachar no Animator", "O desenho também precisa abaixar junto com o corpo." },
+                { "Atravesse o túnel até a porta", "Segure agachar para passar pelo túnel." },
             },
         },
         new Dados
@@ -110,12 +110,12 @@ public static class ObjetivoResumoBuilder
             cena = "IA",
             etapas = new[,]
             {
-                { "Monte os Estados do guarda", "Sem cérebro, ele fica parado." },
-                { "Passe na frente do guarda", "Veja se ele percebe você." },
-                { "Monte as Transições", "Falta a regra que diz quando trocar de estado." },
-                { "Fique atrás da parede", "Veja se o guarda enxerga através dela." },
-                { "Troque a regra 1 por Raycast", "Ele precisa ver você, não só estar perto." },
-                { "Chegue à saída sem o guarda te ver", "A passarela bloqueia a linha de visão." },
+                { "Monte os Estados do guarda", "Sem cérebro, o guarda fica parado. Monte o que ele sabe fazer." },
+                { "Passe na frente do guarda", "Passe perto e veja se ele percebe você." },
+                { "Monte as Transições", "Ele sabe vigiar, perseguir e atacar, mas não sabe quando trocar. Faltam as regras." },
+                { "Fique atrás da parede", "Será que o guarda consegue te ver através da parede?" },
+                { "Troque a regra 1 por Raycast", "Estar perto não basta: ele precisa ver você de verdade." },
+                { "Chegue à saída sem o guarda te ver", "Use a passarela: ela tapa a visão do guarda." },
             },
         },
         new Dados
@@ -125,9 +125,9 @@ public static class ObjetivoResumoBuilder
             etapas = new[,]
             {
                 { "Faça o aliado te seguir", "Clique no aliado para abrir o cérebro dele." },
-                { "Faça o aliado distrair o guarda", "Pra distrair, ele precisa ver o guarda primeiro." },
-                { "Faça o guarda perseguir o aliado", "Confira a tag no alvo do guarda." },
-                { "Esconda-se e corra para a saída", "Suba na plataforma e espere a distração." },
+                { "Faça o aliado distrair o guarda", "Para distrair, o aliado precisa ver o guarda primeiro." },
+                { "Faça o guarda perseguir o aliado", "Abra o cérebro do guarda e confira a etiqueta (tag) de quem ele persegue." },
+                { "Esconda-se e corra para a saída", "Suba na plataforma e espere o aliado distrair o guarda." },
             },
         },
     };

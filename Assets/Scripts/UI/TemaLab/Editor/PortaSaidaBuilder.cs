@@ -25,12 +25,12 @@ public static class PortaSaidaBuilder
     private const string PastaBackup = "SceneBackups/PortaFinal_2026-10-05/";
     private const string NomePorta = "PortaSaida";
 
-    // porta_01..05: 320 px a 256 PPU. Na escala 1,28 a porta tem 1,6 u; a
-    // linha de baixo da arte fica a 20 px (0,1 u) da borda do sprite, por
-    // isso o desenho desce 0,1 u para a base encostar no chão.
+    // porta_01..05 (arte nova, 2026-10-29): 280 x 300 px a 256 PPU. Na
+    // escala 1,28 a porta tem 1,5 u e a soleira já é a última linha do
+    // sprite, então a base do desenho fica direto no chão (sem respiro).
     private const float Escala = 1.28f;
-    private const float Altura = 1.6f;
-    private const float RespiroBase = 0.1f;
+    private const float Altura = 1.5f;
+    private const float RespiroBase = 0f;
     private const float MeiaLargura = 0.64f;
     private static readonly Vector2 TamanhoSolido = new Vector2(1.1f, 1.45f);
     private static readonly Vector2 TamanhoVao = new Vector2(0.45f, 1.1f);

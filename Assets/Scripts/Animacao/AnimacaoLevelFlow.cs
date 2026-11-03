@@ -206,7 +206,7 @@ public class AnimacaoLevelFlow : MonoBehaviour, IDialogueListener, IReinicioFase
 
     public static readonly string[] DicaMortePadrao =
     {
-        "Faltou distância! Pule lá do alto da escada e segure {pular} pra ir mais longe. Olha o painel: no ar, o Animator troca pra Pulo sozinho."
+        "Faltou pouco! Suba até o alto da escada, pule de lá e segure {pular} para ir mais longe. Repare no painel: no ar, o Animator troca para Pulo sozinho."
     };
 
     // "<" solto quebraria o rich text do TMP; por isso as comparações com

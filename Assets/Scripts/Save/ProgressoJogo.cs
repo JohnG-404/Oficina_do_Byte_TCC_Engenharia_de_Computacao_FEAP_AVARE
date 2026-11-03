@@ -611,7 +611,7 @@ public static class ProgressoJogo
     {
         // Sem jogador escolhido só grava numa fase aberta direto no Editor. Senão
         // abrir o Menu e fechar o jogo criariam um save vazio na pasta antiga,
-        // que na abertura seguinte vira o "Sem nome (antigo)" (ver Jogadores).
+        // que na abertura seguinte vira o "Sem nome" (ver Jogadores).
         if (!Jogadores.Escolhido && !EhFase(SceneManager.GetActiveScene().name))
         {
             OnMudou?.Invoke();

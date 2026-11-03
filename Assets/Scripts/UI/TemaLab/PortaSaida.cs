@@ -21,7 +21,8 @@ using UnityEngine;
 ///
 /// Enquanto não está toda aberta, o collider sólido (deste objeto) segura o
 /// jogador, então o gatilho de conclusão, mais estreito, só é alcançado com a
-/// porta aberta.
+/// porta aberta. Ele só segura pelos lados: a porta não é plataforma, então o
+/// jogador que cai em cima dela desce na frente do vão (ver NaoDeixarSubir).
 /// </summary>
 public class PortaSaida : MonoBehaviour
 {
@@ -71,6 +72,10 @@ public class PortaSaida : MonoBehaviour
     private bool passou;
     private float quadro;
     private Collider2D jogador;
+
+    // Colliders do jogador que caíram em cima da porta: a colisão com o
+    // sólido fica desligada até ele sair da frente dela.
+    private readonly List<Collider2D> semColisao = new List<Collider2D>();
 
     public bool TotalmenteAberta => quadros != null && quadros.Length > 0 && Mathf.RoundToInt(quadro) >= quadros.Length - 1;
 
@@ -140,6 +145,7 @@ public class PortaSaida : MonoBehaviour
         if (solido != null)
         {
             solido.enabled = !TotalmenteAberta;
+            DevolverColisao();
         }
 
         if (aoPassar != null && !passou && TotalmenteAberta && JogadorNoVao())
@@ -159,6 +165,70 @@ public class PortaSaida : MonoBehaviour
         {
             item.AbrirPainelPeloClique();
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D colisao) => NaoDeixarSubir(colisao);
+
+    private void OnCollisionStay2D(Collision2D colisao) => NaoDeixarSubir(colisao);
+
+    // A porta não é plataforma: se o jogador pousar em cima do collider
+    // sólido, a colisão entre os dois é desligada e ele desce na frente do
+    // vão, onde a porta abre (ou continua trancada, como se ele tivesse
+    // chegado andando). Pelos lados o sólido continua segurando.
+    private void NaoDeixarSubir(Collision2D colisao)
+    {
+        if (solido == null || colisao.otherCollider != solido || !EhJogador(colisao.collider))
+        {
+            return;
+        }
+
+        if (colisao.collider.bounds.min.y < solido.bounds.max.y - 0.1f || semColisao.Contains(colisao.collider))
+        {
+            return;
+        }
+
+        Physics2D.IgnoreCollision(colisao.collider, solido, true);
+        semColisao.Add(colisao.collider);
+    }
+
+    // Religa a colisão de quem caiu em cima assim que ele sai da frente da
+    // porta (pelos lados, andando, ou pelo vão, ao atravessar).
+    private void DevolverColisao()
+    {
+        if (semColisao.Count == 0)
+        {
+            return;
+        }
+
+        // Com a porta aberta o collider fica desligado e os bounds dele não
+        // valem, então a área é calculada pelo tamanho/offset.
+        Vector3 esc = solido.transform.lossyScale;
+        var area = new Bounds(solido.transform.TransformPoint(solido.offset),
+            new Vector3(Mathf.Abs(solido.size.x * esc.x), Mathf.Abs(solido.size.y * esc.y), 1f));
+        for (int i = semColisao.Count - 1; i >= 0; i--)
+        {
+            Collider2D c = semColisao[i];
+            if (c != null)
+            {
+                Bounds b = c.bounds;
+                b.center = new Vector3(b.center.x, b.center.y, area.center.z);
+                if (b.Intersects(area))
+                {
+                    continue;
+                }
+                Physics2D.IgnoreCollision(c, solido, false);
+            }
+            semColisao.RemoveAt(i);
+        }
+    }
+
+    private bool EhJogador(Collider2D c)
+    {
+        if (jogador == null)
+        {
+            jogador = AcharJogador();
+        }
+        return c == jogador || (jogador != null && c.attachedRigidbody != null && c.attachedRigidbody == jogador.attachedRigidbody);
     }
 
     private bool PodeAbrir()

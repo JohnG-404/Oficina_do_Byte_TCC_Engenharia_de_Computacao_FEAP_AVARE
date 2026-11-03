@@ -28,7 +28,60 @@ public static class OficinaTextosBuilder
 
     private static Color Hex(string h) { ColorUtility.TryParseHtmlString(h, out Color c); return c; }
     private static readonly Color Ink = Hex("#0A0E17"), Elevado = Hex("#1B2438"), Contorno = Hex("#33415F");
-    private static readonly Color Texto = Hex("#E8EEF9"), Suave = Hex("#9AA8C4"), AzulTitulo = Hex("#9FC2FF");
+    private static readonly Color Texto = Hex("#E8EEF9"), Suave = Hex("#9AA8C4");
+
+    /// <summary>
+    /// Deixa a faixa "como jogar" com a cara do cartão Dica dos puzzles
+    /// (CartaoDica): borda âmbar, lâmpada escura num círculo âmbar e título âmbar.
+    /// </summary>
+    public static void EstiloDica(Transform como)
+    {
+        Transform borda = como.Find("Painel/Borda");
+        if (borda != null && borda.GetComponent<SpriteRenderer>() is SpriteRenderer srBorda)
+        {
+            srBorda.color = CartaoDica.Ambar;
+            EditorUtility.SetDirty(srBorda);
+        }
+
+        Transform lamp = como.Find("Lampada");
+        if (lamp == null) return;
+        var srLamp = lamp.GetComponent<SpriteRenderer>();
+        srLamp.color = CartaoDica.IconeEscuro;
+        srLamp.sortingOrder = 5;
+        if (srLamp.sprite != null)
+        {
+            float maior = Mathf.Max(srLamp.sprite.bounds.size.x, srLamp.sprite.bounds.size.y);
+            lamp.localScale = Vector3.one * (0.6f / maior);
+        }
+        EditorUtility.SetDirty(srLamp);
+        EditorUtility.SetDirty(lamp);
+
+        Transform circ = como.Find("Circulo");
+        if (circ == null)
+        {
+            circ = new GameObject("Circulo", typeof(SpriteRenderer)).transform;
+            circ.SetParent(como, false);
+        }
+        var srCirc = circ.GetComponent<SpriteRenderer>();
+        srCirc.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(Pasta + "UI/oficina_circulo.png");
+        srCirc.color = CartaoDica.Ambar;
+        srCirc.sortingOrder = 4;
+        if (srCirc.sprite != null)
+        {
+            float maior = Mathf.Max(srCirc.sprite.bounds.size.x, srCirc.sprite.bounds.size.y);
+            circ.localScale = Vector3.one * (1f / maior);
+        }
+        circ.localPosition = new Vector3(lamp.localPosition.x, lamp.localPosition.y, lamp.localPosition.z + 0.01f);
+        EditorUtility.SetDirty(srCirc);
+
+        var hud = como.root.GetComponentInChildren<OficinaAnimacaoHUD>(true);
+        if (hud != null)
+        {
+            var sh = new SerializedObject(hud);
+            sh.FindProperty("corTituloComoJogar").colorValue = CartaoDica.Ambar;
+            sh.ApplyModifiedPropertiesWithoutUndo();
+        }
+    }
 
     [MenuItem("Tools/Tutorial Animação/Textos, barra de teclas e faixa Como jogar")]
     public static void Aplicar()
@@ -124,6 +177,7 @@ public static class OficinaTextosBuilder
         }
         lamp.localPosition = new Vector3(EsqX + 0.75f, fY, 0f);
         EditorUtility.SetDirty(srLamp);
+        EstiloDica(como);
 
         var comoTexto = como.Find("Texto").GetComponent<TMP_Text>();
         comoTexto.fontSize = 20f / 10.8f;
@@ -137,15 +191,15 @@ public static class OficinaTextosBuilder
         rt.anchoredPosition = new Vector2(EsqX + 1.45f, fY);
         rt.localPosition = new Vector3(EsqX + 1.45f, fY, 0f);
         comoTexto.text = OficinaAnimacaoHUD.ComTituloColorido(
-            "<b>Arraste ou clique</b>\nArraste cada frame da bandeja até a linha do tempo, ou só clique nele. Clique num frame encaixado para devolver.",
-            AzulTitulo);
+            "<b>Arraste ou clique</b>\nArraste cada quadro da bandeja até a linha do tempo, ou só clique nele. Clique num quadro encaixado para devolver.",
+            CartaoDica.Ambar);
         EditorUtility.SetDirty(comoTexto);
 
         var hud = cenario.GetComponentInChildren<OficinaAnimacaoHUD>(true);
         if (hud != null)
         {
             var sh = new SerializedObject(hud);
-            sh.FindProperty("corTituloComoJogar").colorValue = AzulTitulo;
+            sh.FindProperty("corTituloComoJogar").colorValue = CartaoDica.Ambar;
             sh.ApplyModifiedPropertiesWithoutUndo();
         }
 

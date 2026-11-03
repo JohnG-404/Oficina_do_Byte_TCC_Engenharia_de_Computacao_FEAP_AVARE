@@ -58,8 +58,8 @@ public class AplicacaoLevelFlow : MonoBehaviour, IDialogueListener, IReinicioFas
     [SerializeField]
     private string[] fallHintDialogue =
     {
-        "Caiu de novo? Lembra: arraste os ícones do inventário até os objetos pra ligar Rigidbody2D, Collider2D, Movimento ou Pulo neles.",
-        "Sem Collider2D embaixo dele, nada segura a queda."
+        "Caiu de novo? Lembre: arraste um ícone do inventário e solte em cima de um objeto. Assim ele ganha aquele componente.",
+        "Se o que está embaixo de você não tiver Collider2D, não tem nada sólido para pisar."
     };
 
     [Header("Dica quando um objeto cai da fase (uma vez por fase)")]
@@ -67,8 +67,8 @@ public class AplicacaoLevelFlow : MonoBehaviour, IDialogueListener, IReinicioFas
     [SerializeField]
     private string[] objectFallHintDialogue =
     {
-        "Opa, esse objeto caiu pra fora da fase. Com Rigidbody2D e sem Collider2D, ele atravessa tudo.",
-        "A fase vai recomeçar. Dessa vez, pensa na ordem."
+        "Opa, esse objeto caiu para fora da fase! Ele tinha peso (Rigidbody2D), mas não era sólido (Collider2D), então atravessou o chão.",
+        "A fase vai recomeçar. Desta vez, pense: o que precisa ficar sólido antes de ganhar peso?"
     };
 
     [Header("Dica quando Movimento/Pulo vão pra um objeto (uma vez por fase)")]

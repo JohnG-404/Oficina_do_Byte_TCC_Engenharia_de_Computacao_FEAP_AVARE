@@ -160,7 +160,7 @@ public class AjusteAnimacao
     [TextArea(2, 3)]
     public string[] dicaAposErros =
     {
-        "Uma dica: a maioria dos jogos em pixel art usa por volta de 12 quadros por segundo nas animações de movimento."
+        "Dica: quase todo jogo com desenhos em pixel mostra uns 12 quadros por segundo quando o personagem se mexe."
     };
 
     [Tooltip("Quantos erros o jogador pode cometer antes de a dica extra aparecer junto das falas de erro.")]

@@ -98,12 +98,12 @@ public class AnimatorPuzzleUI : MonoBehaviour, IDonoPecaAnimator
     [TextArea(2, 4)]
     [SerializeField] private string[] dicasSetas =
     {
-        "Seta 1, de Idle para Corrida: o que muda no Rigidbody2D quando o personagem começa a andar?",
-        "Seta 2, de Corrida para Idle: o que fica igual a zero quando o personagem para?",
-        "Seta 3, de Any State para Pulo: o que deixa de ser verdade quando os pés saem do chão?",
-        "Seta 4, de Pulo para Idle: o que avisa que o personagem voltou a pisar em alguma coisa?",
+        "Seta 1 · Idle → Corrida|Idle quer dizer parado. Quando o personagem começa a andar, o que muda no corpo dele?",
+        "Seta 2 · Corrida → Idle|Quando o personagem para de andar, o que vira zero?",
+        "Seta 3 · Any State → Pulo|Any State quer dizer qualquer estado. Quando os pés saem do chão, o que deixa de ser verdade?",
+        "Seta 4 · Pulo → Idle|O que avisa que o personagem pisou no chão de novo?",
     };
-    [SerializeField] private string rodapeDica = "Passe o mouse numa peça pra ler aqui o que ela faz.";
+    [SerializeField] private string rodapeDica = "Passe o mouse numa peça para ler o que ela faz.";
     [Tooltip("Modo agachar: ícone de cada seta que já vem pronta, na ordem 0 a 3.")]
     [SerializeField] private Sprite[] iconesProntas;
 
@@ -143,8 +143,7 @@ public class AnimatorPuzzleUI : MonoBehaviour, IDonoPecaAnimator
 
     private GameObject canvasGO;
     private RectTransform camadaArraste;
-    private TextMeshProUGUI descTitulo;
-    private TextMeshProUGUI descTexto;
+    private MolduraPuzzleUI.PainelDica painelDica;
     private AnimatorDiagramaUI diagrama;
     private Action aoConcluir;
     private float inicio;
@@ -336,9 +335,7 @@ public class AnimatorPuzzleUI : MonoBehaviour, IDonoPecaAnimator
         }
 
         // Dica (embaixo)
-        MolduraPuzzleUI.PainelDica dica = MolduraPuzzleUI.Dica(tela, rodapeDica);
-        descTitulo = dica.titulo;
-        descTexto = dica.texto;
+        painelDica = MolduraPuzzleUI.Dica(tela, rodapeDica);
 
         // Por último = desenhada por cima de tudo: a peça sendo arrastada vem pra cá.
         var arrasteGO = new GameObject("Arraste", typeof(RectTransform));
@@ -552,27 +549,19 @@ public class AnimatorPuzzleUI : MonoBehaviour, IDonoPecaAnimator
 
     internal void MostrarDescricao(Peca dados)
     {
-        if (descTitulo == null)
-        {
-            return;
-        }
-
-        descTitulo.color = Color.white;
-        descTitulo.text = TextoSeguro(dados.texto);
-        descTexto.text = dados.descricao;
+        painelDica?.MostrarPeca(dados.texto, dados.descricao);
     }
 
     /// <summary>Painel Dica: a dica da seta da vez (ou o texto de concluído).</summary>
     internal void MostrarPadrao()
     {
-        if (descTitulo == null)
+        if (painelDica == null)
         {
             return;
         }
 
-        descTitulo.color = Concluido ? VidaUI.Verde : MolduraPuzzleUI.TituloAzul;
-        descTitulo.text = Concluido ? concluidoTitulo : "Dica";
-        descTexto.text = Concluido ? concluidoTexto : DicaDaVez();
+        if (Concluido) painelDica.MostrarPronto(concluidoTitulo, concluidoTexto);
+        else painelDica.MostrarDica(DicaDaVez());
     }
 
     /// <summary>Chamado pela peça ao ser solta.</summary>
@@ -602,9 +591,7 @@ public class AnimatorPuzzleUI : MonoBehaviour, IDonoPecaAnimator
         erros++;
         RegistroAprendizagem.RegistrarErro("puzzle_peca_errada", $"{Conceito} | seta {NomesSeta[alvo.seta]} | {peca.Dados.texto}");
         Resetar();
-        descTitulo.text = erroTitulo;
-        descTitulo.color = VidaUI.Vermelho;
-        descTexto.text = erroTexto;
+        painelDica.MostrarErro(erroTitulo, erroTexto);
         StartCoroutine(PiscarErro(alvo));
     }
 

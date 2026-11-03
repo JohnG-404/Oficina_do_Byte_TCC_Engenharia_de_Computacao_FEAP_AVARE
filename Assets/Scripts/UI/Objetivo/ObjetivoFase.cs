@@ -29,6 +29,9 @@ using UnityEngine.UI;
 /// Enquanto a caixa de diálogo estiver no canto de cima
 /// (DialogueManager.CaixaNoTopo) a faixa também some na
 /// hora, senão cobre a placa com o nome do Prof Byte.
+/// Quando o robô passa por baixo (o elevador da Interação chega no topo, a
+/// escada da Aplicação), a faixa grande recolhe na hora e a compacta fica
+/// translúcida, para não esconder a ação.
 /// </summary>
 public class ObjetivoFase : MonoBehaviour
 {
@@ -51,6 +54,12 @@ public class ObjetivoFase : MonoBehaviour
     [SerializeField] private float segundosGrande = 3.5f;
     [SerializeField] private float segundosFade = 0.25f;
 
+    [Header("Robô por baixo da faixa")]
+    [Tooltip("Opacidade da faixa compacta enquanto o robô está embaixo dela.")]
+    [SerializeField, Range(0f, 1f)] private float alphaComRoboEmbaixo = 0.3f;
+    [Tooltip("Folga em pixels (1080p) ao redor do robô.")]
+    [SerializeField] private float folgaRobo = 24f;
+
     [Header("Referências (montadas pelo builder)")]
     [SerializeField] private CanvasGroup grupo;
     [SerializeField] private CanvasGroup compacta;
@@ -72,6 +81,10 @@ public class ObjetivoFase : MonoBehaviour
     private string extraDica;
     private bool grandePendente;
     private float grandeRestante;
+    private Transform robo;
+    private Renderer[] rendRobo = new Renderer[0];
+    private float proximaBuscaRobo;
+    private readonly Vector3[] cantos = new Vector3[4];
 
     public int EtapaAtual => atual;
     public int QuantidadeDeEtapas => etapas != null ? etapas.Length : 0;
@@ -173,6 +186,27 @@ public class ObjetivoFase : MonoBehaviour
         if (Instance != null)
         {
             Instance.IrPara(indice, mostrarGrande);
+        }
+    }
+
+    /// <summary>
+    /// Vai para a etapa e mostra a faixa grande, mesmo se a faixa já estava nela
+    /// (ex.: a faixa trocou em silêncio ao fechar o puzzle e o destaque vem
+    /// quando o diálogo seguinte termina).
+    /// </summary>
+    public static void Destacar(int indice)
+    {
+        if (Instance == null)
+        {
+            return;
+        }
+
+        int antes = Instance.atual;
+        Instance.IrPara(indice, true);
+        if (Instance.atual == antes && antes >= 0 && !Instance.emExtra && !Instance.grandePendente)
+        {
+            Instance.grandePendente = true;
+            Instance.grandeRestante = Instance.segundosGrande;
         }
     }
 
@@ -299,6 +333,13 @@ public class ObjetivoFase : MonoBehaviour
             }
         }
 
+        // Robô embaixo da faixa grande: ela recolhe na hora (vira a compacta).
+        Rect? telaRobo = RetanguloDoRobo();
+        if (grandePendente && grande != null && grande.alpha > 0.01f && Sobrepoe(grande.transform as RectTransform, telaRobo))
+        {
+            grandePendente = false;
+        }
+
         bool mostrarGrande = grandePendente && podeGrande;
         float passo = Time.unscaledDeltaTime / Mathf.Max(0.01f, segundosFade);
         if (grande != null)
@@ -308,7 +349,54 @@ public class ObjetivoFase : MonoBehaviour
 
         if (compacta != null)
         {
-            compacta.alpha = Mathf.MoveTowards(compacta.alpha, mostrarGrande ? 0f : 1f, passo);
+            float alvoCompacta = mostrarGrande ? 0f : (Sobrepoe(compacta.transform as RectTransform, telaRobo) ? alphaComRoboEmbaixo : 1f);
+            compacta.alpha = Mathf.MoveTowards(compacta.alpha, alvoCompacta, passo);
         }
+    }
+
+    // ---------------------------------------------------------------- robô por baixo
+
+    /// <summary>Retângulo do robô na tela (pixels), com folga; null sem robô ou câmera.</summary>
+    private Rect? RetanguloDoRobo()
+    {
+        Camera cam = Camera.main;
+        if (cam == null) return null;
+
+        if (robo == null)
+        {
+            if (Time.unscaledTime < proximaBuscaRobo) return null;
+            proximaBuscaRobo = Time.unscaledTime + 1f;
+            GameObject go = GameObject.FindWithTag("Player");
+            if (go == null) return null;
+            robo = go.transform;
+            rendRobo = go.GetComponentsInChildren<Renderer>();
+        }
+
+        bool achou = false;
+        Bounds b = default;
+        foreach (Renderer r in rendRobo)
+        {
+            if (r == null || !r.enabled || !r.gameObject.activeInHierarchy) continue;
+            if (!achou) { b = r.bounds; achou = true; }
+            else b.Encapsulate(r.bounds);
+        }
+        if (!achou) return null;
+
+        Vector3 a = cam.WorldToScreenPoint(b.min);
+        Vector3 c = cam.WorldToScreenPoint(b.max);
+        float folga = folgaRobo * Screen.height / 1080f;
+        return Rect.MinMaxRect(Mathf.Min(a.x, c.x) - folga, Mathf.Min(a.y, c.y) - folga,
+                               Mathf.Max(a.x, c.x) + folga, Mathf.Max(a.y, c.y) + folga);
+    }
+
+    private bool Sobrepoe(RectTransform rt, Rect? tela)
+    {
+        if (rt == null || tela == null) return false;
+        Canvas canvas = rt.GetComponentInParent<Canvas>();
+        Camera camUI = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
+        rt.GetWorldCorners(cantos);
+        Vector2 min = RectTransformUtility.WorldToScreenPoint(camUI, cantos[0]);
+        Vector2 max = RectTransformUtility.WorldToScreenPoint(camUI, cantos[2]);
+        return Rect.MinMaxRect(min.x, min.y, max.x, max.y).Overlaps(tela.Value);
     }
 }

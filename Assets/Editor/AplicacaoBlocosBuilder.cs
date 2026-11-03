@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Liga as mecânicas nos blocos que o autor montou à mão na cena
 /// "Aplicacao_Fisica": cada filho direto de Cenario/Ground é UM bloco
-/// (Plataforma1, Plataforma2, Escada1, Grupo6...), não importa quantos tiles
+/// (Plataforma1, Plataforma2, Escada1, Plataforma6 1...), não importa quantos tiles
 /// ele tenha.
 ///
 /// Pra cada bloco:

@@ -21,7 +21,7 @@ public class CodigoEncaixeUI : MonoBehaviour
         public GameObject destaque;
         [Tooltip("Índice da linha (em Linhas) onde a lacuna está.")]
         public int linha;
-        [Tooltip("Dica mostrada no painel enquanto esta é a próxima lacuna.")]
+        [Tooltip("Dica mostrada no painel enquanto esta é a próxima lacuna. O lugar vai antes de uma barra: \"Linha 2 · espaço 1|Qual peça...?\" (vira a etiqueta do cartão de dica).")]
         [TextArea(1, 3)] public string dica;
     }
 
@@ -116,7 +116,7 @@ public class CodigoEncaixeUI : MonoBehaviour
         }
         else if (painel != null && proxima < 0 && lacunas.Length > 0)
         {
-            painel.DefinirPadrao(tituloPronto, textoPronto);
+            painel.DefinirPronto(tituloPronto, textoPronto);
         }
     }
 }

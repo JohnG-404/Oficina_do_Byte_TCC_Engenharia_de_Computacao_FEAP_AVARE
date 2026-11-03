@@ -38,7 +38,7 @@ public class LaboratorioUIImporter : AssetPostprocessor
         { "slider_preenchimento", new Vector4(12, 12, 12, 12) },
         { "seletor_caixa", new Vector4(24, 24, 24, 24) },
         { "dropdown_caixa", new Vector4(24, 24, 52, 24) },
-        { "painel_codigo", new Vector4(66, 24, 24, 64) },
+        { "painel_codigo", new Vector4(74, 24, 24, 64) }, // 74: a bolinha verde vai até x 66; com 66 a beirada dela esticava junto com a barra
         { "moldura_logo", new Vector4(48, 40, 48, 40) },
     };
 

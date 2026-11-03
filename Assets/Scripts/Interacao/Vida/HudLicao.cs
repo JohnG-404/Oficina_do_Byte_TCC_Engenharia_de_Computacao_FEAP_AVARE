@@ -104,7 +104,7 @@ public class HudLicao : MonoBehaviour, IDialogueListener
 
     [Header("Faixa de objetivo durante a lição")]
     [SerializeField] private string objetivoLicao = "Monte o aviso: dado, evento, tela";
-    [SerializeField] private string dicaObjetivoLicao = "A barra não sabe que a vida mudou.";
+    [SerializeField] private string dicaObjetivoLicao = "A barra de vida não ficou sabendo que a vida mudou. Quem precisa avisar ela?";
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics()
@@ -410,8 +410,14 @@ public class HudLicao : MonoBehaviour, IDialogueListener
         }
 
         var raiz = (RectTransform)avisos.transform;
-        bolhaBarra = CriarBolha(raiz, "Barra", texto, cor, new Vector2(460f, 48f), 24);
+        // Mesma largura do HUD de VIDA: o aviso fala da barra e não passa da caixa dela.
+        bolhaBarra = CriarBolha(raiz, "Barra", texto, cor, new Vector2(LarguraDaBarra(raiz, 460f), 48f), 24);
         bolhaBarra.pivot = new Vector2(0f, 1f);
+        // Folga dos lados: na largura do HUD o texto encostava na borda.
+        if (bolhaBarra.GetComponentInChildren<TMP_Text>() is TMP_Text textoBolha)
+        {
+            textoBolha.margin = new Vector4(10f, 0f, 10f, 0f);
+        }
         bolhaBarra.anchoredPosition = PosicaoAbaixoDaBarra(raiz);
         StartCoroutine(Pular(bolhaBarra));
     }
@@ -458,6 +464,24 @@ public class HudLicao : MonoBehaviour, IDialogueListener
         barraRect.GetWorldCorners(cantos);
         Vector2 tela = RectTransformUtility.WorldToScreenPoint(cam, cantos[0]);
         return VidaUI.TelaParaLocal(raiz, tela) + new Vector2(0f, -10f);
+    }
+
+    // Largura da caixa do HUD de VIDA no espaço dos avisos.
+    private float LarguraDaBarra(RectTransform raiz, float padrao)
+    {
+        var barraRect = barraDeVida != null ? barraDeVida.transform as RectTransform : null;
+        if (barraRect == null)
+        {
+            return padrao;
+        }
+
+        Canvas canvasBarra = barraDeVida.GetComponentInParent<Canvas>();
+        Camera cam = canvasBarra != null && canvasBarra.renderMode != RenderMode.ScreenSpaceOverlay ? canvasBarra.worldCamera : null;
+        var cantos = new Vector3[4];
+        barraRect.GetWorldCorners(cantos);
+        float largura = VidaUI.TelaParaLocal(raiz, RectTransformUtility.WorldToScreenPoint(cam, cantos[3])).x
+                      - VidaUI.TelaParaLocal(raiz, RectTransformUtility.WorldToScreenPoint(cam, cantos[0])).x;
+        return largura > 120f ? largura : padrao;
     }
 
     // Pequeno "pop" de entrada (tempo sem escala).

@@ -91,5 +91,10 @@ public enum ConsequenceType
     TurnOnLamp,
 
     /// <summary>Lâmpada: acende por alguns segundos e apaga de novo (ver LampadaInteracao.AcenderPor).</summary>
-    TurnOnLampForSeconds
+    TurnOnLampForSeconds,
+
+    // Nova (29/10): Vida da Interacao_Vida, no lugar do escudo.
+
+    /// <summary>Vida: devolve 1 de vida (ver PlayerHealth.Heal).</summary>
+    HealOneHeart
 }

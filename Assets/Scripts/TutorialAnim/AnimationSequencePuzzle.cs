@@ -112,26 +112,26 @@ public class AnimationSequencePuzzle : MonoBehaviour
         [TextArea(2, 4)]
         public string[] introDialogue =
         {
-            "Falta o som! No Unity, um Animation Event chama uma função num frame escolhido do clipe, por exemplo, tocar o som do passo.",
-            "Clique no frame em que o pé encosta no chão. A prévia vai tocar o passo nesse frame."
+            "Falta o som! No Unity, um Animation Event chama uma função num quadro escolhido do clipe, por exemplo, tocar o som do passo.",
+            "Clique no quadro em que o pé encosta no chão. A prévia vai tocar o passo nesse quadro."
         };
 
         [TextArea(2, 4)]
         public string[] falasAcerto =
         {
             "Isso! O som bate junto com o pé no chão.",
-            "No Unity, o evento fica na linha de cima da janela Animation. É assim que se sincroniza passo, golpe e efeito com a animação."
+            "No Unity, o evento fica na linha de cima da janela Animation. É assim que o som de um passo, de um golpe ou de um efeito toca na hora certa da animação."
         };
 
         [TextArea(2, 4)]
         public string[] falasErro =
         {
             "Ouviu? O passo toca com o pé no ar, fora do tempo.",
-            "Procure o frame em que o pé da frente acabou de encostar no chão."
+            "Procure o quadro em que o pé da frente acabou de encostar no chão."
         };
 
         [TextArea(1, 3)]
-        public string textoComoJogar = "<b>Evento de animação</b>\nClique no frame em que o pé toca o chão.";
+        public string textoComoJogar = "<b>Evento de animação</b>\nClique no quadro em que o pé toca o chão.";
     }
 
     [Tooltip("Uma rodada por animação — a ordem aqui é a ordem em que aparecem no tutorial.")]
@@ -170,9 +170,9 @@ public class AnimationSequencePuzzle : MonoBehaviour
     [SerializeField]
     private string[] introDialogue =
     {
-        "Bem-vindo à Oficina de Animação! Uma animação quadro a quadro é uma sequência de imagens (sprites) trocadas bem rápido. Cada imagem é um frame.",
-        "Os frames estão soltos na bandeja. Arraste cada um até a linha do tempo, do encaixe 1 ao último, ou só clique nele.",
-        "Com a linha do tempo cheia, a animação toca no monitor. Cuidado: sempre tem frame que não faz parte.",
+        "Bem-vindo à Oficina de Animação! Uma animação quadro a quadro é uma sequência de imagens (sprites) trocadas bem rápido. Cada imagem é um quadro (em inglês, frame).",
+        "Os quadros estão soltos na bandeja. Arraste cada um até a linha do tempo, do encaixe 1 ao último, ou só clique nele.",
+        "Com a linha do tempo cheia, a animação toca no monitor. Cuidado: sempre tem quadro que não faz parte.",
         "Travou? Clique em Dica."
     };
 
@@ -188,7 +188,7 @@ public class AnimationSequencePuzzle : MonoBehaviour
     [Tooltip("Usado na 3ª tentativa em diante, só se a rodada não tiver dica própria.")]
     [TextArea(1, 3)]
     [SerializeField]
-    private string[] wrongOrderDialogueStage3 = { "Procure o frame em que nada começou ainda: é por ele que a sequência começa." };
+    private string[] wrongOrderDialogueStage3 = { "Procure o quadro em que nada começou ainda: é por ele que a sequência começa." };
 
     [Header("Troca de rodada e fechamento")]
     [Tooltip("Prefixo mostrado ao acertar uma rodada, seguido do título da próxima (ver RoundData.Titulo).")]
@@ -633,7 +633,7 @@ public class AnimationSequencePuzzle : MonoBehaviour
 
         if (frames.Count == 0)
         {
-            Falar(new[] { "Coloque pelo menos um frame na linha do tempo pra tocar a prévia." }, null);
+            Falar(new[] { "Coloque pelo menos um quadro na linha do tempo pra tocar a prévia." }, null);
             return;
         }
 
@@ -674,7 +674,7 @@ public class AnimationSequencePuzzle : MonoBehaviour
             fantasma.enabled = true;
         }
 
-        string dica = string.IsNullOrEmpty(round.dica) ? "Comece pelo frame em que nada aconteceu ainda." : round.dica;
+        string dica = string.IsNullOrEmpty(round.dica) ? "Comece pelo quadro em que nada aconteceu ainda." : round.dica;
         Falar(new[] { dica }, null);
     }
 

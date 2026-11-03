@@ -42,7 +42,7 @@ public class InteracaoLevelFlow : MonoBehaviour, IDialogueListener, IReinicioFas
     [SerializeField] private string firstDoorHint = "Show! Essa combinação funcionou.";
     [SerializeField] private string firstRestartHint = "Não foi dessa vez. Vamos tentar de novo!";
     [Tooltip("Só se aplica em fases com vida (ver PlayerHealth) — mostrado na primeira vez que o jogador toma dano.")]
-    [SerializeField] private string firstDamageHint = "Ai! Cada armadilha tira vida. Fica de olho nos quadrados.";
+    [SerializeField] private string firstDamageHint = "Ai! Cada armadilha tira vida. Fique de olho nos quadrados de vida no canto da tela.";
     [Tooltip("Só se aplica em fases com vida — mostrado na primeira vez que o jogador é curado.")]
     [SerializeField] private string firstHealHint = "Vida recuperada!";
     [Tooltip("Segundos de espera depois da dica de reinício, antes de recarregar a fase.")]

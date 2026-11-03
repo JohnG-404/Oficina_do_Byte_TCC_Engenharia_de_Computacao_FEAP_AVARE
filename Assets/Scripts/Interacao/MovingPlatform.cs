@@ -104,10 +104,36 @@ public class MovingPlatform : MonoBehaviour
         // InteracaoPlayerController já aplica via velocidade no mesmo frame,
         // travando o jogador só no eixo vertical enquanto andava de carona.
         // Atribuir direto soma o empurrão vertical sem brigar com isso.
+        //
+        // Mas só no eixo X. No Y o contato com a plataforma já empurra o
+        // jogador (o solver dá a ele a velocidade da plataforma); somar o
+        // delta por cima fazia ele subir em dobro, descolar, cair de volta e
+        // pousar de novo a cada ~0,1 s até o topo. O PlayerVisorAnimator lia
+        // cada pouso como aterrissagem e o robô ficava "agachando" a subida
+        // inteira. Agora o Y vai pela velocidade: o jogador acompanha a
+        // plataforma colado nela, sem quicar.
         if (rider != null)
         {
             Vector2 delta = newPosition - previousPosition;
-            rider.position += delta;
+            rider.position += new Vector2(delta.x, 0f);
+            CarregarNoY(delta.y / Time.fixedDeltaTime);
+        }
+    }
+
+    // Iguala a velocidade vertical do passageiro à da plataforma, sem
+    // atrapalhar o pulo: subindo, só puxa quem está mais lento que ela (o
+    // pulo é bem mais rápido); descendo, só segura quem não está pulando nem
+    // caindo mais rápido que ela.
+    private void CarregarNoY(float vyPlataforma)
+    {
+        Vector2 v = rider.linearVelocity;
+        if (vyPlataforma > 0f && v.y < vyPlataforma)
+        {
+            rider.linearVelocity = new Vector2(v.x, vyPlataforma);
+        }
+        else if (vyPlataforma < 0f && v.y > vyPlataforma && v.y <= 0.5f)
+        {
+            rider.linearVelocity = new Vector2(v.x, vyPlataforma);
         }
     }
 

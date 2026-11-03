@@ -143,7 +143,7 @@ public class ObjetoAnimatorUI : MonoBehaviour, IDonoPecaAnimator
     [TextArea(2, 5)]
     [SerializeField] private string concluidoTexto = "";
     [SerializeField] private string tituloPrevia = "Prévia";
-    [SerializeField] private string rodapeDica = "Passe o mouse numa peça pra ler aqui o que ela faz.";
+    [SerializeField] private string rodapeDica = "Passe o mouse numa peça para ler o que ela faz.";
 
     [Header("Prévia")]
     [SerializeField] private float cicloSegundos = 3f;
@@ -187,8 +187,7 @@ public class ObjetoAnimatorUI : MonoBehaviour, IDonoPecaAnimator
 
     private GameObject canvasGO;
     private RectTransform camadaArraste;
-    private TextMeshProUGUI descTitulo;
-    private TextMeshProUGUI descTexto;
+    private MolduraPuzzleUI.PainelDica painelDica;
     private TextMeshProUGUI textoProgresso;
     private readonly MolduraObjetoUI.HudEscondido hud = new MolduraObjetoUI.HudEscondido();
     private Action aoConcluir;
@@ -470,9 +469,7 @@ public class ObjetoAnimatorUI : MonoBehaviour, IDonoPecaAnimator
 
         // Peças (direita) e Dica (embaixo, com a descrição da peça).
         pecasUI.AddRange(MolduraObjetoUI.JanelaPecas(tela, this, pecas));
-        MolduraPuzzleUI.PainelDica dica = MolduraPuzzleUI.Dica(tela, rodapeDica);
-        descTitulo = dica.titulo;
-        descTexto = dica.texto;
+        painelDica = MolduraPuzzleUI.Dica(tela, rodapeDica);
         MostrarPadrao();
 
         // Por último = desenhada por cima de tudo: a peça sendo arrastada vem pra cá.
@@ -592,26 +589,18 @@ public class ObjetoAnimatorUI : MonoBehaviour, IDonoPecaAnimator
 
     public void MostrarDescricao(AnimatorPuzzleUI.Peca dados)
     {
-        if (descTitulo == null)
-        {
-            return;
-        }
-
-        descTitulo.color = Color.white;
-        descTitulo.text = AnimatorPuzzleUI.TextoSeguro(dados.texto);
-        descTexto.text = dados.descricao;
+        painelDica?.MostrarPeca(dados.texto, dados.descricao);
     }
 
     public void MostrarPadrao()
     {
-        if (descTitulo == null)
+        if (painelDica == null)
         {
             return;
         }
 
-        descTitulo.color = Concluido ? VidaUI.Verde : MolduraPuzzleUI.TituloAzul;
-        descTitulo.text = Concluido ? concluidoTitulo : descricaoTitulo;
-        descTexto.text = Concluido ? concluidoTexto : descricaoPadrao;
+        if (Concluido) painelDica.MostrarPronto(concluidoTitulo, concluidoTexto);
+        else painelDica.MostrarDica(descricaoPadrao, descricaoTitulo);
     }
 
     /// <summary>Chamado pela peça ao ser solta.</summary>
@@ -639,9 +628,7 @@ public class ObjetoAnimatorUI : MonoBehaviour, IDonoPecaAnimator
         erros++;
         RegistroAprendizagem.RegistrarErro("puzzle_peca_errada", $"{Conceito} | seta {alvo.rect.name} | {peca.Dados.texto}");
         Resetar();
-        descTitulo.text = erroTitulo;
-        descTitulo.color = VidaUI.Vermelho;
-        descTexto.text = erroTexto;
+        painelDica.MostrarErro(erroTitulo, erroTexto);
         StartCoroutine(PiscarErro(alvo));
     }
 

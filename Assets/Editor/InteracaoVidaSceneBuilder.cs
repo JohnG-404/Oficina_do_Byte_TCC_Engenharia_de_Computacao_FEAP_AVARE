@@ -309,6 +309,8 @@ public static class InteracaoVidaSceneBuilder
                     new[] { ActionType.Touch, ActionType.WalkNear, ActionType.LeaveArea },
                     new[] { ConsequenceType.DamageOneHeart, ConsequenceType.DamageTwoHearts, ConsequenceType.Repel,
                             ConsequenceType.DisableForSeconds, ConsequenceType.TurnOnBehindPlayer });
+                // "Uma vez": o jogador paga 1 de vida e o laser desliga.
+                Predefinir(go, ActionType.Touch, ConsequenceType.DamageOneHeart, repetir: false);
             }
             else if (name.StartsWith("fake_floor"))
             {
@@ -319,7 +321,8 @@ public static class InteracaoVidaSceneBuilder
                 ConfigureHazard(go, "Vida", "Parece um item de cura... mas você decide o que ele realmente faz.",
                     new[] { ActionType.Touch, ActionType.PressButton, ActionType.WalkNear, ActionType.RequiresMissingHealth },
                     new[] { ConsequenceType.DamageOneHeart, ConsequenceType.DamageTwoHearts, ConsequenceType.HealPlayer,
-                            ConsequenceType.ShieldForSeconds, ConsequenceType.IncreaseMaxHealth });
+                            ConsequenceType.HealOneHeart, ConsequenceType.IncreaseMaxHealth });
+                Predefinir(go, ActionType.Touch, ConsequenceType.HealOneHeart, repetir: false);
             }
             else if (name.StartsWith("plus_black_debuff"))
             {
@@ -327,6 +330,11 @@ public static class InteracaoVidaSceneBuilder
                     new[] { ActionType.Touch, ActionType.PressButton, ActionType.WalkNear, ActionType.RequiresMissingHealth },
                     new[] { ConsequenceType.DamageOneHeart, ConsequenceType.DamageTwoHearts, ConsequenceType.HealPlayer,
                             ConsequenceType.SlowPlayer, ConsequenceType.InvertControls });
+                Predefinir(go, ActionType.Touch, ConsequenceType.DamageOneHeart, repetir: true);
+            }
+            else if (name.StartsWith("trap_spikes"))
+            {
+                Predefinir(go, ActionType.Touch, ConsequenceType.DamageOneHeart, repetir: true);
             }
         }
     }
@@ -423,7 +431,23 @@ public static class InteracaoVidaSceneBuilder
                 new[] { ActionType.Touch, ActionType.WalkNear },
                 new[] { ConsequenceType.DamageOneHeart, ConsequenceType.DamageTwoHearts, ConsequenceType.Repel,
                         ConsequenceType.ReturnToSafePoint, ConsequenceType.SinkIntoGround });
+            Predefinir(go, ActionType.Touch, ConsequenceType.DamageOneHeart, repetir: true);
         }
+    }
+
+    // A fase já começa com o dano/cura ligado nesses itens, pro jogador não
+    // passar sem ver a mecânica de vida (ver InteractableItem.comecaConfigurado).
+    private static void Predefinir(GameObject go, ActionType acao, ConsequenceType consequencia, bool repetir)
+    {
+        InteractableItem item = go.GetComponent<InteractableItem>();
+        if (item == null) return;
+
+        var so = new SerializedObject(item);
+        so.FindProperty("comecaConfigurado").boolValue = true;
+        so.FindProperty("acaoInicial").intValue = (int)acao;
+        so.FindProperty("consequenciaInicial").intValue = (int)consequencia;
+        so.FindProperty("repetirInicial").boolValue = repetir;
+        so.ApplyModifiedPropertiesWithoutUndo();
     }
 
     private static void SetEnumArray(SerializedProperty arrayProp, int[] values)

@@ -72,8 +72,8 @@ public class IAAplicacaoFlow : MonoBehaviour, IDialogueListener, IReinicioFase
     [SerializeField]
     private string[] dicaAlvoGuarda =
     {
-        "Repara no aliado: ele fica parado na frente do guarda, tentando chamar a atenção, e o guarda nem olha pra ele.",
-        "Abra o cérebro do guarda e veja quem ele persegue."
+        "Olhe o aliado: ele fica na frente do guarda tentando chamar atenção, e o guarda nem olha.",
+        "Clique no guarda para abrir o cérebro dele. Quem ele está programado para perseguir?"
     };
 
     [TextArea(2, 4)]
@@ -81,23 +81,23 @@ public class IAAplicacaoFlow : MonoBehaviour, IDialogueListener, IReinicioFase
     private string[] dicaSeguir =
     {
         "Seu aliado ficou pra trás. Ele só sai do lugar quando uma regra manda.",
-        "Abra o cérebro dele: qual condição faz ele ir de Esperar pra Seguir?"
+        "Clique no aliado para abrir o cérebro dele. O que precisa acontecer para ele passar de Esperar para Seguir?"
     };
 
     [TextArea(2, 4)]
     [SerializeField]
     private string[] dicaDistrair =
     {
-        "O guarda até correria atrás do aliado, mas o aliado nunca entra em Distrair.",
-        "Pra distrair, ele precisa ver o guarda primeiro. Que condição faz isso?"
+        "O guarda até correria atrás do aliado, mas o aliado nunca começa a distrair.",
+        "Para distrair, o aliado precisa enxergar o guarda primeiro. Qual condição faz isso?"
     };
 
     [TextArea(2, 4)]
     [SerializeField]
     private string[] dicaEsconder =
     {
-        "Os dois cérebros estão certos. Agora é esconder: suba na plataforma e fique no meio dela, onde a linha do guarda bate na plataforma.",
-        "Quando o aliado levar o guarda embora, desça e corra pra saída."
+        "Os dois cérebros estão certos! Agora se esconda: suba na plataforma e fique no meio dela. Ali a visão do guarda bate na plataforma e não chega em você.",
+        "Quando o aliado levar o guarda embora, desça e corra para a saída."
     };
 
     private static bool reloading;

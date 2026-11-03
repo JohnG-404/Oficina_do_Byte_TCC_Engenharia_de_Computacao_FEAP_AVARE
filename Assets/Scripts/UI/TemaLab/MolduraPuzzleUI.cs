@@ -20,6 +20,8 @@ public static class MolduraPuzzleUI
 {
     public static readonly Color FundoTela = new Color32(19, 26, 38, 255);
     public static readonly Color TituloAzul = new Color32(0x9F, 0xC2, 0xFF, 0xFF);
+
+    private const float AlfaGrade = 0.15f;
     public static readonly Color TextoClaro = new Color32(0xDC, 0xE6, 0xF5, 0xFF);
     public static readonly Color Apagado = new Color32(0x6F, 0x7D, 0x95, 0xFF);
     public static readonly Color Rotulo = new Color32(0x9A, 0xA6, 0xBA, 0xFF);
@@ -46,7 +48,8 @@ public static class MolduraPuzzleUI
         VidaUI.Esticar(cor.rectTransform);
         if (T != null && T.puzzleGradeFundo != null)
         {
-            Image grade = Img(raizCanvas, "Grade", T.puzzleGradeFundo, Color.white, false);
+            // Mesma força das linhas do fundo da Física e da IA (sprite de mundo, mais apagado).
+            Image grade = Img(raizCanvas, "Grade", T.puzzleGradeFundo, new Color(1f, 1f, 1f, AlfaGrade), false);
             VidaUI.Esticar(grade.rectTransform);
         }
 
@@ -129,11 +132,55 @@ public static class MolduraPuzzleUI
         public TextMeshProUGUI titulo;
         public TextMeshProUGUI texto;
         public TextMeshProUGUI rodape;
+        /// <summary>O cartão de dica amarelo (null só sem o TemaLaboratorio).</summary>
+        public CartaoDicaUI cartao;
+
+        public void MostrarDica(string bruto, string localSeVazio = "")
+        {
+            if (cartao != null) { cartao.MostrarDica(bruto, localSeVazio); return; }
+            titulo.color = TituloAzul;
+            titulo.text = string.IsNullOrEmpty(localSeVazio) ? "Dica" : localSeVazio;
+            texto.text = CartaoDica.SemLocal(bruto);
+        }
+
+        public void MostrarPeca(string nome, string descricao)
+        {
+            if (cartao != null) { cartao.Mostrar(CartaoDica.Modo.Peca, nome, descricao); return; }
+            titulo.color = Color.white;
+            titulo.text = "<noparse>" + nome + "</noparse>";
+            texto.text = descricao;
+        }
+
+        public void MostrarPronto(string tituloPronto, string textoPronto)
+        {
+            if (cartao != null) { cartao.Mostrar(CartaoDica.Modo.Pronto, tituloPronto, textoPronto); return; }
+            titulo.color = VidaUI.Verde;
+            titulo.text = tituloPronto;
+            texto.text = textoPronto;
+        }
+
+        public void MostrarErro(string tituloErro, string textoErro)
+        {
+            if (cartao != null) { cartao.Mostrar(CartaoDica.Modo.Erro, "", $"{tituloErro} {textoErro}"); return; }
+            titulo.color = VidaUI.Vermelho;
+            titulo.text = tituloErro;
+            texto.text = textoErro;
+        }
     }
 
-    /// <summary>Painel "Dica" de baixo, com a lâmpada: título azul, texto e uma linha apagada de rodapé.</summary>
+    /// <summary>
+    /// Cartão de dica de baixo (CartaoDicaUI): dica em âmbar com a etiqueta
+    /// do lugar, peça sob o mouse em azul, pronto em verde e erro em vermelho.
+    /// Sem os sprites do cartão no TemaLaboratorio, cai no painel antigo.
+    /// </summary>
     public static PainelDica Dica(RectTransform tela, string rodape)
     {
+        if (T != null && T.dicaFundo != null)
+        {
+            CartaoDicaUI cartao = CartaoDicaUI.Criar(tela, 42, 852, 1801, 200, rodape);
+            return new PainelDica { cartao = cartao, titulo = cartao.Rotulo, texto = cartao.Texto, rodape = cartao.Rodape };
+        }
+
         Janela(tela, "JanelaDica", 42, 868, 1801, 182, "Dica");
         if (T != null && T.puzzleLampada != null)
         {
