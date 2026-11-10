@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// "Reiniciar fase" no Resources/GameUICanvas: botão na
 /// pausa entre Continuar e Configurações (com o chip da tecla), barra de dicas
 /// da pausa, confirmação "Reiniciar a fase?" e o anel "Segure para
-/// reiniciar…" do canto inferior esquerdo. Lógica em ReinicioFase,
+/// recomeçar…" do centro de baixo. Lógica em ReinicioFase,
 /// PauseMenuUI, ConfirmarReinicioUI e ReinicioSeguraUI.
 ///
 /// Backup do prefab antes da primeira montagem: SceneBackups/reiniciar_fase_*.
@@ -230,13 +230,14 @@ public static partial class LaboratorioUIBuilder
         return b;
     }
 
-    // Anel "Segure para reiniciar…" no canto inferior esquerdo (escondido até a tecla ser segurada).
+    // Anel "Segure para recomeçar…" no centro de baixo (escondido até a tecla ser segurada):
+    // no canto esquerdo ele cobria o robô, que começa ali em várias fases.
     static void MontarAnelReinicio(Transform root)
     {
         GarantirIconeReiniciar();
 
         RectTransform anel = Filho(root, "ReinicioAnel");
-        Pos(anel, Vector2.zero, Vector2.zero, Vector2.zero, new Vector2(40, 40), new Vector2(420, 96));
+        Pos(anel, new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0, 40), new Vector2(460, 96));
         var grupo = Garantir<CanvasGroup>(anel.gameObject);
         grupo.alpha = 0f;
         grupo.blocksRaycasts = false;
@@ -265,7 +266,7 @@ public static partial class LaboratorioUIBuilder
         Pos(icone, new Vector2(0, 0.5f), new Vector2(0, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(52, 0), new Vector2(30, 30));
         Img(icone.gameObject, S("icone_reiniciar"), Texto).raycastTarget = false;
 
-        var rotulo = Txt(anel, "Rotulo", "Segure para reiniciar…", fTexto, 28, Texto, TextAlignmentOptions.MidlineLeft);
+        var rotulo = Txt(anel, "Rotulo", "Segure para recomeçar…", fTexto, 28, Texto, TextAlignmentOptions.MidlineLeft);
         rotulo.textWrappingMode = TextWrappingModes.NoWrap;
         var rr = rotulo.rectTransform;
         Esticar(rr);

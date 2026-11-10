@@ -231,15 +231,117 @@ public class OficinaAnimacaoHUD : MonoBehaviour
 
         Definir(textoContagem, $"{indice + 1} / {Mathf.Max(total, indice + 1)}");
         Definir(textoTituloRodada, rodada.Titulo);
-        Definir(textoFrames, $"{frames} quadros");
+        Definir(textoFrames, $"{frames} frames");
         Definir(textoIscas, iscas == 1 ? "1 não faz parte" : $"{iscas} não fazem parte");
         Definir(textoFps, $"{Mathf.RoundToInt(fps)} FPS");
         DefinirComoJogar(rodada.TemFixos
-            ? "<b>Falta um quadro!</b>\nOs outros já estão no lugar. Ache o que falta."
+            ? "<b>Falta um frame!</b>\nOs outros já estão no lugar. Ache o que falta."
             : rodada.primeiroFrameTravado
-            ? "<b>É um loop!</b>\nEssa animação repete sem parar. O quadro 1 já está no lugar: monte o resto da volta."
-            : "<b>Arraste ou clique</b>\nArraste cada quadro da bandeja até a linha do tempo, ou só clique nele. Clique num quadro encaixado para devolver.");
+            ? "<b>É um loop!</b>\nEssa animação repete sem parar. O frame 1 já está no lugar: monte o resto da volta."
+            : "<b>Arraste ou clique</b>\nArraste cada frame da bandeja até a linha do tempo, ou só clique nele. Clique num frame encaixado para devolver.");
+        RestaurarLegenda();
         EstadoPrevia(false);
+    }
+
+    // ---------------------------------------------------------------- barra de teclas
+
+    // A câmera da Oficina mostra 1080 px em 10 unidades (mesma conta do OficinaTextosBuilder).
+    private const float PxPorUnidade = 108f;
+
+    private Transform barraTeclas;
+    private string[] legendaOriginal;
+    private float direitaLegenda;
+
+    /// <summary>
+    /// Troca a barra de teclas de baixo (pares tecla, ação), refazendo o layout da
+    /// direita pra esquerda do mesmo jeito que o OficinaTextosBuilder monta. Usado no
+    /// ajuste (FPS/Loop) e no evento de animação, em que não se arrasta quadro.
+    /// </summary>
+    public void DefinirLegenda(params string[] teclaAcao)
+    {
+        if (teclaAcao == null || teclaAcao.Length < 2 || !AcharBarraTeclas())
+        {
+            return;
+        }
+
+        int pares = teclaAcao.Length / 2;
+        float x = direitaLegenda;
+        // Os grupos ficam da esquerda pra direita: o último par vai no último grupo.
+        for (int g = barraTeclas.childCount - 1, par = pares - 1; g >= 0; g--, par--)
+        {
+            Transform grupo = barraTeclas.GetChild(g);
+            bool usa = par >= 0;
+            grupo.gameObject.SetActive(usa);
+            if (!usa)
+            {
+                continue;
+            }
+
+            Transform tAcao = grupo.Find("Acao"), tTecla = grupo.Find("Tecla"), contorno = grupo.Find("Contorno");
+            TMP_Text acao = tAcao != null ? tAcao.GetComponent<TMP_Text>() : null;
+            TMP_Text tecla = tTecla != null ? tTecla.GetComponent<TMP_Text>() : null;
+            if (acao == null || tecla == null || contorno == null)
+            {
+                continue;
+            }
+
+            acao.text = teclaAcao[par * 2 + 1];
+            tAcao.localPosition = new Vector3(x, tAcao.localPosition.y, 0f);
+            x -= acao.GetPreferredValues(acao.text).x + 12f / PxPorUnidade;
+
+            tecla.text = teclaAcao[par * 2];
+            float w = tecla.GetPreferredValues(tecla.text).x + 24f / PxPorUnidade;
+            float cx = x - w / 2f;
+            tTecla.localPosition = new Vector3(cx, tTecla.localPosition.y, 0f);
+
+            var tam = new Vector2(w, 0.40f);
+            contorno.localPosition = new Vector3(cx, contorno.localPosition.y, contorno.localPosition.z);
+            if (contorno.GetComponent<SpriteRenderer>() is SpriteRenderer srContorno) srContorno.size = tam;
+            Transform fundo = contorno.Find("Fundo");
+            if (fundo != null && fundo.GetComponent<SpriteRenderer>() is SpriteRenderer srFundo) srFundo.size = tam - Vector2.one * (6f / PxPorUnidade);
+            x -= w + 30f / PxPorUnidade;
+        }
+    }
+
+    /// <summary>Volta a barra de teclas para a da montagem dos quadros (a salva na cena).</summary>
+    public void RestaurarLegenda()
+    {
+        if (legendaOriginal != null)
+        {
+            DefinirLegenda(legendaOriginal);
+        }
+    }
+
+    private bool AcharBarraTeclas()
+    {
+        if (barraTeclas != null)
+        {
+            return true;
+        }
+
+        for (Transform t = transform; t != null && barraTeclas == null; t = t.parent)
+        {
+            barraTeclas = t.Find("BarraTeclas");
+        }
+
+        if (barraTeclas == null || barraTeclas.childCount == 0)
+        {
+            barraTeclas = null;
+            return false;
+        }
+
+        // Guarda o texto e a borda direita da barra salva na cena, pra poder voltar.
+        var original = new List<string>();
+        foreach (Transform grupo in barraTeclas)
+        {
+            Transform t = grupo.Find("Tecla"), a = grupo.Find("Acao");
+            original.Add(t != null && t.GetComponent<TMP_Text>() is TMP_Text tt ? tt.text : "");
+            original.Add(a != null && a.GetComponent<TMP_Text>() is TMP_Text ta ? ta.text : "");
+        }
+        legendaOriginal = original.ToArray();
+        Transform ultimaAcao = barraTeclas.GetChild(barraTeclas.childCount - 1).Find("Acao");
+        direitaLegenda = ultimaAcao != null ? ultimaAcao.localPosition.x : 0f;
+        return true;
     }
 
     /// <summary>Troca o quadro "como jogar" (ex: no passo de evento de animação).</summary>

@@ -140,6 +140,20 @@ public class PlayerVisorAnimator : MonoBehaviour
     }
 
     /// <summary>Pulinho de vitória em loop até chamar PararVitoria (ex.: ao concluir a fase).</summary>
+    /// <summary>
+    /// Volta na hora para o quadro parado, mesmo com o jogo congelado
+    /// (timeScale 0): sem isso, o Game Over congelava o robô no quadro
+    /// claro do piscar de dano.
+    /// </summary>
+    public void MostrarParadoAgora()
+    {
+        timerDano = 0f;
+        comemorando = false;
+        if (animator == null) return;
+        Tocar(EstadoParado, reiniciar: true);
+        animator.Update(0f);
+    }
+
     public void Vitoria() => comemorando = true;
     public void PararVitoria() => comemorando = false;
 

@@ -105,9 +105,11 @@ public class LevelCompleteUI : MonoBehaviour
     /// <summary>
     /// Mostra o cartão. <paramref name="contarErros"/>: true = "Peças erradas"
     /// (ErrosDePuzzle), false = "Reinícios" (quedas, mortes e reinícios).
+    /// <paramref name="rotuloErros"/> troca o "Peças erradas" quando o erro não é
+    /// de peça (ex.: "Erros" na Oficina, que conta ordens, ajustes e eventos errados).
     /// <paramref name="continuar"/> é chamado com Enter/clique; null = só mostra.
     /// </summary>
-    public void Mostrar(IList<Item> itens, bool contarErros, Action continuar)
+    public void Mostrar(IList<Item> itens, bool contarErros, Action continuar, string rotuloErros = null)
     {
         if (!TemCartao)
         {
@@ -136,11 +138,13 @@ public class LevelCompleteUI : MonoBehaviour
             l.raiz.SetActive(usa);
             if (!usa) continue;
             if (l.nome != null) l.nome.text = itens[i].nome;
-            if (l.frase != null) l.frase.text = itens[i].frase;
+            if (l.frase != null) l.frase.text = ComMaiuscula(itens[i].frase);
         }
 
         // Cartão cresce com o número de itens; as estatísticas vêm logo abaixo.
-        float altura = alturaBase + Mathf.Max(1, n) * alturaLinha - (n == 0 ? alturaLinha : 0f);
+        // Sem itens, a seção "O que você montou" some e o cartão encolhe junto
+        // (sem sobrar faixa vazia entre as estatísticas e o "Próxima").
+        float altura = n > 0 ? alturaBase + n * alturaLinha : alturaBase - 32f;
         janela.sizeDelta = new Vector2(janela.sizeDelta.x, altura);
         if (blocoStats != null)
         {
@@ -151,7 +155,7 @@ public class LevelCompleteUI : MonoBehaviour
         ProgressoJogo.Resultado r = ProgressoJogo.UltimaConclusao;
         bool desta = r != null && r.cena == cena;
         if (valorTempo != null) valorTempo.text = desta && r.segundos >= 0f ? FormatarTempo(r.segundos) : "—";
-        if (rotuloContagem != null) rotuloContagem.text = contarErros ? "Peças erradas" : "Reinícios";
+        if (rotuloContagem != null) rotuloContagem.text = contarErros ? (string.IsNullOrEmpty(rotuloErros) ? "Peças erradas" : rotuloErros) : "Reinícios";
         int contagem = !desta ? -1 : (contarErros ? r.erros : r.falhas);
         if (valorContagem != null)
         {
@@ -211,6 +215,28 @@ public class LevelCompleteUI : MonoBehaviour
         Action acao = aoContinuar;
         aoContinuar = null;
         acao?.Invoke();
+    }
+
+    // As frases vêm de fases diferentes; no cartão todas começam com
+    // maiúscula. Nomes de código (linearVelocity, isGrounded...) ficam como estão.
+    private static string ComMaiuscula(string frase)
+    {
+        if (string.IsNullOrEmpty(frase) || !char.IsLower(frase[0]))
+        {
+            return frase;
+        }
+
+        int fim = frase.IndexOfAny(new[] { ' ', '·', ',', '.' });
+        string primeira = fim < 0 ? frase : frase.Substring(0, fim);
+        for (int i = 1; i < primeira.Length; i++)
+        {
+            if (char.IsUpper(primeira[i]))
+            {
+                return frase; // camelCase: é código
+            }
+        }
+
+        return char.ToUpper(frase[0]) + frase.Substring(1);
     }
 
     private static string FormatarTempo(float segundos)

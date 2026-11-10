@@ -28,8 +28,25 @@ public class ObjetoAnimadoInteracao : MonoBehaviour
     [SerializeField] private float raioPerto = 1.4f;
     [Tooltip("Folga (unidades) em volta do sprite que ainda conta como clique.")]
     [SerializeField] private float folgaClique = 0.2f;
+    [Tooltip("Brilho atrás do objeto (opcional): pulsa enquanto o Animator não está configurado e apaga depois. Fica acima da escuridão das lâmpadas.")]
+    [SerializeField] private SpriteRenderer brilho;
+    [Tooltip("Opacidade máxima do brilho.")]
+    [SerializeField] private float brilhoAlfa = 0.8f;
 
     private static readonly Color CorDestaque = new Color(1f, 0.93f, 0.55f, 1f);
+
+    // Último quadro em que algum objeto sem Animator estava perto do jogador.
+    private static int framePerto = int.MinValue / 2;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStatics() => framePerto = int.MinValue / 2;
+
+    /// <summary>
+    /// Algum objeto (moeda, jumppad, alavanca, bateria) sem Animator está perto
+    /// do jogador agora. A lâmpada usa isso para não disputar o balão nem a
+    /// tecla de interagir (as moedas ficam na escada, dentro da sala escura das lâmpadas).
+    /// </summary>
+    public static bool AlgumPerto => Time.frameCount - framePerto <= 1;
 
     private ObjetoAnimatorUI painel;
     private AnimacaoPlayerFisica player;
@@ -61,11 +78,17 @@ public class ObjetoAnimadoInteracao : MonoBehaviour
         if (visual != null) corBase = visual.color;
         liberadoAntes = Liberado;
         if (animator != null) animator.enabled = liberadoAntes;
+
+        // A dica fica salva desligada na cena: desligada, o LateUpdate da
+        // DicaTecla não roda e o balão "abrir Animator" nunca aparecia. Ligada,
+        // o texto solto some (a DicaTecla esconde) e só o balão aparece.
+        if (dica != null && !dica.gameObject.activeSelf) dica.gameObject.SetActive(true);
     }
 
     private void Update()
     {
         bool liberado = Liberado;
+        AtualizarBrilho(liberado);
         if (liberado)
         {
             if (!liberadoAntes)
@@ -98,6 +121,7 @@ public class ObjetoAnimadoInteracao : MonoBehaviour
 
         if (perto)
         {
+            framePerto = Time.frameCount;
             flow.FalarSobreObjeto(tipo + "_sem_animator", painel.FalasSemAnimator);
         }
 
@@ -111,6 +135,29 @@ public class ObjetoAnimadoInteracao : MonoBehaviour
         {
             painel.Configurar();
         }
+    }
+
+    // Sem Animator: o brilho pulsa (cada objeto num tempo, pela posição).
+    // Configurado: apaga em meio segundo e desliga.
+    private void AtualizarBrilho(bool liberado)
+    {
+        if (brilho == null || !brilho.enabled)
+        {
+            return;
+        }
+
+        Color c = brilho.color;
+        if (liberado || visual == null || !visual.gameObject.activeInHierarchy)
+        {
+            c.a = Mathf.MoveTowards(c.a, 0f, 2f * Time.unscaledDeltaTime);
+            if (c.a <= 0f) brilho.enabled = false;
+        }
+        else
+        {
+            c.a = brilhoAlfa * (0.6f + 0.4f * Mathf.Sin(Time.unscaledTime * 3f - transform.position.x));
+        }
+
+        brilho.color = c;
     }
 
     private bool Perto()

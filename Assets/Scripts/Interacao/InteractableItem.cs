@@ -83,6 +83,9 @@ public class InteractableItem : MonoBehaviour
     public IReadOnlyList<ConsequenceType> AllowedConsequences => allowedConsequences;
 
     public bool IsConfigured { get; private set; }
+
+    /// <summary>Se a combinação atual foi escolhida pelo jogador no painel (e não veio pronta da cena).</summary>
+    public bool ConfiguradoPeloJogador { get; private set; }
     public bool HasTriggered { get; private set; }
     public ActionType ChosenAction { get; private set; }
     public ConsequenceType ChosenConsequence { get; private set; }
@@ -431,6 +434,10 @@ public class InteractableItem : MonoBehaviour
         ChosenConsequence = consequence;
         ChosenRepeats = repeats && CanRepeat(consequence);
         IsConfigured = true;
+        if (notificar)
+        {
+            ConfiguradoPeloJogador = true;
+        }
 
         // Reconfigurar recomeça do zero: o item volta a reagir mesmo se já
         // tinha disparado na escolha anterior.

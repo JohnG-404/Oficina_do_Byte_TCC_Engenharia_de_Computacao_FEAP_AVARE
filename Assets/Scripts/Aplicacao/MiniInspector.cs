@@ -74,7 +74,9 @@ public class MiniInspector : MonoBehaviour
         go = null;
         telaMouse = Vector2.zero;
         Mouse mouse = Mouse.current;
-        if (mouse == null || mouse.leftButton.isPressed || DialogueManager.IsAnyDialogueActive)
+        // Some com o cartão final, a pausa ou qualquer janela que bloqueie o jogo.
+        if (mouse == null || mouse.leftButton.isPressed || DialogueManager.IsAnyDialogueActive
+            || LevelCompleteUI.Aberto || JogoBloqueado.Ativo || Time.timeScale == 0f)
         {
             return null;
         }

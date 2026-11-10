@@ -88,6 +88,8 @@ public class HudPuzzleUI : MonoBehaviour
         [TextArea(2, 4)] public string descricaoPadrao = "O dado muda, o evento avisa, a tela redesenha. A barra só mostra a vida nova se alguém avisar.";
         public string erroTitulo = "Essa peça não entra aí";
         [TextArea(2, 4)] public string erroTexto = "O puzzle recomeçou. Leia a descrição das peças e tente de novo.";
+        public string prontoTitulo = "Barra conectada!";
+        [TextArea(2, 4)] public string prontoTexto = "As três peças encaixaram. Agora a vida muda, o evento avisa e a barra redesenha sozinha.";
     }
 
     private class Slot
@@ -383,6 +385,12 @@ public class HudPuzzleUI : MonoBehaviour
 
     internal void MostrarPadrao()
     {
+        if (concluido)
+        {
+            dica.MostrarPronto(textos.prontoTitulo, textos.prontoTexto);
+            return;
+        }
+
         dica.MostrarDica(textos.descricaoPadrao, textos.descricaoTitulo);
     }
 

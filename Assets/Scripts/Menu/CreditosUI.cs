@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// final tocando. Aberta pelo botão Créditos (linha do Sair).
 ///
 /// O texto vem do campo "Modelo" (código C# comum, editável no Inspector):
-/// {desenvolvimento}, {orientacao} e {instituicao} viram os nomes dos campos
+/// {desenvolvimento}, {orientacao}, {coorientacao} e {instituicao} viram os nomes dos campos
 /// abaixo, e as cores de sintaxe são aplicadas sozinhas. Mudou algo no
 /// Inspector, o texto da cena se atualiza no Editor.
 ///
@@ -23,6 +23,7 @@ public class CreditosUI : MonoBehaviour
     [Header("Nomes")]
     [SerializeField] private string desenvolvimento = "(seu nome)";
     [SerializeField] private string orientacao = "(nome do orientador)";
+    [SerializeField] private string coorientacao = "(nome do coorientador)";
     [SerializeField] private string instituicao = "(curso · instituição)";
 
     [Header("Texto")]
@@ -34,6 +35,7 @@ public class Creditos : MonoBehaviour
     // Quem fez
     string desenvolvimento = ""{desenvolvimento}"";
     string orientacao      = ""{orientacao}"";
+    string coorientacao    = ""{coorientacao}"";
     string instituicao     = ""{instituicao}"";
 
     // O que você aprende jogando
@@ -180,6 +182,7 @@ public class Creditos : MonoBehaviour
         string texto = (modelo ?? "")
             .Replace("{desenvolvimento}", desenvolvimento)
             .Replace("{orientacao}", orientacao)
+            .Replace("{coorientacao}", coorientacao)
             .Replace("{instituicao}", instituicao)
             .Replace("\r", "");
 

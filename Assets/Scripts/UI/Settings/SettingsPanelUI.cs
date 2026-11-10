@@ -326,7 +326,11 @@ public class SettingsPanelUI : MonoBehaviour
         go.name = Nome;
 
         var rt = (RectTransform)go.transform;
-        rt.anchoredPosition = new Vector2(-voltar.anchoredPosition.x, voltar.anchoredPosition.y);
+        // Mesma largura e mesma borda esquerda do "Restaurar padrão" da aba
+        // Controles (360 px), que é outro botão: assim as abas não mudam o tamanho dele.
+        const float Largura = 360f;
+        rt.sizeDelta = new Vector2(Largura, voltar.sizeDelta.y);
+        rt.anchoredPosition = new Vector2(-voltar.anchoredPosition.x + (Largura - voltar.sizeDelta.x) * rt.pivot.x, voltar.anchoredPosition.y);
 
         Transform icone = go.transform.Find("Icone");
         if (icone != null) icone.gameObject.SetActive(false);
@@ -354,14 +358,17 @@ public class SettingsPanelUI : MonoBehaviour
 
     private void RestaurarAbaAtual()
     {
-        if (abaAtual == 1) ConfiguracoesJogo.RestaurarGraficos();
+        if (abaAtual == 0) ConfiguracoesJogo.RestaurarAudio();
+        else if (abaAtual == 1) ConfiguracoesJogo.RestaurarGraficos();
         else if (abaAtual == 3) ConfiguracoesJogo.RestaurarJogo();
     }
 
     private void ShowTab(int index)
     {
         abaAtual = index;
-        if (restaurarButton != null) restaurarButton.gameObject.SetActive(index == 1 || index == 3);
+        // Controles tem o próprio "Restaurar padrão" (ControlsTabUI), no mesmo lugar.
+        if (restaurarButton != null) restaurarButton.gameObject.SetActive(index != 2);
+        AtualizarLegendaAjustar(index);
 
         audioContent.SetActive(index == 0);
         graphicsContent.SetActive(index == 1);
@@ -372,6 +379,19 @@ public class SettingsPanelUI : MonoBehaviour
         SetTabSelected(graphicsTabButton, index == 1);
         SetTabSelected(controlsTabButton, index == 2);
         if (gameTabButton != null) SetTabSelected(gameTabButton, index == 3);
+    }
+
+    // "←→ Ajustar" na legenda do rodapé só vale onde há sliders e setas
+    // (Áudio, Gráficos e Jogo); na aba Controles não há o que ajustar.
+    private void AtualizarLegendaAjustar(int index)
+    {
+        foreach (Transform t in GetComponentsInChildren<Transform>(true))
+        {
+            if (t.name == "Tecla_Ajustar" || t.name == "Rotulo_Ajustar")
+            {
+                t.gameObject.SetActive(index != 2);
+            }
+        }
     }
 
     private static void SetTabSelected(Button button, bool selected)
@@ -428,9 +448,29 @@ public class SettingsPanelUI : MonoBehaviour
     /// <param name="cameFromPauseMenu">
     /// Se true, ao fechar (Voltar/ESC) volta pro Menu de Pausa em vez de fechar tudo.
     /// </param>
+    private Color corFundoOriginal;
+    private bool guardouCorFundo;
+
     public void Show(bool cameFromPauseMenu)
     {
         returnToPauseMenuOnHide = cameFromPauseMenu;
+
+        // Aberta pela pausa, a fase continua escurecida atrás, como na pausa.
+        // Pelo Menu, o fundo fica como foi salvo na cena.
+        Image fundo = GetComponent<Image>();
+        if (fundo != null)
+        {
+            if (!guardouCorFundo)
+            {
+                corFundoOriginal = fundo.color;
+                guardouCorFundo = true;
+            }
+
+            fundo.color = cameFromPauseMenu && PauseMenuUI.Instance != null && PauseMenuUI.Instance.TryGetCorFundo(out Color corPausa)
+                ? corPausa
+                : corFundoOriginal;
+        }
+
         panelRoot.SetActive(true);
     }
 

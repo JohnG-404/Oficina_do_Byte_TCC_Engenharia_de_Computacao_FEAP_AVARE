@@ -94,6 +94,13 @@ public class Questionario : MonoBehaviour
         },
         new Pergunta
         {
+            bloco = "Interação e vida",
+            enunciado = "O espinho tem um Collider2D com Is Trigger ligado. Que função do script dele roda quando alguém entra na área, e como ele sabe que foi o jogador?",
+            opcoes = new[] { "Update, comparando a posição do espinho com a do jogador a cada frame", "OnCollisionEnter2D, conferindo o nome do sprite que encostou", "Start, conferindo se quem chegou tem um Rigidbody2D", "OnTriggerEnter2D, conferindo se o outro objeto tem a tag Player" },
+            correta = 3
+        },
+        new Pergunta
+        {
             bloco = "Animação",
             enunciado = "Uma animação de corrida num jogo 2D é feita de:",
             opcoes = new[] { "Uma sequência de sprites (frames) trocados bem rápido", "Um único sprite que estica e encolhe enquanto ele corre", "Um Rigidbody2D com mais velocidade pra mexer as pernas", "Um Collider2D maior que acompanha o movimento das pernas" },
@@ -102,9 +109,9 @@ public class Questionario : MonoBehaviour
         new Pergunta
         {
             bloco = "Animação",
-            enunciado = "Os frames de uma animação foram colocados fora de ordem. O que o jogador vê?",
-            opcoes = new[] { "A animação toca mais devagar, mas na ordem certa", "Nada muda, porque o Unity coloca os frames em ordem sozinho", "O personagem para de colidir com o chão", "Um movimento embaralhado, que não faz sentido" },
-            correta = 3
+            enunciado = "O personagem tem as animações Idle e Corrida no Animator. O que faz ele passar de Idle pra Corrida quando começa a andar?",
+            opcoes = new[] { "Ligar o Loop Time do clipe de corrida", "Colocar os quadros da corrida logo depois dos do Idle, no mesmo clipe", "Uma transição que confere o parâmetro velocidadeX > 0.1", "Aumentar o Sample Rate do clipe Idle pra ele acabar mais rápido" },
+            correta = 2
         },
         new Pergunta
         {
@@ -377,6 +384,11 @@ public class Questionario : MonoBehaviour
     // qualquer opção: não indica acerto.
     private void Marcar(int escolha)
     {
+        if (atual >= perguntas.Length)
+        {
+            return;
+        }
+
         marcada = escolha;
         AtualizarFaixa();
         Selecionar(botaoConfirmar);
@@ -397,7 +409,7 @@ public class Questionario : MonoBehaviour
 
     private void Confirmar()
     {
-        if (marcada < 0)
+        if (marcada < 0 || atual >= perguntas.Length)
         {
             return;
         }
@@ -462,12 +474,28 @@ public class Questionario : MonoBehaviour
     {
         if (modo == Modo.Pre)
         {
+            // As opções da última pergunta continuam na tela durante a
+            // transição: travadas, pra seta + Enter não marcar uma
+            // pergunta que não existe mais.
+            TravarOpcoes();
             TrocaDeCena.Carregar(cenaDepoisDoPre);
         }
         else
         {
             MostrarResultado();
         }
+    }
+
+    private void TravarOpcoes()
+    {
+        foreach (Button b in opcoesAtuais)
+        {
+            if (b != null) b.interactable = false;
+        }
+        opcoesAtuais.Clear();
+        if (botaoConfirmar != null) botaoConfirmar.interactable = false;
+        if (botaoTrocar != null) botaoTrocar.interactable = false;
+        EventSystem.current?.SetSelectedGameObject(null);
     }
 
     private void MostrarResultado()
@@ -714,15 +742,26 @@ public class Questionario : MonoBehaviour
         TemaLaboratorio tema = TemaLabUI.Tema;
         for (int i = 0; i < perguntas.Length; i++)
         {
-            bool corrente = i == atualIndice || (atualIndice < 0 && i == 0);
-            Sprite s = tema != null ? (corrente ? tema.paginaPontoAtivo : tema.paginaPonto) : null;
+            // Na abertura (atualIndice < 0) nenhum ponto fica aceso: ainda
+            // não há pergunta em andamento.
+            bool corrente = i == atualIndice;
+            bool respondida = atualIndice >= 0 && i < atualIndice;
+            Sprite s = tema != null ? (corrente || respondida ? tema.paginaPontoAtivo : tema.paginaPonto) : null;
             Image ponto = TemaLabUI.Imagem(pontosRoot, "Ponto", s, TemaLabUI.TextoSuave);
             var le = ponto.gameObject.AddComponent<LayoutElement>();
             le.preferredHeight = 26f;
             le.preferredWidth = corrente ? 52f : 26f;
-            // Já respondida = um pouco mais clara, igual para qualquer resposta.
-            float alfa = corrente ? 1f : (atualIndice >= 0 && i < atualIndice ? 0.95f : 0.45f);
-            ponto.color = new Color(ponto.color.r, ponto.color.g, ponto.color.b, alfa);
+            // Já respondida = ponto aceso (a cor da atual) mais apagado, igual
+            // para qualquer resposta (não indica acerto).
+            if (respondida)
+            {
+                ponto.color = new Color(1f, 1f, 1f, 0.6f);
+            }
+            else
+            {
+                float alfa = corrente ? 1f : 0.45f;
+                ponto.color = new Color(ponto.color.r, ponto.color.g, ponto.color.b, alfa);
+            }
         }
     }
 

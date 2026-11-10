@@ -8,7 +8,10 @@ using UnityEngine.UI;
 /// ConfiguracoesJogo. A linha é um Button (foco/realce do tema Laboratório):
 ///  - opção de lista (seletor): ◀ valor ▶ — setas do teclado ←→, clique nas
 ///    setas, ou Enter/clique na linha para avançar;
-///  - opção liga/desliga (interruptor): Enter/clique alterna, ← desliga, → liga.
+///  - opção liga/desliga (interruptor): Enter/clique alterna, ← desliga, → liga;
+///  - Resolução e Modo de tela: lista suspensa (ListaResolucaoUI) no lugar das
+///    setas — Enter ou clique abrem a lista com todas as opções, e a escolhida
+///    pede confirmação (ConfirmarResolucaoUI).
 ///
 /// Montada no Editor por Tools > UI Laboratório > 5. Opções de qualidade de vida.
 /// </summary>
@@ -41,6 +44,9 @@ public class OpcaoConfigUI : MonoBehaviour, IMoveHandler
     [SerializeField] private Sprite spriteDesligado;
 
     private Button linha;
+    private ListaResolucaoUI lista;
+
+    private bool EhLista => opcao == Opcao.Resolucao || opcao == Opcao.ModoTela;
 
     public bool EhInterruptor =>
         opcao == Opcao.ManterProporcao || opcao == Opcao.SilenciarSemFoco ||
@@ -50,8 +56,32 @@ public class OpcaoConfigUI : MonoBehaviour, IMoveHandler
     {
         linha = GetComponent<Button>();
         linha.onClick.AddListener(AoClicarLinha);
+
+        if (EhLista)
+        {
+            PrepararLista();
+            return;
+        }
+
         if (setaEsquerda != null) setaEsquerda.onClick.AddListener(() => AoClicarSeta(-1));
         if (setaDireita != null) setaDireita.onClick.AddListener(() => AoClicarSeta(+1));
+    }
+
+    // Resolução e Modo de tela: a seta da esquerda sai e a da direita vira o ▼ da lista.
+    private void PrepararLista()
+    {
+        lista = GetComponent<ListaResolucaoUI>();
+        if (lista == null) lista = gameObject.AddComponent<ListaResolucaoUI>();
+        lista.Configurar(valor != null ? valor.transform.parent as RectTransform : null, valor,
+            setaDireita != null ? setaDireita.transform as RectTransform : null,
+            modoTela: opcao == Opcao.ModoTela);
+
+        if (setaEsquerda != null) setaEsquerda.gameObject.SetActive(false);
+        if (setaDireita != null)
+        {
+            setaDireita.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
+            setaDireita.onClick.AddListener(() => lista.Abrir());
+        }
     }
 
     private void OnEnable()
@@ -69,7 +99,8 @@ public class OpcaoConfigUI : MonoBehaviour, IMoveHandler
 
     private void AoClicarLinha()
     {
-        if (EhInterruptor) DefinirLigado(!Ligado());
+        if (EhLista) lista.Abrir();
+        else if (EhInterruptor) DefinirLigado(!Ligado());
         else Passo(+1, circular: true);
     }
 
@@ -83,6 +114,7 @@ public class OpcaoConfigUI : MonoBehaviour, IMoveHandler
     public void OnMove(AxisEventData e)
     {
         if (e.moveDir != MoveDirection.Left && e.moveDir != MoveDirection.Right) return;
+        if (EhLista) return;   // resolução e modo de tela mudam só pela lista, com confirmação
         int d = e.moveDir == MoveDirection.Left ? -1 : +1;
 
         if (EhInterruptor) DefinirLigado(d > 0);
@@ -195,6 +227,7 @@ public class OpcaoConfigUI : MonoBehaviour, IMoveHandler
         }
 
         if (valor != null) valor.text = TextoDoValor();
+        if (EhLista) return;
 
         // Setas apagadas nas pontas da lista.
         int total = Quantidade(), i = Indice();

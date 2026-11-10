@@ -86,6 +86,15 @@ public class ObjetivoFase : MonoBehaviour
     private float proximaBuscaRobo;
     private readonly Vector3[] cantos = new Vector3[4];
 
+    /// <summary>
+    /// A faixa grande ("Novo objetivo · etapa N de M") está na tela. O painel
+    /// "Animator do Player" (AnimatorEstadoHUD) some nesse tempo: a faixa grande
+    /// é larga e passava por cima dele.
+    /// </summary>
+    public static bool GrandeVisivel => Instance != null && Instance.grande != null
+        && Instance.grande.alpha > 0.01f && (Instance.grupo == null || Instance.grupo.alpha > 0.01f)
+        && Instance.isActiveAndEnabled;
+
     public int EtapaAtual => atual;
     public int QuantidadeDeEtapas => etapas != null ? etapas.Length : 0;
 

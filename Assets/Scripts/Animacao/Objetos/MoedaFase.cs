@@ -1,7 +1,8 @@
 using UnityEngine;
 
 /// <summary>
-/// Moeda da fase "Animacao" (no chão do túnel de agachar). O Animator gira a
+/// Moeda da fase "Animacao" (uma em cada degrau da escada escura, antes do
+/// túnel de agachar; brilha por cima do escuro até ser configurada). O Animator gira a
 /// moeda num estado com Loop ligado; ao ser pega, o Trigger "coletada" leva
 /// ao estado Coletada, que toca uma vez e some.
 /// </summary>
@@ -64,7 +65,7 @@ public class MoedaFase : MonoBehaviour
         if (animator != null) animator.gameObject.SetActive(false);
     }
 
-    // Fala assim que a fase estiver livre (o Prof não interrompe o túnel).
+    // Fala assim que a fase estiver livre (sem outro diálogo na tela).
     private void Falar()
     {
         if (AnimacaoLevelFlow.Instance == null || AnimacaoLevelFlow.Instance.FalarSobreObjeto("moeda", falas))

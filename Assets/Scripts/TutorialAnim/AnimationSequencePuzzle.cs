@@ -75,7 +75,7 @@ public class AnimationSequencePuzzle : MonoBehaviour
         [TextArea(1, 3)]
         public string dica;
 
-        [Tooltip("Quadros por segundo da prévia desta rodada (0 = usa previewFrameDuration).")]
+        [Tooltip("Frames por segundo da prévia desta rodada (0 = usa previewFrameDuration).")]
         public int fpsPrevia;
 
         public string Titulo => string.IsNullOrEmpty(titulo) ? roundName : titulo;
@@ -112,8 +112,8 @@ public class AnimationSequencePuzzle : MonoBehaviour
         [TextArea(2, 4)]
         public string[] introDialogue =
         {
-            "Falta o som! No Unity, um Animation Event chama uma função num quadro escolhido do clipe, por exemplo, tocar o som do passo.",
-            "Clique no quadro em que o pé encosta no chão. A prévia vai tocar o passo nesse quadro."
+            "Falta o som! No Unity, um Animation Event chama uma função num frame escolhido do clipe, por exemplo, tocar o som do passo.",
+            "Clique no frame em que o pé encosta no chão. A prévia vai tocar o passo nesse frame."
         };
 
         [TextArea(2, 4)]
@@ -127,11 +127,11 @@ public class AnimationSequencePuzzle : MonoBehaviour
         public string[] falasErro =
         {
             "Ouviu? O passo toca com o pé no ar, fora do tempo.",
-            "Procure o quadro em que o pé da frente acabou de encostar no chão."
+            "Procure o frame em que o pé da frente acabou de encostar no chão."
         };
 
         [TextArea(1, 3)]
-        public string textoComoJogar = "<b>Evento de animação</b>\nClique no quadro em que o pé toca o chão.";
+        public string textoComoJogar = "<b>Evento de animação</b>\nClique no frame em que o pé toca o chão.";
     }
 
     [Tooltip("Uma rodada por animação — a ordem aqui é a ordem em que aparecem no tutorial.")]
@@ -171,8 +171,8 @@ public class AnimationSequencePuzzle : MonoBehaviour
     private string[] introDialogue =
     {
         "Bem-vindo à Oficina de Animação! Uma animação quadro a quadro é uma sequência de imagens (sprites) trocadas bem rápido. Cada imagem é um quadro (em inglês, frame).",
-        "Os quadros estão soltos na bandeja. Arraste cada um até a linha do tempo, do encaixe 1 ao último, ou só clique nele.",
-        "Com a linha do tempo cheia, a animação toca no monitor. Cuidado: sempre tem quadro que não faz parte.",
+        "Os frames estão soltos na bandeja. Arraste cada um até a linha do tempo, do encaixe 1 ao último, ou só clique nele.",
+        "Com a linha do tempo cheia, a animação toca no monitor. Cuidado: sempre tem frame que não faz parte.",
         "Travou? Clique em Dica."
     };
 
@@ -188,7 +188,7 @@ public class AnimationSequencePuzzle : MonoBehaviour
     [Tooltip("Usado na 3ª tentativa em diante, só se a rodada não tiver dica própria.")]
     [TextArea(1, 3)]
     [SerializeField]
-    private string[] wrongOrderDialogueStage3 = { "Procure o quadro em que nada começou ainda: é por ele que a sequência começa." };
+    private string[] wrongOrderDialogueStage3 = { "Procure o frame em que nada começou ainda: é por ele que a sequência começa." };
 
     [Header("Troca de rodada e fechamento")]
     [Tooltip("Prefixo mostrado ao acertar uma rodada, seguido do título da próxima (ver RoundData.Titulo).")]
@@ -633,7 +633,7 @@ public class AnimationSequencePuzzle : MonoBehaviour
 
         if (frames.Count == 0)
         {
-            Falar(new[] { "Coloque pelo menos um quadro na linha do tempo pra tocar a prévia." }, null);
+            Falar(new[] { "Coloque pelo menos um frame na linha do tempo pra tocar a prévia." }, null);
             return;
         }
 
@@ -674,7 +674,7 @@ public class AnimationSequencePuzzle : MonoBehaviour
             fantasma.enabled = true;
         }
 
-        string dica = string.IsNullOrEmpty(round.dica) ? "Comece pelo quadro em que nada aconteceu ainda." : round.dica;
+        string dica = string.IsNullOrEmpty(round.dica) ? "Comece pelo frame em que nada aconteceu ainda." : round.dica;
         Falar(new[] { dica }, null);
     }
 
@@ -863,6 +863,8 @@ public class AnimationSequencePuzzle : MonoBehaviour
         }
     }
 
+    private const string TextoComoJogarAjuste = "<b>Ajuste a animação</b>\nTeste os botões, repare na prévia e clique em Confirmar quando achar que ficou certo.";
+
     // Abre o painel com os quadros que o jogador acabou de montar (a mesma
     // animação da prévia) e o Prof explica o que ajustar. O painel já aparece
     // durante a fala, com os botões travados até ela acabar.
@@ -879,6 +881,9 @@ public class AnimationSequencePuzzle : MonoBehaviour
             Array.Reverse(quadros); // ex: Porta fechando mostra o clipe da porta abrindo, pra tocar com Speed -1
         }
         ajusteUI = AjusteAnimacaoUI.Show(ajuste, quadros, SetPreviewSprite, OnAjusteConfirmado);
+        // A faixa "Como jogar" e a barra de teclas falam do painel aberto, não de arrastar quadros.
+        hud?.DefinirComoJogar(TextoComoJogarAjuste);
+        hud?.DefinirLegenda("Clique", "Escolher e confirmar", "Esc", "Pausa");
 
         // Troca o listener mesmo sem fala: senão o listener anterior (ex:
         // StartRoundOnDialogueEnd) dispararia de novo no fim do próximo diálogo.
@@ -1025,6 +1030,8 @@ public class AnimationSequencePuzzle : MonoBehaviour
 
         RegistroAprendizagem.Registrar("anim_evento_inicio", evento.roundName);
         hud?.DefinirComoJogar(evento.textoComoJogar);
+        hud?.DefinirLegenda("Clique", "Escolher o frame", "Esc", "Pausa");
+        DefinirRotuloMarca(evento.rotulo);
         DefinirBotaoTocar(false);
         AtualizarEncaixes();
 
@@ -1058,6 +1065,22 @@ public class AnimationSequencePuzzle : MonoBehaviour
                 }
                 yield return new WaitForSeconds(passo);
             }
+        }
+    }
+
+    // A marca embaixo do quadro escolhido mostra o som do evento (ex.: "pouso");
+    // antes ficava com o texto salvo na cena ("passo") em qualquer evento.
+    private void DefinirRotuloMarca(string rotulo)
+    {
+        if (marcaEvento == null || string.IsNullOrEmpty(rotulo))
+        {
+            return;
+        }
+
+        TMPro.TMP_Text texto = marcaEvento.GetComponentInChildren<TMPro.TMP_Text>(true);
+        if (texto != null)
+        {
+            texto.text = rotulo;
         }
     }
 
@@ -1211,7 +1234,7 @@ public class AnimationSequencePuzzle : MonoBehaviour
 
         var itens = new List<LevelCompleteUI.Item>
         {
-            new LevelCompleteUI.Item("Ordem dos quadros", (rounds != null ? rounds.Length : 0) + " animações montadas, quadro a quadro"),
+            new LevelCompleteUI.Item("Ordem dos frames", (rounds != null ? rounds.Length : 0) + " animações montadas, quadro a quadro"),
         };
         if (ajustes != null && ajustes.Length > 0)
         {
@@ -1219,9 +1242,11 @@ public class AnimationSequencePuzzle : MonoBehaviour
         }
         if (eventos != null && eventos.Length > 0)
         {
-            itens.Add(new LevelCompleteUI.Item("Animation Event", "o som do passo no quadro certo"));
+            string som = eventos[0] != null && !string.IsNullOrEmpty(eventos[0].rotulo) ? eventos[0].rotulo : "passo";
+            itens.Add(new LevelCompleteUI.Item("Animation Event", $"o som do {som} no frame certo"));
         }
-        painel.Mostrar(itens, true, CarregarProximaCena);
+        // Aqui o erro é uma ordem errada, um ajuste ou um evento errado (não peça por peça).
+        painel.Mostrar(itens, true, CarregarProximaCena, "Erros");
     }
 
     private void CarregarProximaCena()

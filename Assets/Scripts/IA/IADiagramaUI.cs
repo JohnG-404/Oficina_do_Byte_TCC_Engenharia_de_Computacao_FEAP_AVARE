@@ -429,10 +429,20 @@ public class IADiagramaUI : MonoBehaviour
 
         // Legenda colada no encaixe: em cima, ou embaixo no encaixe da seta de baixo.
         float lado = def.legendaEmbaixo ? -1f : 1f;
+        Vector2 posLegenda = pos + new Vector2(0f, lado * (TamanhoSlot.y * 0.5f + 16f));
+
+        // Fundo da cor da área atrás da legenda: as setas (desenhadas antes)
+        // passam por trás dela em vez de riscar o texto.
+        Image fundoLegenda = NovaImagem(area, "FundoLegenda", CorArea);
+        fundoLegenda.raycastTarget = false;
+
         TMP_Text legenda = NovoTexto(area, "Legenda", def.legenda, 19f, FontStyles.Normal, CorTextoFraco,
             def.legendaEmbaixo ? TextAlignmentOptions.Top : TextAlignmentOptions.Bottom);
         legenda.richText = false;
-        Posicionar(legenda.rectTransform, pos + new Vector2(0f, lado * (TamanhoSlot.y * 0.5f + 16f)), new Vector2(TamanhoSlot.x + 60f, 28f));
+        Posicionar(legenda.rectTransform, posLegenda, new Vector2(TamanhoSlot.x + 60f, 28f));
+        float larguraTexto = Mathf.Min(legenda.GetPreferredValues(def.legenda).x, TamanhoSlot.x + 60f);
+        Posicionar(fundoLegenda.rectTransform, posLegenda, new Vector2(larguraTexto + 16f, 28f));
+        fundoLegenda.enabled = !string.IsNullOrEmpty(def.legenda);
 
         // Fundo opaco (a seta passa por trás) com o contorno tracejado do encaixe vazio da Física.
         Sprite redondo = TemaLabUI.Tema != null ? TemaLabUI.Tema.bordaArredondada : null;

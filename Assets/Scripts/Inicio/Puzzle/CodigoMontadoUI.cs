@@ -57,7 +57,12 @@ public class CodigoMontadoUI : MonoBehaviour
         // tem 14), sem passar da tela. +60 pro rodapé do botão.
         int linhas = string.IsNullOrEmpty(code) ? 1 : code.Split('\n').Length;
         float altura = Mathf.Clamp(276f + linhas * 52f, 540f, 1040f);
-        TemaLabUI.Centro(janela.rectTransform, new Vector2(0f, altura > 900f ? 0f : 40f), new Vector2(1600f, altura));
+        // Sobe a janela o bastante pra ela terminar acima de y=840 (de cima):
+        // embaixo fica o cartão de dica dos puzzles, e no código da lâmpada (10
+        // linhas) a janela cobria o "PRONTO · Lâmpada configurada!". O topo não
+        // passa de 20 px da borda.
+        float deslocamento = altura > 900f ? 0f : Mathf.Min(520f - altura / 2f, Mathf.Max(40f, altura / 2f - 300f));
+        TemaLabUI.Centro(janela.rectTransform, new Vector2(0f, deslocamento), new Vector2(1600f, altura));
 
         TextMeshProUGUI titleText = TemaLabUI.Rotulo(janela.transform, "Titulo", title, 24f, TemaLabUI.Dourado);
         var trt = titleText.rectTransform;

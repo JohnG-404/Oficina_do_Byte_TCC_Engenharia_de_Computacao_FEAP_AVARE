@@ -127,6 +127,23 @@ public class ConfiguracoesJogo : MonoBehaviour
         OnMudou?.Invoke();
     }
 
+    /// <summary>"Restaurar padrão" da aba Áudio: os três volumes em 100% e o silenciar sem foco desligado.</summary>
+    public static void RestaurarAudio()
+    {
+        AudioManager am = AudioManager.Instance;
+        if (am != null)
+        {
+            am.SetMasterVolume(1f);
+            am.SetMusicVolume(1f);
+            am.SetSfxVolume(1f);
+        }
+
+        PlayerPrefs.DeleteKey("Config_SilenciarSemFoco");
+        PlayerPrefs.Save();
+        AudioListener.pause = false;
+        OnMudou?.Invoke();
+    }
+
     /// <summary>"Restaurar padrão" da aba Jogo: texto, dicas, contador de FPS e mouse.</summary>
     public static void RestaurarJogo()
     {

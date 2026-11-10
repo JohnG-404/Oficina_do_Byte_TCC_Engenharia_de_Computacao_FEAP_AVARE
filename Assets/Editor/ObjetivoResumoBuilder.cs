@@ -289,7 +289,7 @@ public static class ObjetivoResumoBuilder
         Image ponto = TemaLabUI.Imagem(miolo, "Ponto", tema.paginaPontoAtivo, TemaLabUI.Dourado);
         ponto.preserveAspect = true;
         TemaLabUI.Posicionar(ponto.rectTransform, new Vector2(0f, 0.5f), new Vector2(20f, 0f), new Vector2(22f, 22f));
-        float direita = 110f + (d.teclaReiniciar ? 330f : 0f);
+        float direita = 110f + (d.teclaReiniciar ? 390f : 0f);
         TextMeshProUGUI texto = Txt(miolo, "Texto", titulo0, 26f, TemaLabUI.CorTexto, TemaLabUI.Fonte.CorpoForte, TextAlignmentOptions.MidlineLeft, 18f);
         TemaLabUI.Posicionar(texto.rectTransform, new Vector2(0f, 0.5f), new Vector2(56f, 0f), new Vector2(largura - 56f - direita, 40f));
         TextMeshProUGUI contador = Txt(miolo, "Contador", "1/" + n, 22f, TemaLabUI.TextoSuave, TemaLabUI.Fonte.MonoForte, TextAlignmentOptions.MidlineRight);
@@ -298,10 +298,10 @@ public static class ObjetivoResumoBuilder
         {
             Image barra = TemaLabUI.Imagem(miolo, "Divisor", null, TemaLabUI.Contorno);
             TemaLabUI.Posicionar(barra.rectTransform, new Vector2(1f, 0.5f), new Vector2(-112f, 0f), new Vector2(2f, 30f));
-            // "Segure [tecla] recomeçar": a tecla acompanha a ação "Reiniciar fase" (aba Controles).
+            // "Segure [tecla] para recomeçar": a tecla acompanha a ação "Reiniciar fase" (aba Controles).
             TextMeshProUGUI segure = Txt(miolo, "Segure", "Segure", 22f, TemaLabUI.TextoSuave, TemaLabUI.Fonte.CorpoForte, TextAlignmentOptions.MidlineRight);
-            TemaLabUI.Posicionar(segure.rectTransform, new Vector2(1f, 0.5f), new Vector2(-340f, 0f), new Vector2(90f, 40f));
-            RectTransform caixaTecla = Tecla(miolo, "R", new Vector2(1f, 0.5f), new Vector2(-262f, 0f), new Vector2(68f, 40f));
+            TemaLabUI.Posicionar(segure.rectTransform, new Vector2(1f, 0.5f), new Vector2(-390f, 0f), new Vector2(90f, 40f));
+            RectTransform caixaTecla = Tecla(miolo, "R", new Vector2(1f, 0.5f), new Vector2(-312f, 0f), new Vector2(68f, 40f));
             TextMeshProUGUI k = caixaTecla.GetComponentInChildren<TextMeshProUGUI>(true);
             k.enableAutoSizing = true;
             k.fontSizeMin = 12f;
@@ -312,8 +312,8 @@ public static class ObjetivoResumoBuilder
             st.FindProperty("acao").stringValue = InputManager.RestartActionName;
             st.FindProperty("padrao").stringValue = "R";
             st.ApplyModifiedPropertiesWithoutUndo();
-            TextMeshProUGUI acao = Txt(miolo, "Recomecar", "recomeçar", 22f, TemaLabUI.TextoSuave, TemaLabUI.Fonte.CorpoForte);
-            TemaLabUI.Posicionar(acao.rectTransform, new Vector2(1f, 0.5f), new Vector2(-126f, 0f), new Vector2(124f, 40f));
+            TextMeshProUGUI acao = Txt(miolo, "Recomecar", "para recomeçar", 22f, TemaLabUI.TextoSuave, TemaLabUI.Fonte.CorpoForte);
+            TemaLabUI.Posicionar(acao.rectTransform, new Vector2(1f, 0.5f), new Vector2(-130f, 0f), new Vector2(170f, 40f));
         }
 
         // Grande: aparece ao mudar de etapa (começa invisível também no Editor).

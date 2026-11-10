@@ -160,21 +160,40 @@ public class GameManager : MonoBehaviour
 
         if (salvar)
         {
-            PlayerPrefs.SetInt("ResolucaoLargura", r.x);
-            PlayerPrefs.SetInt("ResolucaoAltura", r.y);
-            PlayerPrefs.SetInt("ModoTela", indiceModoTela);
-            PlayerPrefs.SetInt("Fullscreen", indiceModoTela == 2 ? 0 : 1);
-            PlayerPrefs.Save();
+            SalvarTela();
         }
 
         OnTelaMudou?.Invoke();
     }
 
+    /// <summary>
+    /// Grava a resolução e o modo de tela atuais. Usado também pela confirmação
+    /// da resolução (ConfirmarResolucaoUI), que testa a resolução sem gravar.
+    /// </summary>
+    public void SalvarTela()
+    {
+        Vector2Int r = ResolucaoAtual;
+        PlayerPrefs.SetInt("ResolucaoLargura", r.x);
+        PlayerPrefs.SetInt("ResolucaoAltura", r.y);
+        PlayerPrefs.SetInt("ModoTela", indiceModoTela);
+        PlayerPrefs.SetInt("Fullscreen", indiceModoTela == 2 ? 0 : 1);
+        PlayerPrefs.Save();
+    }
+
     /// <summary>Escolhe uma resolução da lista <see cref="Resolucoes"/>.</summary>
     public void DefinirIndiceResolucao(int indice)
     {
+        DefinirIndiceResolucao(indice, true);
+    }
+
+    /// <param name="salvar">
+    /// false só aplica na tela, sem gravar: se o jogo fechar antes da
+    /// confirmação, abre de novo com a resolução que estava gravada.
+    /// </param>
+    public void DefinirIndiceResolucao(int indice, bool salvar)
+    {
         indiceResolucao = Mathf.Clamp(indice, 0, resolucoes.Count - 1);
-        Aplicar(true);
+        Aplicar(salvar);
     }
 
     /// <summary>Usa a resolução da lista mais próxima de largura x altura.</summary>
@@ -186,7 +205,21 @@ public class GameManager : MonoBehaviour
     /// <summary>0 = tela cheia, 1 = tela cheia exclusiva, 2 = janela.</summary>
     public void DefinirModoTela(int indice)
     {
+        DefinirModoTela(indice, true);
+    }
+
+    /// <param name="salvar">false só aplica na tela, sem gravar (ver ConfirmarResolucaoUI).</param>
+    public void DefinirModoTela(int indice, bool salvar)
+    {
         indiceModoTela = Mathf.Clamp(indice, 0, modos.Length - 1);
+        Aplicar(salvar);
+    }
+
+    /// <summary>Volta resolução e modo de tela de uma vez (e grava), ex: confirmação recusada.</summary>
+    public void RestaurarTela(int indiceResolucaoAnterior, int indiceModoAnterior)
+    {
+        indiceResolucao = Mathf.Clamp(indiceResolucaoAnterior, 0, resolucoes.Count - 1);
+        indiceModoTela = Mathf.Clamp(indiceModoAnterior, 0, modos.Length - 1);
         Aplicar(true);
     }
 

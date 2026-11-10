@@ -33,7 +33,7 @@ public class AjusteAnimacao
     public string[] introDialogue =
     {
         "Boa, a corrida está na ordem certa! Agora falta um detalhe.",
-        "No Unity, cada Animation Clip tem uma velocidade (Sample Rate, em quadros por segundo) e a opção Loop Time. Ajuste os dois.",
+        "No Unity, cada Animation Clip tem uma velocidade (Sample Rate, em frames por segundo) e a opção Loop Time. Ajuste os dois.",
         "Teste os botões, repare na prévia e clique em Confirmar quando achar que ficou certo."
     };
 
@@ -44,7 +44,7 @@ public class AjusteAnimacao
     [TextArea(2, 3)]
     public string pedido = "Essa é a corrida: ela precisa repetir enquanto o personagem corre e ficar fluida.";
 
-    public string rotuloFps = "Sample Rate (quadros por segundo)";
+    public string rotuloFps = "Sample Rate (frames por segundo)";
     public string rotuloLoop = "Loop Time";
     public string textoBotaoLoopLigado = "Loop ligado";
     public string textoBotaoLoopDesligado = "Loop desligado";
@@ -57,16 +57,16 @@ public class AjusteAnimacao
     [TextArea(2, 3)]
     public string[] textoPorFps =
     {
-        "<b>6 FPS:</b> dá pra ver cada quadro. A corrida parece travada, bom para estilo retrô ou movimento lento.",
+        "<b>6 FPS:</b> dá pra ver cada frame. A corrida parece travada, bom para estilo retrô ou movimento lento.",
         "<b>12 FPS:</b> o padrão comum de pixel art. Fica fluido sem precisar de muitos desenhos.",
-        "<b>24 FPS:</b> mais rápido e liso. Com poucos quadros, a corrida fica apressada; mais FPS pede mais desenhos."
+        "<b>24 FPS:</b> mais rápido e liso. Com poucos frames, a corrida fica apressada; mais FPS pede mais desenhos."
     };
 
     [TextArea(2, 3)]
-    public string textoLoopLigado = "<b>Loop ligado:</b> ao chegar no último quadro, volta pro primeiro e repete sem parar.";
+    public string textoLoopLigado = "<b>Loop ligado:</b> ao chegar no último frame, volta pro primeiro e repete sem parar.";
 
     [TextArea(2, 3)]
-    public string textoLoopDesligado = "<b>Loop desligado:</b> toca uma vez e para no último quadro, como uma porta abrindo. A prévia espera um pouco e mostra de novo.";
+    public string textoLoopDesligado = "<b>Loop desligado:</b> toca uma vez e para no último frame, como uma porta abrindo. A prévia espera um pouco e mostra de novo.";
 
     [Tooltip("Velocidade já marcada quando o painel abre. Não use a resposta certa aqui, senão o jogador acerta sem pensar.")]
     public int fpsInicial = 6;
@@ -74,7 +74,7 @@ public class AjusteAnimacao
     [Tooltip("Loop já marcado quando o painel abre.")]
     public bool loopInicial = false;
 
-    [Tooltip("Com loop desligado, quanto tempo (segundos) a prévia fica parada no último quadro antes de tocar de novo.")]
+    [Tooltip("Com loop desligado, quanto tempo (segundos) a prévia fica parada no último frame antes de tocar de novo.")]
     public float pausaSemLoop = 1.2f;
 
     [Header("Speed (tocar de trás pra frente)")]
@@ -87,10 +87,10 @@ public class AjusteAnimacao
     public string rotuloSpeed = "Speed (no Animator)";
 
     [TextArea(2, 3)]
-    public string textoSpeedNormal = "<b>Speed 1:</b> toca o clipe do primeiro ao último quadro.";
+    public string textoSpeedNormal = "<b>Speed 1:</b> toca o clipe do primeiro ao último frame.";
 
     [TextArea(2, 3)]
-    public string textoSpeedInvertido = "<b>Speed -1:</b> toca o MESMO clipe do último quadro pro primeiro, sem desenhar nada novo.";
+    public string textoSpeedInvertido = "<b>Speed -1:</b> toca o MESMO clipe do último frame pro primeiro, sem desenhar nada novo.";
 
     public int speedInicial = 1;
 
@@ -111,7 +111,7 @@ public class AjusteAnimacao
     [TextArea(2, 4)]
     public string[] falasAcerto =
     {
-        "Isso! 12 quadros por segundo e Loop Time ligado.",
+        "Isso! 12 frames por segundo e Loop Time ligado.",
         "No Unity, o Sample Rate fica na janela Animation, e o Loop Time é uma caixinha no Inspector do próprio Animation Clip.",
         "Corrida e personagem parado respirando usam loop. Pulo, porta abrindo e baú costumam tocar uma vez só."
     };
@@ -128,7 +128,7 @@ public class AjusteAnimacao
     [TextArea(2, 4)]
     public string[] falasErroLoop =
     {
-        "Com o Loop Time desligado, a corrida toca uma vez e o personagem fica congelado no último quadro, mesmo continuando a andar pela fase.",
+        "Com o Loop Time desligado, a corrida toca uma vez e o personagem fica congelado no último frame, mesmo continuando a andar pela fase.",
         "Loop desligado serve pra animação que acontece uma vez só, tipo uma porta abrindo. A corrida precisa repetir."
     };
 
@@ -136,8 +136,8 @@ public class AjusteAnimacao
     [TextArea(2, 4)]
     public string[] falasErroFpsLento =
     {
-        "Em 6 FPS cada quadro fica tempo demais na tela. Dá pra contar os desenhos e a corrida parece travada, quase em câmera lenta.",
-        "Pra ficar fluida, ela precisa de mais quadros por segundo."
+        "Em 6 FPS cada frame fica tempo demais na tela. Dá pra contar os desenhos e a corrida parece travada, quase em câmera lenta.",
+        "Pra ficar fluida, ela precisa de mais frames por segundo."
     };
 
     [Tooltip("Quando a velocidade escolhida é MAIOR que a certa.")]
@@ -145,7 +145,7 @@ public class AjusteAnimacao
     public string[] falasErroFpsRapido =
     {
         "Em 24 FPS a volta inteira da corrida passa num piscar de olhos. Com poucos desenhos, as pernas giram rápido demais e parece que o personagem está patinando.",
-        "24 FPS fica bonito quando o artista desenha muitos quadros. Com poucos desenhos, um valor menor funciona melhor."
+        "24 FPS fica bonito quando o artista desenha muitos frames. Com poucos desenhos, um valor menor funciona melhor."
     };
 
     [Tooltip("Quando o Speed escolhido está errado (só com usarSpeed).")]
@@ -160,7 +160,7 @@ public class AjusteAnimacao
     [TextArea(2, 3)]
     public string[] dicaAposErros =
     {
-        "Dica: quase todo jogo com desenhos em pixel mostra uns 12 quadros por segundo quando o personagem se mexe."
+        "Dica: quase todo jogo com desenhos em pixel mostra uns 12 frames por segundo quando o personagem se mexe."
     };
 
     [Tooltip("Quantos erros o jogador pode cometer antes de a dica extra aparecer junto das falas de erro.")]

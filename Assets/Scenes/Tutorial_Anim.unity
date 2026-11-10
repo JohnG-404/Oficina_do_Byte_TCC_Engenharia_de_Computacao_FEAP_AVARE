@@ -3729,8 +3729,8 @@ MonoBehaviour:
     primeiroFrameTravado: 0
     encaixesFixos: 
     falaInicio: []
-    dica: "Olhe o brilho da l\xE2mpada em cada quadro. Ele muda um pouquinho de um
-      quadro para o outro."
+    dica: "Olhe o brilho da l\xE2mpada em cada frame. Ele muda um pouquinho de um
+      frame para o outro."
     fpsPrevia: 8
   - roundName: Porta
     titulo: "Porta do laborat\xF3rio abrindo"
@@ -3746,7 +3746,7 @@ MonoBehaviour:
     encaixesFixos: 
     falaInicio: []
     dica: Olhe a abertura no meio da porta e a cor da luz em cima dela. O que muda
-      de um quadro para o outro?
+      de um frame para o outro?
     fpsPrevia: 6
   - roundName: Porta fechando
     titulo: "Porta do laborat\xF3rio fechando"
@@ -3780,7 +3780,7 @@ MonoBehaviour:
     falaInicio:
     - "Essa \xE9 uma anima\xE7\xE3o de progresso: come\xE7a vazia e termina cheia.
       Depois de montar, voc\xEA decide como ela toca."
-    dica: Olhe quanta carga a bateria tem em cada quadro.
+    dica: Olhe quanta carga a bateria tem em cada frame.
     fpsPrevia: 4
   - roundName: Pulo
     titulo: Pulo do personagem
@@ -3818,8 +3818,8 @@ MonoBehaviour:
       de um t\xFAnel."
     - "Ele come\xE7a em p\xE9 e vai abaixando at\xE9 ficar achatado. Repare na altura:
       cada frame \xE9 um pouco mais baixo que o anterior."
-    dica: "Olhe a altura do corpo em cada quadro. Cuidado: um dos quadros soltos
-      n\xE3o faz parte desta anima\xE7\xE3o."
+    dica: "Olhe a altura do corpo em cada frame. Cuidado: um dos frames soltos n\xE3o
+      faz parte desta anima\xE7\xE3o."
     fpsPrevia: 12
   - roundName: Jumppad
     titulo: "Jumppad lan\xE7ando"
@@ -3857,7 +3857,7 @@ MonoBehaviour:
     - "Num giro, a moeda vai ficando fina at\xE9 ficar de lado. Ache o frame que
       cabe entre os vizinhos."
     dica: Uma moeda girando fica fininha e depois larga de novo. Compare a largura
-      dela em cada quadro.
+      dela em cada frame.
     fpsPrevia: 12
   - roundName: "Cart\xE3o"
     titulo: "Cart\xE3o flutuando"
@@ -3876,7 +3876,7 @@ MonoBehaviour:
       no meio mudam muito."
     - "Isso \xE9 suaviza\xE7\xE3o (ease in e ease out): o movimento acelera e desacelera,
       como na vida real."
-    dica: "Olhe a altura do cart\xE3o em cada quadro e quanto ela muda de um quadro
+    dica: "Olhe a altura do cart\xE3o em cada frame e quanto ela muda de um frame
       para o outro."
     fpsPrevia: 8
   - roundName: Laser
@@ -3910,7 +3910,7 @@ MonoBehaviour:
     encaixesFixos: 
     falaInicio: []
     dica: "Olhe para que lado o cabo da alavanca est\xE1 inclinado e a cor da luz
-      em cada quadro."
+      em cada frame."
     fpsPrevia: 8
   - roundName: Dano
     titulo: Personagem levando dano
@@ -3955,7 +3955,7 @@ MonoBehaviour:
   introDialogue:
   - "Bem-vindo \xE0 Oficina de Anima\xE7\xE3o! Uma anima\xE7\xE3o quadro a quadro
     \xE9 uma sequ\xEAncia de imagens (sprites) trocadas bem r\xE1pido. Cada imagem
-    \xE9 um frame."
+    \xE9 um quadro, que no Unity se chama frame."
   - "Os frames est\xE3o soltos na bandeja. Arraste cada um at\xE9 a linha do tempo,
     do encaixe 1 ao \xFAltimo, ou s\xF3 clique nele."
   - "Com a linha do tempo cheia, a anima\xE7\xE3o toca no monitor. Cuidado: sempre
@@ -3977,38 +3977,38 @@ MonoBehaviour:
   - roundName: Moeda
     introDialogue:
     - "Boa, a moeda est\xE1 girando na ordem certa! Agora falta um detalhe."
-    - "No Unity, cada Animation Clip tem uma velocidade (Sample Rate, em quadros
-      por segundo) e a op\xE7\xE3o Loop Time. Ajuste os dois."
+    - "No Unity, cada Animation Clip tem uma velocidade (Sample Rate, em frames por
+      segundo) e a op\xE7\xE3o Loop Time. Ajuste os dois."
     - "Teste os bot\xF5es, repare na pr\xE9via e clique em Confirmar quando achar
       que ficou certo."
     titulo: "Ajuste a anima\xE7\xE3o"
     pedido: "Essa \xE9 a moeda do jogo: ela fica girando sem parar at\xE9 algu\xE9m
       pegar, e precisa girar liso."
-    rotuloFps: Sample Rate (quadros por segundo)
+    rotuloFps: Sample Rate (frames por segundo)
     rotuloLoop: Loop Time
     textoBotaoLoopLigado: Loop ligado
     textoBotaoLoopDesligado: Loop desligado
     textoConfirmar: Confirmar
     fpsOpcoes: 060000000c00000018000000
     textoPorFps:
-    - "<b>6 FPS:</b> d\xE1 pra ver cada quadro. A moeda gira aos trancos, bom para
+    - "<b>6 FPS:</b> d\xE1 pra ver cada frame. A moeda gira aos trancos, bom para
       estilo retr\xF4 ou movimento lento."
     - "<b>12 FPS:</b> o padr\xE3o comum de pixel art. Fica fluido sem precisar de
       muitos desenhos."
-    - "<b>24 FPS:</b> mais r\xE1pido e liso. Com s\xF3 4 quadros, a moeda vira um
+    - "<b>24 FPS:</b> mais r\xE1pido e liso. Com s\xF3 4 frames, a moeda vira um
       borr\xE3o; mais FPS pede mais desenhos."
-    textoLoopLigado: "<b>Loop ligado:</b> ao chegar no \xFAltimo quadro, volta pro
+    textoLoopLigado: "<b>Loop ligado:</b> ao chegar no \xFAltimo frame, volta pro
       primeiro e repete sem parar."
     textoLoopDesligado: "<b>Loop desligado:</b> toca uma vez e para no \xFAltimo
-      quadro, como uma porta abrindo. A pr\xE9via espera um pouco e mostra de novo."
+      frame, como uma porta abrindo. A pr\xE9via espera um pouco e mostra de novo."
     fpsInicial: 6
     loopInicial: 0
     pausaSemLoop: 1.2
     usarSpeed: 0
     inverterQuadros: 0
     rotuloSpeed: Speed (no Animator)
-    textoSpeedNormal: "<b>Speed 1:</b> toca o clipe do primeiro ao \xFAltimo quadro."
-    textoSpeedInvertido: "<b>Speed -1:</b> toca o MESMO clipe do \xFAltimo quadro
+    textoSpeedNormal: "<b>Speed 1:</b> toca o clipe do primeiro ao \xFAltimo frame."
+    textoSpeedInvertido: "<b>Speed -1:</b> toca o MESMO clipe do \xFAltimo frame
       pro primeiro, sem desenhar nada novo."
     speedInicial: 1
     fpsCerto: 12
@@ -4017,7 +4017,7 @@ MonoBehaviour:
     fpsQuase: 24
     aceitarFpsQuase: 0
     falasAcerto:
-    - Isso! 12 quadros por segundo e Loop Time ligado.
+    - Isso! 12 frames por segundo e Loop Time ligado.
     - "No Unity, o Sample Rate fica na janela Animation, e o Loop Time \xE9 uma caixinha
       no Inspector do pr\xF3prio Animation Clip."
     - "Moeda girando, corrida e personagem parado respirando usam loop. Pulo, porta
@@ -4029,24 +4029,24 @@ MonoBehaviour:
       no Inspector do pr\xF3prio Animation Clip."
     falasErroLoop:
     - "Com o Loop Time desligado, a moeda d\xE1 uma volta e para, congelada no \xFAltimo
-      quadro, enquanto ainda espera o jogador."
+      frame, enquanto ainda espera o jogador."
     - "Loop desligado serve pra anima\xE7\xE3o que acontece uma vez s\xF3, tipo uma
       porta abrindo. A moeda precisa girar sem parar."
     falasErroFpsLento:
-    - "Em 6 FPS cada quadro fica tempo demais na tela. D\xE1 pra contar os desenhos
+    - "Em 6 FPS cada frame fica tempo demais na tela. D\xE1 pra contar os desenhos
       e a moeda parece girar aos trancos."
-    - Pra ficar fluida, ela precisa de mais quadros por segundo.
+    - Pra ficar fluida, ela precisa de mais frames por segundo.
     falasErroFpsRapido:
     - "Em 24 FPS a volta inteira da moeda passa num piscar de olhos. Com s\xF3 4
       desenhos, ela parece piscar em vez de girar."
-    - 24 FPS fica bonito quando o artista desenha muitos quadros. Com poucos desenhos,
+    - 24 FPS fica bonito quando o artista desenha muitos frames. Com poucos desenhos,
       um valor menor funciona melhor.
     falasErroSpeed:
     - 'Com Speed 1 o clipe toca do jeito que foi montado: a porta abre em vez de
       fechar.'
     - "Pra reaproveitar o clipe ao contr\xE1rio, o Speed precisa ser negativo."
     dicaAposErros:
-    - 'Dica: quase todo jogo com desenhos em pixel mostra uns 12 quadros por segundo
+    - 'Dica: quase todo jogo com desenhos em pixel mostra uns 12 frames por segundo
       quando o personagem se mexe.'
     errosAntesDaDica: 2
   - roundName: Porta fechando
@@ -4058,7 +4058,7 @@ MonoBehaviour:
     titulo: "Ajuste a anima\xE7\xE3o"
     pedido: "Esse \xE9 o clipe da porta abrindo. Fa\xE7a ele fechar a porta, uma
       vez s\xF3, sem desenhar nada novo."
-    rotuloFps: Sample Rate (quadros por segundo)
+    rotuloFps: Sample Rate (frames por segundo)
     rotuloLoop: Loop Time
     textoBotaoLoopLigado: Loop ligado
     textoBotaoLoopDesligado: Loop desligado
@@ -4068,18 +4068,18 @@ MonoBehaviour:
     - "<b>6 FPS:</b> a porta se move devagar, pesada. Combina com uma porta de laborat\xF3rio."
     - "<b>12 FPS:</b> a porta bate r\xE1pido, mas ainda d\xE1 pra ver o movimento."
     - <b>24 FPS:</b> com 4 desenhos, a porta fecha num piscar de olhos.
-    textoLoopLigado: "<b>Loop ligado:</b> ao chegar no \xFAltimo quadro, volta pro
+    textoLoopLigado: "<b>Loop ligado:</b> ao chegar no \xFAltimo frame, volta pro
       primeiro e repete sem parar."
     textoLoopDesligado: "<b>Loop desligado:</b> toca uma vez e para no \xFAltimo
-      quadro, como uma porta fechando. A pr\xE9via espera um pouco e mostra de novo."
+      frame, como uma porta fechando. A pr\xE9via espera um pouco e mostra de novo."
     fpsInicial: 24
     loopInicial: 1
     pausaSemLoop: 1.2
     usarSpeed: 1
     inverterQuadros: 1
     rotuloSpeed: Speed (no Animator)
-    textoSpeedNormal: "<b>Speed 1:</b> toca o clipe do primeiro ao \xFAltimo quadro."
-    textoSpeedInvertido: "<b>Speed -1:</b> toca o MESMO clipe do \xFAltimo quadro
+    textoSpeedNormal: "<b>Speed 1:</b> toca o clipe do primeiro ao \xFAltimo frame."
+    textoSpeedInvertido: "<b>Speed -1:</b> toca o MESMO clipe do \xFAltimo frame
       pro primeiro, sem desenhar nada novo."
     speedInicial: 1
     fpsCerto: 6
@@ -4117,7 +4117,7 @@ MonoBehaviour:
     - 'Pense: ela carrega e fica cheia, ou fica enchendo sem parar?'
     titulo: "Ajuste a anima\xE7\xE3o"
     pedido: A bateria carrega uma vez e fica cheia, mostrando que a energia voltou.
-    rotuloFps: Sample Rate (quadros por segundo)
+    rotuloFps: Sample Rate (frames por segundo)
     rotuloLoop: Loop Time
     textoBotaoLoopLigado: Loop ligado
     textoBotaoLoopDesligado: Loop desligado
@@ -4127,18 +4127,18 @@ MonoBehaviour:
     - "<b>6 FPS:</b> d\xE1 pra acompanhar cada barra de carga subindo."
     - "<b>12 FPS:</b> carrega r\xE1pido, quase de uma vez."
     - "<b>24 FPS:</b> enche num instante, nem d\xE1 pra ver a carga subir."
-    textoLoopLigado: "<b>Loop ligado:</b> ao chegar no \xFAltimo quadro, volta pro
+    textoLoopLigado: "<b>Loop ligado:</b> ao chegar no \xFAltimo frame, volta pro
       primeiro e repete sem parar."
     textoLoopDesligado: "<b>Loop desligado:</b> toca uma vez e para no \xFAltimo
-      quadro, como uma porta abrindo. A pr\xE9via espera um pouco e mostra de novo."
+      frame, como uma porta abrindo. A pr\xE9via espera um pouco e mostra de novo."
     fpsInicial: 24
     loopInicial: 1
     pausaSemLoop: 1.2
     usarSpeed: 0
     inverterQuadros: 0
     rotuloSpeed: Speed (no Animator)
-    textoSpeedNormal: "<b>Speed 1:</b> toca o clipe do primeiro ao \xFAltimo quadro."
-    textoSpeedInvertido: "<b>Speed -1:</b> toca o MESMO clipe do \xFAltimo quadro
+    textoSpeedNormal: "<b>Speed 1:</b> toca o clipe do primeiro ao \xFAltimo frame."
+    textoSpeedInvertido: "<b>Speed -1:</b> toca o MESMO clipe do \xFAltimo frame
       pro primeiro, sem desenhar nada novo."
     speedInicial: 1
     fpsCerto: 6
@@ -4175,7 +4175,7 @@ MonoBehaviour:
     - "Agora a alavanca. Ela \xE9 puxada uma vez: escolha a velocidade e o loop."
     titulo: "Ajuste a anima\xE7\xE3o"
     pedido: "A alavanca \xE9 puxada uma vez e fica do outro lado."
-    rotuloFps: Sample Rate (quadros por segundo)
+    rotuloFps: Sample Rate (frames por segundo)
     rotuloLoop: Loop Time
     textoBotaoLoopLigado: Loop ligado
     textoBotaoLoopDesligado: Loop desligado
@@ -4185,18 +4185,18 @@ MonoBehaviour:
     - <b>6 FPS:</b> o cabo se arrasta devagar, parece emperrado.
     - "<b>12 FPS:</b> um pux\xE3o firme: d\xE1 pra ver o cabo passar pelo meio."
     - <b>24 FPS:</b> vira num estalo, quase sem movimento.
-    textoLoopLigado: "<b>Loop ligado:</b> ao chegar no \xFAltimo quadro, volta pro
+    textoLoopLigado: "<b>Loop ligado:</b> ao chegar no \xFAltimo frame, volta pro
       primeiro e repete sem parar."
     textoLoopDesligado: "<b>Loop desligado:</b> toca uma vez e para no \xFAltimo
-      quadro, como uma porta abrindo. A pr\xE9via espera um pouco e mostra de novo."
+      frame, como uma porta abrindo. A pr\xE9via espera um pouco e mostra de novo."
     fpsInicial: 6
     loopInicial: 1
     pausaSemLoop: 1.2
     usarSpeed: 0
     inverterQuadros: 0
     rotuloSpeed: Speed (no Animator)
-    textoSpeedNormal: "<b>Speed 1:</b> toca o clipe do primeiro ao \xFAltimo quadro."
-    textoSpeedInvertido: "<b>Speed -1:</b> toca o MESMO clipe do \xFAltimo quadro
+    textoSpeedNormal: "<b>Speed 1:</b> toca o clipe do primeiro ao \xFAltimo frame."
+    textoSpeedInvertido: "<b>Speed -1:</b> toca o MESMO clipe do \xFAltimo frame
       pro primeiro, sem desenhar nada novo."
     speedInicial: 1
     fpsCerto: 12
@@ -4235,7 +4235,7 @@ MonoBehaviour:
     titulo: "Ajuste a anima\xE7\xE3o"
     pedido: O personagem abaixa uma vez e fica agachado enquanto a tecla estiver
       apertada.
-    rotuloFps: Sample Rate (quadros por segundo)
+    rotuloFps: Sample Rate (frames por segundo)
     rotuloLoop: Loop Time
     textoBotaoLoopLigado: Loop ligado
     textoBotaoLoopDesligado: Loop desligado
@@ -4246,18 +4246,18 @@ MonoBehaviour:
     - "<b>12 FPS:</b> abaixa r\xE1pido, mas ainda d\xE1 pra ver o movimento."
     - "<b>24 FPS:</b> abaixa num piscar. Responde r\xE1pido, mas quase n\xE3o d\xE1
       pra ver o movimento."
-    textoLoopLigado: "<b>Loop ligado:</b> ao chegar no \xFAltimo quadro, volta pro
+    textoLoopLigado: "<b>Loop ligado:</b> ao chegar no \xFAltimo frame, volta pro
       primeiro e repete sem parar."
     textoLoopDesligado: "<b>Loop desligado:</b> toca uma vez e para no \xFAltimo
-      quadro, como uma porta abrindo. A pr\xE9via espera um pouco e mostra de novo."
+      frame, como uma porta abrindo. A pr\xE9via espera um pouco e mostra de novo."
     fpsInicial: 6
     loopInicial: 1
     pausaSemLoop: 1.2
     usarSpeed: 0
     inverterQuadros: 0
     rotuloSpeed: Speed (no Animator)
-    textoSpeedNormal: "<b>Speed 1:</b> toca o clipe do primeiro ao \xFAltimo quadro."
-    textoSpeedInvertido: "<b>Speed -1:</b> toca o MESMO clipe do \xFAltimo quadro
+    textoSpeedNormal: "<b>Speed 1:</b> toca o clipe do primeiro ao \xFAltimo frame."
+    textoSpeedInvertido: "<b>Speed -1:</b> toca o MESMO clipe do \xFAltimo frame
       pro primeiro, sem desenhar nada novo."
     speedInicial: 1
     fpsCerto: 12

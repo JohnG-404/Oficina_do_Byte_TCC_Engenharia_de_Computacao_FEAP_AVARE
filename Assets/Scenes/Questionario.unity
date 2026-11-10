@@ -206,6 +206,16 @@ MonoBehaviour:
     - O collider do espinho
     - A barra de vida
     correta: 1
+  - bloco: "Intera\xE7\xE3o e vida"
+    enunciado: "O espinho tem um Collider2D com Is Trigger ligado. Que fun\xE7\xE3o
+      do script dele roda quando algu\xE9m entra na \xE1rea, e como ele sabe que
+      foi o jogador?"
+    opcoes:
+    - "Update, comparando a posi\xE7\xE3o do espinho com a do jogador a cada frame"
+    - OnCollisionEnter2D, conferindo o nome do sprite que encostou
+    - Start, conferindo se quem chegou tem um Rigidbody2D
+    - OnTriggerEnter2D, conferindo se o outro objeto tem a tag Player
+    correta: 3
   - bloco: "Anima\xE7\xE3o"
     enunciado: "Uma anima\xE7\xE3o de corrida num jogo 2D \xE9 feita de:"
     opcoes:
@@ -215,14 +225,14 @@ MonoBehaviour:
     - Um Collider2D maior que acompanha o movimento das pernas
     correta: 0
   - bloco: "Anima\xE7\xE3o"
-    enunciado: "Os frames de uma anima\xE7\xE3o foram colocados fora de ordem. O
-      que o jogador v\xEA?"
+    enunciado: "O personagem tem as anima\xE7\xF5es Idle e Corrida no Animator. O
+      que faz ele passar de Idle pra Corrida quando come\xE7a a andar?"
     opcoes:
-    - "A anima\xE7\xE3o toca mais devagar, mas na ordem certa"
-    - Nada muda, porque o Unity coloca os frames em ordem sozinho
-    - "O personagem para de colidir com o ch\xE3o"
-    - "Um movimento embaralhado, que n\xE3o faz sentido"
-    correta: 3
+    - Ligar o Loop Time do clipe de corrida
+    - Colocar os quadros da corrida logo depois dos do Idle, no mesmo clipe
+    - "Uma transi\xE7\xE3o que confere o par\xE2metro velocidadeX > 0.1"
+    - "Aumentar o Sample Rate do clipe Idle pra ele acabar mais r\xE1pido"
+    correta: 2
   - bloco: IA
     enunciado: "Um inimigo anda de um lado pro outro e, quando o jogador chega perto,
       come\xE7a a correr atr\xE1s dele. O que faz ele trocar de comportamento?"

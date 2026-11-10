@@ -333,7 +333,7 @@ public static class CreditosTransicaoBuilder
             if (anterior != null)
             {
                 var sv = new SerializedObject(anterior);
-                nomes = new[] { sv.FindProperty("desenvolvimento").stringValue, sv.FindProperty("orientacao").stringValue, sv.FindProperty("instituicao").stringValue };
+                nomes = new[] { sv.FindProperty("desenvolvimento").stringValue, sv.FindProperty("orientacao").stringValue, sv.FindProperty("instituicao").stringValue, sv.FindProperty("coorientacao").stringValue };
                 modelo = sv.FindProperty("modelo").stringValue;
             }
             Undo.DestroyObjectImmediate(antigo.gameObject);
@@ -467,6 +467,7 @@ public static class CreditosTransicaoBuilder
             so.FindProperty("desenvolvimento").stringValue = nomes[0];
             so.FindProperty("orientacao").stringValue = nomes[1];
             so.FindProperty("instituicao").stringValue = nomes[2];
+            so.FindProperty("coorientacao").stringValue = nomes[3];
             so.FindProperty("modelo").stringValue = modelo;
         }
         so.ApplyModifiedPropertiesWithoutUndo();

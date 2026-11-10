@@ -400,6 +400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 2
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &4017813
 BoxCollider2D:
@@ -6820,6 +6821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 4
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &194766194
 BoxCollider2D:
@@ -25918,6 +25920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 6
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &688755172
 BoxCollider2D:
@@ -28525,6 +28528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 2
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &744273412
 BoxCollider2D:
@@ -29692,6 +29696,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 4
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &774368594
 BoxCollider2D:
@@ -30329,6 +30334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 1
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &809491898
 BoxCollider2D:
@@ -35698,6 +35704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 5
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &978196411
 BoxCollider2D:
@@ -36318,6 +36325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 3
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &999338762
 BoxCollider2D:
@@ -39605,6 +39613,7 @@ GameObject:
   - component: {fileID: 1124549988}
   - component: {fileID: 1124549990}
   - component: {fileID: 1124549989}
+  - component: {fileID: 1124549991}
   m_Layer: 0
   m_Name: PlacaVida
   m_TagString: Untagged
@@ -39671,6 +39680,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124549987}
   m_CullTransparentMesh: 1
+--- !u!114 &1124549991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124549987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3dce0dda9e04cc43868c90012b6d0b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AreaFixaNoTopo
 --- !u!1 &1128366360
 GameObject:
   m_ObjectHideFlags: 0
@@ -41860,6 +41881,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 3
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &1182812076
 BoxCollider2D:
@@ -43779,6 +43801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 2
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &1244599864
 BoxCollider2D:
@@ -53046,6 +53069,8 @@ MonoBehaviour:
     dica: "Use a passarela: ela tapa a vis\xE3o do guarda."
   segundosGrande: 3.5
   segundosFade: 0.25
+  alphaComRoboEmbaixo: 0.3
+  folgaRobo: 24
   grupo: {fileID: 1470140715}
   compacta: {fileID: 1230166095}
   textoCompacto: {fileID: 1666163829}
@@ -59067,6 +59092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 5
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &1667915969
 BoxCollider2D:
@@ -63454,6 +63480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 1
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &1754194424
 BoxCollider2D:
@@ -67201,6 +67228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 1
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &1850565835
 BoxCollider2D:
@@ -67345,6 +67373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 3
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &1855389863
 BoxCollider2D:
@@ -75633,6 +75662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragPiece
   pieceID: 6
   snapDuration: 0.22
+  voltaDuration: 0.18
   locked: 0
 --- !u!61 &2016914101
 BoxCollider2D:

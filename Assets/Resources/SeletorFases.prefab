@@ -6862,8 +6862,8 @@ MonoBehaviour:
   - cena: Tutorial_Anim
     modulo: "Anima\xE7\xE3o"
     corModulo: {r: 0.60784316, g: 0.48235294, b: 0.9411765, a: 1}
-    descricao: "Coloque os quadros na ordem e acerte a velocidade (FPS) e o loop
-      da anima\xE7\xE3o."
+    descricao: "Coloque os frames na ordem e acerte a velocidade (FPS) e o loop da
+      anima\xE7\xE3o."
     conceitos:
     - Sprites
     - Animation Clip

@@ -71,6 +71,13 @@ public class GameOverUI : MonoBehaviour
 
         RegistroAprendizagem.Registrar("game_over");
 
+        // O robô fica no quadro parado atrás do painel, e não congelado no
+        // quadro claro do piscar de dano.
+        foreach (PlayerVisorAnimator visor in FindObjectsByType<PlayerVisorAnimator>(FindObjectsSortMode.None))
+        {
+            visor.MostrarParadoAgora();
+        }
+
         // Congela a fase por trás do painel (física, armadilhas, plataformas).
         Time.timeScale = 0f;
         pausou = true;
@@ -184,12 +191,32 @@ public class GameOverUI : MonoBehaviour
         }
 
         Button botao = TemaLabUI.Botao(p, "BotaoReiniciar", textoBotao, tema != null ? tema.botaoPrimario : null, TemaLabUI.Azul,
-            out _, tema != null ? tema.iconeJogar : null, 36f, Color.white);
+            out _, IconeReiniciar() ?? (tema != null ? tema.iconeJogar : null), 36f, Color.white);
         TemaLabUI.Centro((RectTransform)botao.transform, new Vector2(0f, -110f - desce * 1.2f), new Vector2(380f, 108f));
         botao.onClick.AddListener(Reiniciar);
         UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(botao.gameObject);
 
         TemaLabUI.Centro(TemaLabUI.Texto(p, "Dica", dicaTecla, 22, TemaLabUI.TextoSuave, TemaLabUI.Fonte.Corpo, TextAlignmentOptions.Center).rectTransform,
             new Vector2(0f, -205f - desce * 1.5f), new Vector2(740f, 34f));
+    }
+
+    // Mesmo ícone (seta circular) do "Reiniciar fase" da pausa, pego do
+    // botão que já está no GameUICanvas da cena.
+    private static Sprite IconeReiniciar()
+    {
+        if (PauseMenuUI.Instance == null)
+        {
+            return null;
+        }
+
+        foreach (Image img in PauseMenuUI.Instance.GetComponentsInChildren<Image>(true))
+        {
+            if (img.sprite != null && img.sprite.name == "icone_reiniciar")
+            {
+                return img.sprite;
+            }
+        }
+
+        return null;
     }
 }

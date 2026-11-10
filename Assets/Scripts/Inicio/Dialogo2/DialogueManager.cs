@@ -437,9 +437,54 @@ public class DialogueManager : MonoBehaviour
         float vertical = cobreJogador ? 1f : 0f;
         caixa.anchorMin = caixa.anchorMax = caixa.pivot = new Vector2(lado, vertical);
         caixa.sizeDelta = new Vector2(larguraCaixa, alturaCaixa);
+
+        // No topo, a caixa passa por baixo dos painéis fixos que ela cruzaria
+        // (VIDA à esquerda, "Animator do Player" à direita): antes o painel
+        // do Animator escondia o fim das falas e a VIDA aparecia pela beirada.
+        float topo = margemCaixa;
+        if (cobreJogador)
+        {
+            float esquerda = jogadorAEsquerda ? larguraTela - margemCaixa - larguraCaixa : margemCaixa;
+            topo = Mathf.Max(topo, TopoLivreAbaixoDosPaineis(esquerda, esquerda + larguraCaixa, larguraTela, alturaTela));
+        }
+
         caixa.anchoredPosition = new Vector2(
             jogadorAEsquerda ? -margemCaixa : margemCaixa,
-            cobreJogador ? -(margemCaixa + AlturaPlacaNome) : margemCaixa);
+            cobreJogador ? -(topo + AlturaPlacaNome) : margemCaixa);
+    }
+
+    // Distância (unidades do Canvas, a partir do topo) até logo abaixo do painel
+    // fixo mais baixo que cruza a faixa horizontal [esquerda, direita] da caixa.
+    private static float TopoLivreAbaixoDosPaineis(float esquerda, float direita, float larguraTela, float alturaTela)
+    {
+        const float Folga = 14f;
+        float topo = 0f;
+        if (Screen.width <= 0 || Screen.height <= 0)
+        {
+            return topo;
+        }
+
+        float porPixelX = larguraTela / Screen.width;
+        float porPixelY = alturaTela / Screen.height;
+        foreach (RectTransform area in AreaFixaNoTopo.Ativas)
+        {
+            if (!AreaFixaNoTopo.RetanguloNaTela(area, out Rect r))
+            {
+                continue;
+            }
+
+            float aEsq = r.xMin * porPixelX, aDir = r.xMax * porPixelX;
+            float baixoDoTopo = alturaTela - r.yMin * porPixelY;
+            // Só painéis do terço de cima que cruzam a caixa na horizontal.
+            if (aDir <= esquerda || aEsq >= direita || baixoDoTopo > alturaTela * 0.45f)
+            {
+                continue;
+            }
+
+            topo = Mathf.Max(topo, baixoDoTopo + Folga);
+        }
+
+        return topo;
     }
 
     void EndDialogue()

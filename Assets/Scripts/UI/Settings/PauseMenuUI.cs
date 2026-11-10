@@ -339,7 +339,8 @@ public class PauseMenuUI : MonoBehaviour
             || SeletorFasesUI.SegurandoEsc
             || ObjetoAnimatorUI.SegurandoEsc
             || LampadaAnimatorUI.SegurandoEsc
-            || IADiagramaUI.SegurandoEsc;
+            || IADiagramaUI.SegurandoEsc
+            || ListaResolucaoUI.SegurandoEsc;
     }
 
     private void AtualizarCongelamento()
@@ -366,6 +367,17 @@ public class PauseMenuUI : MonoBehaviour
 
     /// <summary>Painel de pausa na tela (a fase fica congelada enquanto ele está aberto).</summary>
     public bool PausaAberta => pausePanelRoot != null && pausePanelRoot.activeSelf;
+
+    /// <summary>Cor do fundo escuro da pausa (as Configurações abertas pela pausa usam a mesma).</summary>
+    public bool TryGetCorFundo(out Color cor)
+    {
+        cor = default;
+        if (pausePanelRoot == null) return false;
+        var img = pausePanelRoot.GetComponent<UnityEngine.UI.Image>();
+        if (img == null) return false;
+        cor = img.color;
+        return true;
+    }
 
     /// <summary>Confirmação "Reiniciar a fase?" na tela (por cima da pausa).</summary>
     public bool ConfirmacaoAberta => confirmarReinicio != null && confirmarReinicio.Aberto;
@@ -437,7 +449,13 @@ public class PauseMenuUI : MonoBehaviour
             return;
         }
 
-        confirmarReinicio.Abrir(ReiniciarPelaPausa, null);
+        // A legenda da pausa (Esc Continuar · R Reiniciar) não vale com a
+        // confirmação aberta: os botões dela já mostram Esc e Enter.
+        if (rodapePausa != null) rodapePausa.SetActive(false);
+        confirmarReinicio.Abrir(ReiniciarPelaPausa, () =>
+        {
+            if (rodapePausa != null && PausaAberta) rodapePausa.SetActive(true);
+        });
     }
 
     private void ReiniciarPelaPausa()

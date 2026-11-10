@@ -10982,6 +10982,98 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.1999989, y: 8}
   m_EdgeRadius: 0
+--- !u!1 &111399075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 111399076}
+  - component: {fileID: 111399077}
+  m_Layer: 0
+  m_Name: Brilho
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &111399076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111399075}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.1205359, y: 2.1205359, z: 2.1205359}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1160866915}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &111399077
+SpriteRenderer:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111399075}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 1108032759
+  m_SortingLayer: 2
+  m_SortingOrder: 8
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 21300000, guid: dac5493f62e781a4493fa7a2ee613894, type: 3}
+  m_Color: {r: 1, g: 0.82, b: 0.25, a: 0.8}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.28, y: 1.28}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &111557472
 GameObject:
   m_ObjectHideFlags: 0
@@ -26544,6 +26636,8 @@ MonoBehaviour:
   dica: {fileID: 1379017851}
   raioPerto: 1.4
   folgaClique: 0.2
+  brilho: {fileID: 0}
+  brilhoAlfa: 0.8
 --- !u!1 &257342820
 GameObject:
   m_ObjectHideFlags: 0
@@ -33862,6 +33956,7 @@ GameObject:
   - component: {fileID: 344111047}
   - component: {fileID: 344111049}
   - component: {fileID: 344111048}
+  - component: {fileID: 344111050}
   m_Layer: 0
   m_Name: PlacaVida
   m_TagString: Untagged
@@ -33928,6 +34023,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344111046}
   m_CullTransparentMesh: 1
+--- !u!114 &344111050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344111046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3dce0dda9e04cc43868c90012b6d0b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AreaFixaNoTopo
 --- !u!1 &346053812
 GameObject:
   m_ObjectHideFlags: 0
@@ -45695,6 +45802,8 @@ MonoBehaviour:
   dica: {fileID: 1815787517}
   raioPerto: 1.4
   folgaClique: 0.2
+  brilho: {fileID: 0}
+  brilhoAlfa: 0.8
 --- !u!1 &468766936
 GameObject:
   m_ObjectHideFlags: 0
@@ -50003,7 +50112,7 @@ MonoBehaviour:
   exigirPuloParaFalha: 1
   tempoMaximoFalha: 12
   falhaDialogue:
-  - "Percebeu? Ele anda e pula, mas o desenho fica parado no mesmo quadro. Parece
+  - "Percebeu? Ele anda e pula, mas o desenho fica parado no mesmo frame. Parece
     que est\xE1 deslizando."
   - "As anima\xE7\xF5es de corrida e de pulo existem. Falta algu\xE9m decidir QUAL
     delas tocar em cada momento."
@@ -50011,7 +50120,7 @@ MonoBehaviour:
     cada caixa \xE9 uma anima\xE7\xE3o (Idle, Corrida, Pulo) e cada seta \xE9 uma
     regra pra trocar de uma pra outra."
   - "Quem move o personagem continua sendo a f\xEDsica. O Animator n\xE3o v\xEA a
-    f\xEDsica direto: todo quadro o script copia a velocidade pro par\xE2metro velocidadeX
+    f\xEDsica direto: todo frame o script copia a velocidade pro par\xE2metro velocidadeX
     e o isGrounded pro par\xE2metro noChao, e as setas leem esses par\xE2metros."
   - "Encaixe em cada seta a condi\xE7\xE3o que faz a troca acontecer. A caixa Any
     State vale pra qualquer estado, igual no Unity."
@@ -50022,7 +50131,7 @@ MonoBehaviour:
   - "Agora aperta {pular} pra dar um pulo. Repara no desenho enquanto ele est\xE1
     no ar."
   tituloCodigo: "Animator montado: par\xE2metros + transi\xE7\xF5es"
-  codigoMontado: "<color=#8B95A7>// Player: todo quadro o script passa a f\xEDsica
+  codigoMontado: "<color=#8B95A7>// Player: todo frame o script passa a f\xEDsica
     pro Animator</color>\nanimator.SetFloat(<color=#F5C542>\"velocidadeX\"</color>,
     Mathf.Abs(rb.linearVelocity.x));\nanimator.SetBool(<color=#F5C542>\"noChao\"</color>,
     isGrounded);\n<color=#8B95A7>// Transi\xE7\xF5es (as setas que voc\xEA montou)</color>\nIdle
@@ -50037,7 +50146,7 @@ MonoBehaviour:
   - "Agora a anima\xE7\xE3o troca sozinha! Ningu\xE9m manda tocar a corrida: o Animator
     olha a f\xEDsica e escolhe."
   - "No Animator do Unity \xE9 assim: o script atualiza os par\xE2metros (velocidadeX
-    e noChao) todo quadro, e as transi\xE7\xF5es conferem esses par\xE2metros."
+    e noChao) todo frame, e as transi\xE7\xF5es conferem esses par\xE2metros."
   - "Repara no painel do canto: a caixa acesa \xE9 o estado em que ele est\xE1 agora.
     Guarda essa ideia de estados e setas, que a pr\xF3xima fase usa de novo."
   - "Agora leve o personagem at\xE9 a porta no fim do caminho. Os espinhos pedem
@@ -66806,7 +66915,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1108032759
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 9
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: c80fcb00387820541b2f31265ca3cf97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -74139,6 +74248,98 @@ SpriteRenderer:
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.4, y: 0.8}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
+--- !u!1 &776786967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 776786968}
+  - component: {fileID: 776786969}
+  m_Layer: 0
+  m_Name: Brilho
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &776786968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776786967}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.1205359, y: 2.1205359, z: 2.1205359}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1950308707}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &776786969
+SpriteRenderer:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776786967}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 1108032759
+  m_SortingLayer: 2
+  m_SortingOrder: 8
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 21300000, guid: dac5493f62e781a4493fa7a2ee613894, type: 3}
+  m_Color: {r: 1, g: 0.82, b: 0.25, a: 0.8}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -82837,7 +83038,7 @@ GameObject:
   - component: {fileID: 840280821}
   - component: {fileID: 840280823}
   m_Layer: 0
-  m_Name: Moeda_21.8
+  m_Name: Moeda_Degrau3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82852,10 +83053,11 @@ Transform:
   m_GameObject: {fileID: 840280819}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37, y: -4.144423, z: 0}
-  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
+  m_LocalPosition: {x: 25.3, y: -1.34, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1066441555}
   - {fileID: 705732007}
   - {fileID: 1211118764}
   m_Father: {fileID: 1296486733}
@@ -82933,6 +83135,8 @@ MonoBehaviour:
   dica: {fileID: 1211118765}
   raioPerto: 1.4
   folgaClique: 0.2
+  brilho: {fileID: 1066441556}
+  brilhoAlfa: 0.8
 --- !u!1 &840477496
 GameObject:
   m_ObjectHideFlags: 0
@@ -83552,6 +83756,8 @@ MonoBehaviour:
     dica: "Segure agachar para passar pelo t\xFAnel."
   segundosGrande: 3.5
   segundosFade: 0.25
+  alphaComRoboEmbaixo: 0.3
+  folgaRobo: 24
   grupo: {fileID: 845771825}
   compacta: {fileID: 1658932305}
   textoCompacto: {fileID: 603874515}
@@ -89945,7 +90151,7 @@ MonoBehaviour:
   formato: "Aperte {0} ou clique na l\xE2mpada"
   usarBalao: 1
   rotulo: abrir Animator
-  detalhe: "ou clique na l\xE2mpada"
+  detalhe: "da l\xE2mpada \xB7 ou clique"
   zona: 1
   distanciaAntes: 3.2
   folgaNaBorda: 0.15
@@ -102190,6 +102396,7 @@ GameObject:
   - component: {fileID: 1032746451}
   - component: {fileID: 1032746453}
   - component: {fileID: 1032746452}
+  - component: {fileID: 1032746454}
   m_Layer: 0
   m_Name: PlacaVida
   m_TagString: Untagged
@@ -102256,6 +102463,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032746450}
   m_CullTransparentMesh: 1
+--- !u!114 &1032746454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032746450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3dce0dda9e04cc43868c90012b6d0b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AreaFixaNoTopo
 --- !u!1 &1033461840
 GameObject:
   m_ObjectHideFlags: 0
@@ -105655,6 +105874,98 @@ SpriteRenderer:
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.4, y: 0.8}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
+--- !u!1 &1066441554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1066441555}
+  - component: {fileID: 1066441556}
+  m_Layer: 0
+  m_Name: Brilho
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1066441555
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066441554}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.1205359, y: 2.1205359, z: 2.1205359}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 840280820}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1066441556
+SpriteRenderer:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066441554}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 1108032759
+  m_SortingLayer: 2
+  m_SortingOrder: 8
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 21300000, guid: dac5493f62e781a4493fa7a2ee613894, type: 3}
+  m_Color: {r: 1, g: 0.82, b: 0.25, a: 0.8}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -110765,6 +111076,8 @@ MonoBehaviour:
   dica: {fileID: 2139927191}
   raioPerto: 1.4
   folgaClique: 0.2
+  brilho: {fileID: 0}
+  brilhoAlfa: 0.8
 --- !u!1 &1118794717
 GameObject:
   m_ObjectHideFlags: 0
@@ -114364,7 +114677,7 @@ GameObject:
   - component: {fileID: 1160866916}
   - component: {fileID: 1160866918}
   m_Layer: 0
-  m_Name: Moeda_19.4
+  m_Name: Moeda_Degrau1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114379,10 +114692,11 @@ Transform:
   m_GameObject: {fileID: 1160866914}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34.6, y: -4.144423, z: 0}
-  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
+  m_LocalPosition: {x: 20.3, y: -2.94, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 111399076}
   - {fileID: 1517029359}
   - {fileID: 1403445272}
   m_Father: {fileID: 1296486733}
@@ -114460,6 +114774,8 @@ MonoBehaviour:
   dica: {fileID: 1403445273}
   raioPerto: 1.4
   folgaClique: 0.2
+  brilho: {fileID: 111399077}
+  brilhoAlfa: 0.8
 --- !u!1 &1163358249
 GameObject:
   m_ObjectHideFlags: 0
@@ -114673,6 +114989,8 @@ MonoBehaviour:
   dica: {fileID: 679563568}
   raioPerto: 1.4
   folgaClique: 0.2
+  brilho: {fileID: 0}
+  brilhoAlfa: 0.8
 --- !u!1 &1164670879
 GameObject:
   m_ObjectHideFlags: 0
@@ -117369,6 +117687,8 @@ MonoBehaviour:
   dica: {fileID: 1753373040}
   raioPerto: 1.4
   folgaClique: 0.2
+  brilho: {fileID: 0}
+  brilhoAlfa: 0.8
 --- !u!1 &1188080409
 GameObject:
   m_ObjectHideFlags: 0
@@ -119953,7 +120273,7 @@ MonoBehaviour:
   formato: "Aperte {0} ou clique na l\xE2mpada"
   usarBalao: 1
   rotulo: abrir Animator
-  detalhe: ou clique no objeto
+  detalhe: "da moeda \xB7 ou clique"
   zona: 1
   distanciaAntes: 3.2
   folgaNaBorda: 0.15
@@ -138340,7 +138660,7 @@ MonoBehaviour:
   formato: "Aperte {0} ou clique na l\xE2mpada"
   usarBalao: 1
   rotulo: abrir Animator
-  detalhe: ou clique no objeto
+  detalhe: "da moeda \xB7 ou clique"
   zona: 1
   distanciaAntes: 3.2
   folgaNaBorda: 0.15
@@ -149049,7 +149369,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1108032759
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 9
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: c80fcb00387820541b2f31265ca3cf97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -183048,7 +183368,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1108032759
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 9
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: c80fcb00387820541b2f31265ca3cf97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -185303,7 +185623,7 @@ MonoBehaviour:
   formato: "Aperte {0} ou clique na l\xE2mpada"
   usarBalao: 1
   rotulo: abrir Animator
-  detalhe: ou clique no objeto
+  detalhe: "da moeda \xB7 ou clique"
   zona: 1
   distanciaAntes: 3.2
   folgaNaBorda: 0.15
@@ -190390,7 +190710,7 @@ GameObject:
   - component: {fileID: 1950308708}
   - component: {fileID: 1950308710}
   m_Layer: 0
-  m_Name: Moeda_20.6
+  m_Name: Moeda_Degrau2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190405,10 +190725,11 @@ Transform:
   m_GameObject: {fileID: 1950308706}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 35.8, y: -4.144423, z: 0}
-  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
+  m_LocalPosition: {x: 22.7, y: -2.14, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 776786968}
   - {fileID: 1865478260}
   - {fileID: 1896666938}
   m_Father: {fileID: 1296486733}
@@ -190486,6 +190807,8 @@ MonoBehaviour:
   dica: {fileID: 1896666939}
   raioPerto: 1.4
   folgaClique: 0.2
+  brilho: {fileID: 776786969}
+  brilhoAlfa: 0.8
 --- !u!1 &1950695075
 GameObject:
   m_ObjectHideFlags: 0

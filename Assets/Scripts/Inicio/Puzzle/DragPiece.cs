@@ -9,8 +9,17 @@ public class DragPiece : MonoBehaviour
     [Tooltip("Duração da animação de encaixe no slot, em segundos.")]
     [SerializeField] private float snapDuration = 0.22f;
 
-    private Vector3 startPosition;
+    [Tooltip("Duração da volta pra bandeja quando a peça é solta fora de qualquer encaixe, em segundos.")]
+    [SerializeField] private float voltaDuration = 0.18f;
+
+    // Lugar da peça na bandeja do painel, guardado uma vez só (relativo ao
+    // pai). Antes era relido a cada OnEnable: se o puzzle fosse reaberto com
+    // a peça fora do lugar, esse "fora do lugar" virava a nova casa dela.
+    private bool casaGuardada;
+    private Vector3 startLocalPosition;
+    private Quaternion startLocalRotation;
     private Vector3 startScale;
+    private bool voltando;
 
     private Vector3 offset;
     private bool dragging = false;
@@ -67,13 +76,21 @@ public class DragPiece : MonoBehaviour
 
     void OnEnable()
     {
-        startPosition = transform.position;
+        if (casaGuardada) return;
+
+        casaGuardada = true;
+        startLocalPosition = transform.localPosition;
+        startLocalRotation = transform.localRotation;
         startScale = transform.localScale;
     }
 
     void OnMouseDown()
     {
         if (locked || ArrasteBloqueado) return;
+
+        // Pegou a peça de novo enquanto ela voltava pra bandeja: para a volta
+        // e segue o mouse a partir de onde ela está.
+        if (voltando) PararVolta();
 
         offset = transform.position - GetMouseWorldPosition();
         dragging = true;
@@ -99,7 +116,15 @@ public class DragPiece : MonoBehaviour
         // Ímã: a peça vai pra lacuna que ela cobre mais (ver SnapZone.LacunaPara).
         SnapZone.EsconderAvisos();
         SnapZone alvo = SnapZone.LacunaPara(this);
-        if (alvo != null) alvo.Receber(this);
+        if (alvo != null)
+        {
+            alvo.Receber(this);
+            return;
+        }
+
+        // Solta fora de qualquer encaixe: volta pro lugar dela no painel, em
+        // vez de ficar largada no meio da tela.
+        VoltarParaBandeja();
     }
 
     void OnDisable()
@@ -110,6 +135,54 @@ public class DragPiece : MonoBehaviour
             dragging = false;
             SnapZone.EsconderAvisos();
         }
+
+        // Fechado no meio da volta (ou do arrasto): a corrotina para junto,
+        // então a peça já fica direto na bandeja.
+        if (!locked && casaGuardada)
+        {
+            PararVolta();
+            transform.localPosition = startLocalPosition;
+        }
+    }
+
+    /// <summary>
+    /// Anima a peça de onde ela foi solta até o lugar dela na bandeja (tempo
+    /// sem escala, funciona com o jogo pausado).
+    /// </summary>
+    private void VoltarParaBandeja()
+    {
+        if (snapRoutine != null) StopCoroutine(snapRoutine);
+        voltando = true;
+        snapRoutine = StartCoroutine(AnimarVolta());
+    }
+
+    private void PararVolta()
+    {
+        if (!voltando) return;
+        if (snapRoutine != null)
+        {
+            StopCoroutine(snapRoutine);
+            snapRoutine = null;
+        }
+        voltando = false;
+    }
+
+    private IEnumerator AnimarVolta()
+    {
+        Vector3 de = transform.localPosition;
+        float t = 0f;
+        while (t < voltaDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            float x = Mathf.Clamp01(t / voltaDuration);
+            float suave = 1f - (1f - x) * (1f - x) * (1f - x); // ease-out cúbico
+            transform.localPosition = Vector3.LerpUnclamped(de, startLocalPosition, suave);
+            yield return null;
+        }
+
+        transform.localPosition = startLocalPosition;
+        voltando = false;
+        snapRoutine = null;
     }
 
     public bool IsDragging()
@@ -132,6 +205,7 @@ public class DragPiece : MonoBehaviour
     /// </summary>
     public void LockPiece(Vector3 snapPosition, Vector2 targetWorldSize, Quaternion targetRotation)
     {
+        voltando = false;
         locked = true;
         dragging = false;
 
@@ -186,6 +260,7 @@ public class DragPiece : MonoBehaviour
     public void Tremer(Vector3 centroVisual, float segundos, float amplitude)
     {
         dragging = false;
+        voltando = false;
         if (snapRoutine != null)
         {
             StopCoroutine(snapRoutine);
@@ -221,8 +296,10 @@ public class DragPiece : MonoBehaviour
             StopCoroutine(snapRoutine);
             snapRoutine = null;
         }
+        voltando = false;
 
-        transform.position = startPosition;
+        transform.localPosition = startLocalPosition;
+        transform.localRotation = startLocalRotation;
         transform.localScale = startScale;
         locked = false;
         halfExtents = ComputeHalfExtents();

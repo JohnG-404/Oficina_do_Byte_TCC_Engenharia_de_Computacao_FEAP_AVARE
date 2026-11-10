@@ -2485,19 +2485,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CreditosUI
   desenvolvimento: "Guilherme Monteiro da Luz, Jo\xE3o Gabriel Pereira Cardozo"
   orientacao: Nicolas Antonio Messias dos Santos Colloca
+  coorientacao: Danilo de Oliveira
   instituicao: "FEAP Avar\xE9"
   modelo: "// Oficina do Byte \xB7 TCC 2026\npublic class Creditos : MonoBehaviour\n{\n   
     // Quem fez\n    string[] desenvolvedores =\n    {\n        \"Guilherme Monteiro
-    da Luz\",\n        \"Jo\xE3o Gabriel Pereira Cardozo\",\n    };\n    string orientador
-    = \"{orientacao}\";\n\n    // Faculdade de Engenharia e Administra\xE7\xE3o Paulista\n   
-    string instituicao = \"{instituicao}\";\n    string curso       = \"Engenharia
-    de Computa\xE7\xE3o\";\n\n    // O que voc\xEA aprende jogando\n    string[]
-    fisica    = { \"Rigidbody2D\", \"Collider2D\", \"Pulo\" };\n    string[] interacao
-    = { \"OnTriggerEnter2D\", \"Is Trigger\", \"Vida\" };\n    string[] animacao 
-    = { \"Animation Clip\", \"FPS\", \"Animator\" };\n    string[] ia        = {
-    \"M\xE1quina de estados\", \"Raycast\" };\n\n    // Feito com\n    string motor 
-    = \"Unity 6 \xB7 URP 2D\";\n    string fontes = \"Baloo 2 \xB7 Nunito \xB7 JetBrains
-    Mono\";\n\n    void Start() => Debug.Log(\"Obrigado por jogar!\");\n}"
+    da Luz\",\n        \"Jo\xE3o Gabriel Pereira Cardozo\",\n    };\n    string orientador  
+    = \"{orientacao}\";\n    string coorientador = \"{coorientacao}\";\n\n    //
+    Faculdade de Engenharia e Administra\xE7\xE3o Paulista\n    string instituicao
+    = \"{instituicao}\";\n    string curso       = \"Engenharia de Computa\xE7\xE3o\";\n\n   
+    // O que voc\xEA aprende jogando\n    string[] fisica    = { \"Rigidbody2D\",
+    \"Collider2D\", \"Pulo\" };\n    string[] interacao = { \"OnTriggerEnter2D\",
+    \"Is Trigger\", \"Vida\" };\n    string[] animacao  = { \"Animation Clip\", \"FPS\",
+    \"Animator\" };\n    string[] ia        = { \"M\xE1quina de estados\", \"Raycast\"
+    };\n\n    // Feito com\n    string motor  = \"Unity 6 \xB7 URP 2D\";\n    string
+    fontes = \"Baloo 2 \xB7 Nunito \xB7 JetBrains Mono\";\n\n    void Start() =>
+    Debug.Log(\"Obrigado por jogar!\");\n}"
   painel: {fileID: 1453409551}
   codigo: {fileID: 1182232707}
   numeros: {fileID: 1177235941}
@@ -5655,7 +5657,9 @@ MonoBehaviour:
 
     26
 
-    27'
+    27
+
+    28'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1c5971b655c1e9b41a68dbccf6590584, type: 2}
   m_sharedMaterial: {fileID: 8874334605076818129, guid: 1c5971b655c1e9b41a68dbccf6590584, type: 2}
@@ -5818,7 +5822,8 @@ MonoBehaviour:
     // Quem fez</color>\n    <color=#C792EA>string</color>[] desenvolvedores =\n   
     {\n        <color=#F5C542>\"Guilherme Monteiro da Luz\"</color>,\n        <color=#F5C542>\"Jo\xE3o
     Gabriel Pereira Cardozo\"</color>,\n    };\n    <color=#C792EA>string</color>
-    orientador = <color=#F5C542>\"Nicolas Antonio Messias dos Santos Colloca\"</color>;\n\n<color=#5D6B8A>   
+    orientador   = <color=#F5C542>\"Nicolas Antonio Messias dos Santos Colloca\"</color>;\n   
+    <color=#C792EA>string</color> coorientador = <color=#F5C542>\"Danilo de Oliveira\"</color>;\n\n<color=#5D6B8A>   
     // Faculdade de Engenharia e Administra\xE7\xE3o Paulista</color>\n    <color=#C792EA>string</color>
     instituicao = <color=#F5C542>\"FEAP Avar\xE9\"</color>;\n    <color=#C792EA>string</color>
     curso       = <color=#F5C542>\"Engenharia de Computa\xE7\xE3o\"</color>;\n\n<color=#5D6B8A>   

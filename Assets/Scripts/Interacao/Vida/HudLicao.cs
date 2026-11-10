@@ -80,10 +80,10 @@ public class HudLicao : MonoBehaviour, IDialogueListener
     [SerializeField]
     private string codigoMontado =
         "<color=#8B95A7>// PlayerHealth: o dado muda e o evento avisa</color>\n" +
-        "<color=#EF4B4B>vidaAtual</color> -= dano;\n" +
-        "<color=#EF4B4B>OnHealthChanged</color>?.Invoke(<color=#EF4B4B>vidaAtual</color>, vidaMax);\n\n" +
+        "<color=#F5C542>vidaAtual</color> -= dano;\n" +
+        "<color=#F5C542>OnHealthChanged</color>?.Invoke(<color=#F5C542>vidaAtual</color>, vidaMax);\n\n" +
         "<color=#8B95A7>// HUD: a tela ouve o evento</color>\n" +
-        "playerHealth.<color=#EF4B4B>OnHealthChanged</color> += <color=#EF4B4B>AtualizarQuadrados</color>;";
+        "playerHealth.<color=#F5C542>OnHealthChanged</color> += <color=#F5C542>AtualizarQuadrados</color>;";
     [Tooltip("Não fecha mais o painel: ele fica aberto até Enter ou clique (ver CodigoMontadoUI).")]
     [SerializeField] private float segundosCodigo = 8f;
 

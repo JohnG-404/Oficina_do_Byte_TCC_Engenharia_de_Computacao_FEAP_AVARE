@@ -199,7 +199,7 @@ public static class ObjetoAnimatorModelos
             new[] { new S { de = 0, para = 1, condicao = C.Trigger }, new S { de = 1, para = 2, condicao = C.ExitTime } },
             new[]
             {
-                Peca("Input.GetKeyDown(E)", -1, "Lê o teclado dentro de um script: verdadeiro no quadro em que a tecla E é apertada."),
+                Peca("Input.GetKeyDown(E)", -1, "Lê o teclado dentro de um script: verdadeiro no frame em que a tecla E é apertada."),
                 Peca("puxar (Trigger)", 0, "O Trigger puxar é disparado pelo script quando o jogador aperta a tecla de interagir perto da alavanca."),
                 Peca("carga == 1", -1, "Parâmetro Int do Animator da bateria."),
                 Peca("Has Exit Time", 1, "Sem condição: a seta segue quando o clipe chega ao fim."),

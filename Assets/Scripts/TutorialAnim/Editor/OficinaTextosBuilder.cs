@@ -191,7 +191,7 @@ public static class OficinaTextosBuilder
         rt.anchoredPosition = new Vector2(EsqX + 1.45f, fY);
         rt.localPosition = new Vector3(EsqX + 1.45f, fY, 0f);
         comoTexto.text = OficinaAnimacaoHUD.ComTituloColorido(
-            "<b>Arraste ou clique</b>\nArraste cada quadro da bandeja até a linha do tempo, ou só clique nele. Clique num quadro encaixado para devolver.",
+            "<b>Arraste ou clique</b>\nArraste cada frame da bandeja até a linha do tempo, ou só clique nele. Clique num frame encaixado para devolver.",
             CartaoDica.Ambar);
         EditorUtility.SetDirty(comoTexto);
 

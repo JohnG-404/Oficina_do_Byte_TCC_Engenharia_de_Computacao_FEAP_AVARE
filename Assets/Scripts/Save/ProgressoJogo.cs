@@ -47,7 +47,7 @@ public static class ProgressoJogo
         new Fase("Aplicacao_Fisica", "Aplicação da Física", "Usar os componentes no cenário"),
         new Fase("Interacao", "Interação", "Ação e consequência: triggers e colisões"),
         new Fase("Interacao_Vida", "Interação e Vida", "Dano, cura, HUD e Game Over"),
-        new Fase("Tutorial_Anim", "Animação quadro a quadro", "Ordem dos quadros, FPS e loop"),
+        new Fase("Tutorial_Anim", "Animação quadro a quadro", "Ordem dos frames, FPS e loop"),
         new Fase("Animacao", "Animator", "Estados e transições da animação"),
         new Fase("IA", "IA: o cérebro do guarda", "Estados, transições e Raycast"),
         new Fase("IA_Aplicacao", "IA: guarda e aliado", "Configurar inimigo e aliado"),

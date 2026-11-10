@@ -613,7 +613,10 @@ public class AnimatorPuzzleUI : MonoBehaviour, IDonoPecaAnimator
         encaixe.ocupante = peca;
         encaixe.vazio.enabled = false;
 
+        // No agachar a peça já é o parâmetro (agachado == true): a linha
+        // "Animator: ..." só repetiria o mesmo texto embaixo, em letra miúda.
         string textoAnimator = string.IsNullOrEmpty(peca.Dados.textoAnimator)
+            || string.Equals(peca.Dados.textoAnimator.Trim(), peca.Dados.texto?.Trim(), StringComparison.Ordinal)
             ? ""
             : $"\n<size=72%><color=#9FC2FF>Animator: {TextoSeguro(peca.Dados.textoAnimator)}</color></size>";
         peca.Travar(encaixe.rect, TextoSeguro(peca.Dados.texto) + textoAnimator);

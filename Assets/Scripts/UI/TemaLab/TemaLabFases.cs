@@ -309,6 +309,8 @@ public static class TemaLabFases
         // Canto de cima à esquerda, onde a vida já ficava (o painel de estados da Animacao fica à direita).
         TemaLabUI.Posicionar(placa.rectTransform, new Vector2(0f, 1f), new Vector2(40f, -36f), new Vector2(largura, 96f));
         placa.transform.SetAsFirstSibling();
+        // A caixa do Prof, quando sobe pro topo à esquerda, passa por baixo da placa.
+        placa.gameObject.AddComponent<AreaFixaNoTopo>();
 
         TextMeshProUGUI rotulo = TemaLabUI.Rotulo(placa.transform, "Rotulo", "VIDA", 20f);
         TemaLabUI.Posicionar(rotulo.rectTransform, new Vector2(0f, 0.5f), new Vector2(26f, 0f), new Vector2(90f, 30f));

@@ -137,7 +137,7 @@ public class SeletorFasesUI : MonoBehaviour
             descricao = "Dê e tire vida do jogador com gatilhos e mostre isso na tela.",
             conceitos = new[] { "OnTriggerEnter2D", "Evento de vida", "UI Image", "Game Over" } },
         new InfoFase { cena = "Tutorial_Anim", modulo = "Animação", corModulo = new Color32(0x9B, 0x7B, 0xF0, 0xFF),
-            descricao = "Coloque os quadros na ordem e acerte a velocidade (FPS) e o loop da animação.",
+            descricao = "Coloque os frames na ordem e acerte a velocidade (FPS) e o loop da animação.",
             conceitos = new[] { "Sprites", "Animation Clip", "FPS", "Loop Time" } },
         new InfoFase { cena = "Animacao", modulo = "Animação", corModulo = new Color32(0x9B, 0x7B, 0xF0, 0xFF),
             descricao = "Monte as transições do Animator com parâmetros Bool, Trigger e Int.",

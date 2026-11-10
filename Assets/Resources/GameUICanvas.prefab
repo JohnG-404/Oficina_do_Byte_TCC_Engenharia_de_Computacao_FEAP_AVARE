@@ -6382,7 +6382,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Segure para reiniciar\u2026"
+  m_text: "Segure para recome\xE7ar\u2026"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3bf69f56b14386a41a6237f5e1b1a5a3, type: 2}
   m_sharedMaterial: {fileID: 8707901608913465085, guid: 3bf69f56b14386a41a6237f5e1b1a5a3, type: 2}
@@ -6404,7 +6404,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -16051,11 +16051,11 @@ RectTransform:
   - {fileID: 5306795308341257486}
   m_Father: {fileID: 8581490367391155399}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 40, y: 40}
-  m_SizeDelta: {x: 420, y: 96}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 40}
+  m_SizeDelta: {x: 460, y: 96}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!225 &6823025140235824322
 CanvasGroup:
   m_ObjectHideFlags: 0

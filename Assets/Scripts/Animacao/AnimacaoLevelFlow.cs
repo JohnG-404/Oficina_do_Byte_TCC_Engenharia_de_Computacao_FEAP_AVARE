@@ -148,10 +148,10 @@ public class AnimacaoLevelFlow : MonoBehaviour, IDialogueListener, IReinicioFase
 
     public static readonly string[] FalhaPadrao =
     {
-        "Percebeu? Ele anda e pula, mas o desenho fica parado no mesmo quadro. Parece que está deslizando.",
+        "Percebeu? Ele anda e pula, mas o desenho fica parado no mesmo frame. Parece que está deslizando.",
         "As animações de corrida e de pulo existem. Falta alguém decidir QUAL delas tocar em cada momento.",
         "No Unity, quem faz isso é o Animator. Ele é uma máquina de estados: cada caixa é uma animação (Idle, Corrida, Pulo) e cada seta é uma regra pra trocar de uma pra outra.",
-        "Quem move o personagem continua sendo a física. O Animator não vê a física direto: todo quadro o script copia a velocidade pro parâmetro velocidadeX e o isGrounded pro parâmetro noChao, e as setas leem esses parâmetros.",
+        "Quem move o personagem continua sendo a física. O Animator não vê a física direto: todo frame o script copia a velocidade pro parâmetro velocidadeX e o isGrounded pro parâmetro noChao, e as setas leem esses parâmetros.",
         "Encaixe em cada seta a condição que faz a troca acontecer. A caixa Any State vale pra qualquer estado, igual no Unity."
     };
 
@@ -168,7 +168,7 @@ public class AnimacaoLevelFlow : MonoBehaviour, IDialogueListener, IReinicioFase
     public static readonly string[] PosPuzzlePadrao =
     {
         "Agora a animação troca sozinha! Ninguém manda tocar a corrida: o Animator olha a física e escolhe.",
-        "No Animator do Unity é assim: o script atualiza os parâmetros (velocidadeX e noChao) todo quadro, e as transições conferem esses parâmetros.",
+        "No Animator do Unity é assim: o script atualiza os parâmetros (velocidadeX e noChao) todo frame, e as transições conferem esses parâmetros.",
         "Repara no painel do canto: a caixa acesa é o estado em que ele está agora. Guarda essa ideia de estados e setas, que a próxima fase usa de novo.",
         "Agora leve o personagem até a porta no fim do caminho. Os espinhos pedem um pulo lá do alto da escada."
     };
@@ -212,7 +212,7 @@ public class AnimacaoLevelFlow : MonoBehaviour, IDialogueListener, IReinicioFase
     // "<" solto quebraria o rich text do TMP; por isso as comparações com
     // menor ficam dentro de <noparse>.
     public const string CodigoPadrao =
-        "<color=#8B95A7>// Player: todo quadro o script passa a física pro Animator</color>\n" +
+        "<color=#8B95A7>// Player: todo frame o script passa a física pro Animator</color>\n" +
         "animator.SetFloat(<color=#F5C542>\"velocidadeX\"</color>, Mathf.Abs(rb.linearVelocity.x));\n" +
         "animator.SetBool(<color=#F5C542>\"noChao\"</color>, isGrounded);\n" +
         "<color=#8B95A7>// Transições (as setas que você montou)</color>\n" +

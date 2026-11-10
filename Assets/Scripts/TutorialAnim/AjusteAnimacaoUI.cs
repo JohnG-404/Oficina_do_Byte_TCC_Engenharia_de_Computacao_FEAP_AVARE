@@ -43,7 +43,11 @@ public class AjusteAnimacaoUI : MonoBehaviour
     private const float BorderWidth = 1340f;
     private const float BorderHeight = 680f;
     private const float BorderInset = 4f;
-    private const float PanelOffsetY = 120f;
+    // Escala 0,94 e centro 100 px acima do meio: o painel vai de y=120 a y=760
+    // (de cima), abaixo da placa "Oficina de Animação N / 12" (que termina em
+    // ~110) e acima da placa com o nome do Prof (que começa em ~766).
+    private const float PanelOffsetY = 100f;
+    private const float PanelScale = 0.94f;
 
     private sealed class Botao
     {
@@ -213,8 +217,8 @@ public class AjusteAnimacaoUI : MonoBehaviour
         aoTrocarQuadro?.Invoke(sprite);
 
         textoQuadro.text = parado
-            ? $"quadro {real + 1} de {quadros.Length} (parou)"
-            : $"quadro {real + 1} de {quadros.Length}";
+            ? $"frame {real + 1} de {quadros.Length} (parou)"
+            : $"frame {real + 1} de {quadros.Length}";
     }
 
     private void EscolherFps(int fps)
@@ -331,6 +335,7 @@ public class AjusteAnimacaoUI : MonoBehaviour
         brt.pivot = new Vector2(0.5f, 0.5f);
         brt.anchoredPosition = new Vector2(0f, PanelOffsetY);
         brt.sizeDelta = new Vector2(BorderWidth, BorderHeight);
+        brt.localScale = new Vector3(PanelScale, PanelScale, 1f);
 
         var painel = NewImage(borda.transform, "Painel", PanelColor);
         RectTransform prt = painel.rectTransform;
@@ -363,7 +368,7 @@ public class AjusteAnimacaoUI : MonoBehaviour
         imagemPrevia.preserveAspect = true;
         Stretch(imagemPrevia.rectTransform, 24f);
 
-        textoQuadro = NewText(p, "Quadro", "", 22, FontStyles.Normal, MutedColor);
+        textoQuadro = NewText(p, "Frame", "", 22, FontStyles.Normal, MutedColor);
         textoQuadro.alignment = TextAlignmentOptions.Center;
         Place(textoQuadro.rectTransform, 40, 520, 340, 34);
 

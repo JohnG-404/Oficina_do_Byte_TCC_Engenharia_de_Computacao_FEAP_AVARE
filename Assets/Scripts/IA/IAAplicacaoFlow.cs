@@ -521,7 +521,11 @@ public class IAAplicacaoFlow : MonoBehaviour, IDialogueListener, IReinicioFase
         if (aliado.SegueCorretamente) itens.Add(new LevelCompleteUI.Item("Aliado: Seguir", "a regra que tira ele de Esperar"));
         if (aliado.DistracaoCorreta) itens.Add(new LevelCompleteUI.Item("Aliado: Distrair", "ele vê o guarda e chama a atenção"));
         if (guardaConfig != null && guardaConfig.IncluiAliado) itens.Add(new LevelCompleteUI.Item("Guarda: alvo", "a tag Aliado entra no que ele persegue"));
-        itens.Add(new LevelCompleteUI.Item("Configurações testadas", configsTestadas.Count == 1 ? "1 combinação de regras" : configsTestadas.Count + " combinações de regras"));
+        // Sem nenhuma combinação testada não há o que marcar com check.
+        if (configsTestadas.Count > 0)
+        {
+            itens.Add(new LevelCompleteUI.Item("Configurações testadas", configsTestadas.Count == 1 ? "1 combinação de regras" : configsTestadas.Count + " combinações de regras"));
+        }
         return itens;
     }
 

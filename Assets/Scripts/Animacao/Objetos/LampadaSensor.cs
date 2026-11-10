@@ -146,7 +146,8 @@ public class LampadaSensor : MonoBehaviour
         {
             // Balão com a tecla de interagir sobre o jogador, só com ele na sala.
             if (!dicaClique.gameObject.activeSelf) dicaClique.gameObject.SetActive(true);
-            dicaTecla.Mostrar(podeClicar && JogadorNaArea());
+            // Perto de uma moeda/jumppad sem Animator, o balão e a tecla são do objeto.
+            dicaTecla.Mostrar(podeClicar && JogadorNaArea() && !ObjetoAnimadoInteracao.AlgumPerto);
         }
         else if (dicaClique != null)
         {
@@ -170,7 +171,7 @@ public class LampadaSensor : MonoBehaviour
         {
             AbrirPainel();
         }
-        else if (dicaClique != null && podeClicar && JogadorNaArea() && !DialogueManager.IsAnyDialogueActive && Time.timeScale > 0f && !JogoBloqueado.Ativo
+        else if (dicaClique != null && podeClicar && JogadorNaArea() && !ObjetoAnimadoInteracao.AlgumPerto && !DialogueManager.IsAnyDialogueActive && Time.timeScale > 0f && !JogoBloqueado.Ativo
             && InputManager.Instance != null && InputManager.Instance.InteractAction.WasPressedThisFrame())
         {
             // Dentro da área, a tecla de interagir também abre o painel (só a

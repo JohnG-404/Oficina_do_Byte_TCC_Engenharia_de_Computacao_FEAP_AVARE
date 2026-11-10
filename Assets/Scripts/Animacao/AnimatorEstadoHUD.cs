@@ -96,6 +96,8 @@ public class AnimatorEstadoHUD : MonoBehaviour
         borda.anchorMin = borda.anchorMax = new Vector2(1f, 1f);
         borda.pivot = new Vector2(1f, 1f);
         borda.anchoredPosition = new Vector2(-30f, -30f);
+        // A caixa do Prof, quando sobe pro topo, passa por baixo deste painel.
+        borda.gameObject.AddComponent<AreaFixaNoTopo>();
 
         VidaUI.Centro(VidaUI.NovoTexto(painel, "Titulo", titulo, 20, VidaUI.Amarelo, TextAlignmentOptions.Left, FontStyles.Bold).rectTransform,
             new Vector2(0f, tamPainel.y * 0.5f - 22f), new Vector2(tamPainel.x - 24f, 28f));
@@ -111,8 +113,32 @@ public class AnimatorEstadoHUD : MonoBehaviour
         parametros.fontSizeMax = 17f;
     }
 
+    // Some enquanto a faixa grande "Novo objetivo" está na tela (ela é larga e
+    // cobria as caixas Idle e Pulo) e volta quando ela recolhe.
+    private void AtualizarVisibilidade()
+    {
+        if (canvasGO == null)
+        {
+            return;
+        }
+
+        if (grupo == null)
+        {
+            grupo = canvasGO.GetComponent<CanvasGroup>();
+            if (grupo == null) grupo = canvasGO.AddComponent<CanvasGroup>();
+            grupo.interactable = false;
+            grupo.blocksRaycasts = false;
+        }
+
+        float alvo = ObjetivoFase.GrandeVisivel ? 0f : 1f;
+        grupo.alpha = Mathf.MoveTowards(grupo.alpha, alvo, Time.unscaledDeltaTime * 6f);
+    }
+
+    private CanvasGroup grupo;
+
     private void Update()
     {
+        AtualizarVisibilidade();
         if (player == null || diagrama == null)
         {
             return;

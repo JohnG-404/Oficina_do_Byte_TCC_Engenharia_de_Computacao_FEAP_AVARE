@@ -369,19 +369,41 @@ public class InteracaoLevelFlow : MonoBehaviour, IDialogueListener, IReinicioFas
             itens.Add(new LevelCompleteUI.Item("HUD de vida", "OnHealthChanged avisa a barra quando a vida muda"));
         }
 
-        InteractableItem[] todos = FindObjectsByType<InteractableItem>(FindObjectsSortMode.None);
+        // Inclui os inativos: um cartão já coletado some da cena, mas a
+        // combinação dele foi montada pelo jogador. Só entra o que o jogador
+        // configurou (o que já vinha pronto na cena não é "o que você montou"),
+        // e combinações iguais no mesmo tipo de objeto viram uma linha só.
+        InteractableItem[] todos = FindObjectsByType<InteractableItem>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         System.Array.Sort(todos, (a, b) => a.transform.position.x.CompareTo(b.transform.position.x));
+        var ordem = new List<string>();
+        var titulos = new Dictionary<string, string>();
+        var descricoes = new Dictionary<string, string>();
+        var contagem = new Dictionary<string, int>();
         foreach (InteractableItem item in todos)
         {
-            if (!item.IsConfigured)
+            if (!item.IsConfigured || !item.ConfiguradoPeloJogador || !item.gameObject.scene.IsValid())
             {
                 continue;
             }
 
+            string titulo = InteractionConfigUI.NomeAcao(item.ChosenAction) + " → " + InteractionConfigUI.NomeConsequencia(item.ChosenConsequence);
             string unity = InteractionConfigUI.EquivalenteUnity(item.ChosenAction);
-            itens.Add(new LevelCompleteUI.Item(
-                InteractionConfigUI.NomeAcao(item.ChosenAction) + " → " + InteractionConfigUI.NomeConsequencia(item.ChosenConsequence),
-                string.IsNullOrEmpty(unity) ? item.DisplayName : item.DisplayName + " · " + unity));
+            string descricao = string.IsNullOrEmpty(unity) ? item.DisplayName : item.DisplayName + " · " + unity;
+            string chave = titulo + "|" + descricao;
+            if (!contagem.ContainsKey(chave))
+            {
+                ordem.Add(chave);
+                titulos[chave] = titulo;
+                descricoes[chave] = descricao;
+                contagem[chave] = 0;
+            }
+            contagem[chave]++;
+        }
+
+        foreach (string chave in ordem)
+        {
+            string titulo = contagem[chave] > 1 ? $"{titulos[chave]}  ×{contagem[chave]}" : titulos[chave];
+            itens.Add(new LevelCompleteUI.Item(titulo, descricoes[chave]));
         }
         return itens;
     }
