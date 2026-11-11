@@ -53,7 +53,7 @@ public class Questionario : MonoBehaviour
         new Pergunta
         {
             bloco = "Física e movimento",
-            enunciado = "Num jogo 2D no Unity, qual comando lê as setas (ou A/D) que o jogador aperta?",
+            enunciado = "Num jogo 2D na Unity, qual comando lê as setas (ou A/D) que o jogador aperta?",
             opcoes = new[] { "transform.position", "Input.GetAxis(\"Horizontal\")", "Vector3.up", "Time.deltaTime" },
             correta = 1
         },
@@ -110,7 +110,7 @@ public class Questionario : MonoBehaviour
         {
             bloco = "Animação",
             enunciado = "O personagem tem as animações Idle e Corrida no Animator. O que faz ele passar de Idle pra Corrida quando começa a andar?",
-            opcoes = new[] { "Ligar o Loop Time do clipe de corrida", "Colocar os quadros da corrida logo depois dos do Idle, no mesmo clipe", "Uma transição que confere o parâmetro velocidadeX > 0.1", "Aumentar o Sample Rate do clipe Idle pra ele acabar mais rápido" },
+            opcoes = new[] { "Ligar o Loop Time do clipe de corrida", "Colocar os frames da corrida logo depois dos do Idle, no mesmo clipe", "Uma transição que confere o parâmetro velocidadeX > 0.1", "Aumentar o Sample Rate do clipe Idle pra ele acabar mais rápido" },
             correta = 2
         },
         new Pergunta

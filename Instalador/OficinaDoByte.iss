@@ -4,7 +4,7 @@
 ; O instalador sai em testTCC\Instalador\Saida\OficinaDoByte_Instalador_<versão>.exe
 
 #define Nome "Oficina do Byte"
-#define Versao "1.4"
+#define Versao "1.5"
 #define Empresa "FEAP Avare"
 #define Exe "Oficina do Byte.exe"
 #define PastaBuild "..\Builds\Oficina do Byte"

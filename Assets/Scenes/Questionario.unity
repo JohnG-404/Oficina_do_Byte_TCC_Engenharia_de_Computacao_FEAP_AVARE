@@ -154,7 +154,7 @@ MonoBehaviour:
   atalhoPularDoProfessor: 1
   perguntas:
   - bloco: "F\xEDsica e movimento"
-    enunciado: "Num jogo 2D no Unity, qual comando l\xEA as setas (ou A/D) que o
+    enunciado: "Num jogo 2D na Unity, qual comando l\xEA as setas (ou A/D) que o
       jogador aperta?"
     opcoes:
     - transform.position
@@ -229,7 +229,7 @@ MonoBehaviour:
       que faz ele passar de Idle pra Corrida quando come\xE7a a andar?"
     opcoes:
     - Ligar o Loop Time do clipe de corrida
-    - Colocar os quadros da corrida logo depois dos do Idle, no mesmo clipe
+    - Colocar os frames da corrida logo depois dos do Idle, no mesmo clipe
     - "Uma transi\xE7\xE3o que confere o par\xE2metro velocidadeX > 0.1"
     - "Aumentar o Sample Rate do clipe Idle pra ele acabar mais r\xE1pido"
     correta: 2
