@@ -28,7 +28,7 @@ Trabalho de Conclusão de Curso de Engenharia de Computação da **FEAP Avaré**
 ## Como o jogo funciona
 
 1. No **Menu**, o aluno escolhe quem vai jogar: com um apelido (2 a 12 caracteres) ou como anônimo ("Jogador 007"). Vários alunos podem usar o mesmo computador, cada um com seu próprio progresso.
-2. Antes da primeira fase, o aluno responde ao **questionário inicial** (pré-teste): 10 perguntas de múltipla escolha sobre física e movimento, interação e vida, animação e IA. Nenhuma resposta é corrigida nesse momento.
+2. Antes da primeira fase, o aluno responde ao **questionário inicial** (pré-teste): 12 perguntas de múltipla escolha sobre física e movimento, interação e vida, animação e IA. Nenhuma resposta é corrigida nesse momento, e a ordem das alternativas é sorteada a cada pergunta, para ninguém decorar a letra que marcou.
 3. As **8 fases** são jogadas em ordem. Cada fase só libera depois que a anterior é concluída. A maioria tem um puzzle de "montar o código" ou configurar componentes, seguido de um trecho de plataforma em que o aluno vê o resultado.
 4. Depois da última fase vem o **questionário final** (pós-teste), com as mesmas perguntas. A tela de resultado compara as duas notas por bloco de conteúdo.
 5. Durante todo o jogo, cada evento importante (entrada e saída de fase, erros de puzzle, quedas, pausas, respostas) é gravado em CSV para a análise do TCC.

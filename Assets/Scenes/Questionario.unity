@@ -154,97 +154,95 @@ MonoBehaviour:
   atalhoPularDoProfessor: 1
   perguntas:
   - bloco: "F\xEDsica e movimento"
-    enunciado: "Num jogo 2D na Unity, qual comando l\xEA as setas (ou A/D) que o
-      jogador aperta?"
+    enunciado: "Num script de movimento 2D, qual linha l\xEA se o jogador est\xE1 apertando as setas para os lados (ou A/D)?"
     opcoes:
-    - transform.position
+    - Input.GetAxis("Vertical")
+    - Input.GetButtonDown("Jump")
     - Input.GetAxis("Horizontal")
-    - Vector3.up
-    - Time.deltaTime
-    correta: 1
+    - Input.GetButton("Fire1")
+    correta: 2
   - bloco: "F\xEDsica e movimento"
-    enunciado: "Voc\xEA colocou um personagem na cena, deu Play, e ele fica parado
-      no ar. O que falta nele pra cair?"
+    enunciado: "Voc\xEA colocou um personagem na cena, deu Play, e ele fica parado no ar. O que falta nele pra cair?"
     opcoes:
     - Um Collider2D com Is Trigger ligado
-    - Um SpriteRenderer
     - Um Rigidbody2D
-    - "O m\xE9todo Start"
-    correta: 2
+    - Um SpriteRenderer
+    - Um Gravity Scale maior no Transform
+    correta: 1
   - bloco: "F\xEDsica e movimento"
     enunciado: "Agora o personagem cai, mas atravessa o ch\xE3o. O que resolve?"
     opcoes:
-    - "Collider2D no personagem e no ch\xE3o, com Is Trigger desligado"
     - Aumentar o Gravity Scale pra ele pesar mais
-    - "Colocar um Rigidbody2D no ch\xE3o pra ele segurar o personagem"
-    - "Ligar o Is Trigger do ch\xE3o pra ele perceber o personagem"
+    - "P\xF4r um Rigidbody2D no ch\xE3o pra segurar o personagem"
+    - "Ligar o Is Trigger do ch\xE3o pra ele sentir o personagem"
+    - "Um Collider2D s\xF3lido no personagem e outro no ch\xE3o"
+    correta: 3
+  - bloco: "F\xEDsica e movimento"
+    enunciado: "O c\xF3digo do pulo \xE9 if (Input.GetButtonDown(\"Jump\") && isGrounded). O que acontece se apagar o \"&& isGrounded\"?"
+    opcoes:
+    - "D\xE1 pra pular de novo no ar, sem parar"
+    - Ele passa a pular mais alto
+    - "Ele n\xE3o consegue mais pular"
+    - Ele pula sozinho, sem apertar nada
     correta: 0
   - bloco: "F\xEDsica e movimento"
-    enunciado: "Por que o c\xF3digo do pulo confere se o personagem est\xE1 no ch\xE3o
-      (isGrounded)?"
+    enunciado: "Por que o script da c\xE2mera move ela no LateUpdate, e n\xE3o no Update?"
     opcoes:
-    - "Pra ele pular mais alto quando sai do ch\xE3o"
-    - "Pra ele n\xE3o pular de novo enquanto est\xE1 no ar"
-    - Pra gravidade puxar ele de volta depois do pulo
-    - "Pra ele andar mais r\xE1pido enquanto est\xE1 no ch\xE3o"
+    - "Pra ela rodar uma vez s\xF3, quando a fase come\xE7a"
+    - "Pra ela se mover depois que o personagem j\xE1 andou naquele frame"
+    - "Pra ela seguir o ritmo da f\xEDsica, num rel\xF3gio pr\xF3prio"
+    - Pra ela chegar no personagem devagar, sem tranco
     correta: 1
   - bloco: "Intera\xE7\xE3o e vida"
-    enunciado: "Uma porta abre quando o jogador chega perto dela. Nessa intera\xE7\xE3o,
-      \"chegar perto\" \xE9:"
+    enunciado: "Um painel abre a porta quando o jogador aperta E perto dele, mas s\xF3 se ele j\xE1 pegou um cart\xE3o. Qual \xE9 a a\xE7\xE3o, a condi\xE7\xE3o e a consequ\xEAncia?"
     opcoes:
-    - "A consequ\xEAncia"
-    - "A anima\xE7\xE3o"
-    - "A a\xE7\xE3o"
-    - O Rigidbody2D
+    - "A\xE7\xE3o: abrir a porta \xB7 Condi\xE7\xE3o: apertar E \xB7 Consequ\xEAncia: ter o cart\xE3o"
+    - "A\xE7\xE3o: ter o cart\xE3o \xB7 Condi\xE7\xE3o: apertar E \xB7 Consequ\xEAncia: abrir a porta"
+    - "A\xE7\xE3o: apertar E \xB7 Condi\xE7\xE3o: ter o cart\xE3o \xB7 Consequ\xEAncia: abrir a porta"
+    - "A\xE7\xE3o: apertar E \xB7 Condi\xE7\xE3o: abrir a porta \xB7 Consequ\xEAncia: ter o cart\xE3o"
     correta: 2
   - bloco: "Intera\xE7\xE3o e vida"
-    enunciado: "Um espinho tira 1 ponto de vida quando o jogador encosta nele. Qual
-      \xE9 a consequ\xEAncia?"
+    enunciado: "O espinho tem um Collider2D com Is Trigger ligado. Qual c\xF3digo faz ele tirar vida s\xF3 do jogador?"
     opcoes:
-    - Encostar no espinho
-    - Tirar 1 ponto de vida
-    - O collider do espinho
-    - A barra de vida
-    correta: 1
-  - bloco: "Intera\xE7\xE3o e vida"
-    enunciado: "O espinho tem um Collider2D com Is Trigger ligado. Que fun\xE7\xE3o
-      do script dele roda quando algu\xE9m entra na \xE1rea, e como ele sabe que
-      foi o jogador?"
-    opcoes:
-    - "Update, comparando a posi\xE7\xE3o do espinho com a do jogador a cada frame"
+    - OnTriggerEnter2D, conferindo se o outro tem a tag Player
+    - OnCollisionEnter2D, conferindo se o outro tem a tag Player
+    - OnTriggerEnter2D, tirando vida de quem entrar, sem conferir
     - OnCollisionEnter2D, conferindo o nome do sprite que encostou
-    - Start, conferindo se quem chegou tem um Rigidbody2D
-    - OnTriggerEnter2D, conferindo se o outro objeto tem a tag Player
+    correta: 0
+  - bloco: "Intera\xE7\xE3o e vida"
+    enunciado: A vida do jogador cai de 3 pra 2, mas a barra na tela continua mostrando 3. O que falta?
+    opcoes:
+    - "Atualizar a barra no Start, quando a fase come\xE7a"
+    - Ligar o Raycast Target da imagem da barra
+    - Apagar a barra com Destroy e criar outra no lugar
+    - Um evento que avisa a barra toda vez que a vida muda
     correta: 3
   - bloco: "Anima\xE7\xE3o"
-    enunciado: "Uma anima\xE7\xE3o de corrida num jogo 2D \xE9 feita de:"
+    enunciado: "A corrida toca uma vez e o personagem fica congelado no \xFAltimo frame, mesmo continuando a andar. O que ajustar no clipe?"
     opcoes:
-    - "Uma sequ\xEAncia de sprites (frames) trocados bem r\xE1pido"
-    - "Um \xFAnico sprite que estica e encolhe enquanto ele corre"
-    - Um Rigidbody2D com mais velocidade pra mexer as pernas
-    - Um Collider2D maior que acompanha o movimento das pernas
-    correta: 0
-  - bloco: "Anima\xE7\xE3o"
-    enunciado: "O personagem tem as anima\xE7\xF5es Idle e Corrida no Animator. O
-      que faz ele passar de Idle pra Corrida quando come\xE7a a andar?"
-    opcoes:
-    - Ligar o Loop Time do clipe de corrida
-    - Colocar os frames da corrida logo depois dos do Idle, no mesmo clipe
-    - "Uma transi\xE7\xE3o que confere o par\xE2metro velocidadeX > 0.1"
-    - "Aumentar o Sample Rate do clipe Idle pra ele acabar mais r\xE1pido"
-    correta: 2
-  - bloco: IA
-    enunciado: "Um inimigo anda de um lado pro outro e, quando o jogador chega perto,
-      come\xE7a a correr atr\xE1s dele. O que faz ele trocar de comportamento?"
-    opcoes:
-    - "Uma anima\xE7\xE3o diferente que toca quando ele v\xEA o jogador"
-    - "Uma regra que confere a dist\xE2ncia at\xE9 o jogador a cada frame"
-    - "O Rigidbody2D do inimigo, que empurra ele at\xE9 o jogador"
-    - "O bot\xE3o que o jogador aperta quando chega perto dele"
+    - Aumentar o Sample Rate de 12 pra 24 FPS
+    - Ligar o Loop Time
+    - Colocar o Speed em -1
+    - "P\xF4r um Animation Event no \xFAltimo frame"
     correta: 1
+  - bloco: "Anima\xE7\xE3o"
+    enunciado: "No Animator, um personagem tem os estados Parado e Andando e um par\xE2metro velocidade. Qual condi\xE7\xE3o vai na seta de Parado para Andando?"
+    opcoes:
+    - estaNoChao == false
+    - velocidade < 0.1
+    - Esperar o clipe Parado terminar (Exit Time)
+    - velocidade > 0.1
+    correta: 3
   - bloco: IA
-    enunciado: "O inimigo \"v\xEA\" o jogador mesmo com uma parede no meio. Qual
-      \xE9 a melhor corre\xE7\xE3o?"
+    enunciado: "Um rob\xF4 patrulha e, quando o jogador chega perto, come\xE7a a persegui-lo. O que faz ele trocar de estado?"
+    opcoes:
+    - "Uma regra que confere a dist\xE2ncia at\xE9 o jogador a cada frame"
+    - "Uma anima\xE7\xE3o de corrida que toca no Animator do rob\xF4"
+    - Um temporizador que troca de estado a cada poucos segundos
+    - "O OnCollisionEnter2D, quando o jogador encosta no rob\xF4"
+    correta: 0
+  - bloco: IA
+    enunciado: "O inimigo \"v\xEA\" o jogador mesmo com uma parede no meio. Qual \xE9 a melhor corre\xE7\xE3o?"
     opcoes:
     - "Aumentar o raio de vis\xE3o pra ele enxergar mais longe"
     - Usar OnCollisionEnter2D pra saber quando ele encosta no jogador

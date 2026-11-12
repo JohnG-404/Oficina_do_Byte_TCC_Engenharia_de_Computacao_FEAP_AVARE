@@ -19,6 +19,11 @@ using UnityEngine.UI;
 /// resposta é corrigida durante o questionário (corrigir no pré-teste
 /// ensinaria a resposta antes do jogo).
 ///
+/// A ordem das alternativas é sorteada a cada pergunta, no pré e no pós-teste,
+/// pra ninguém decorar a letra que marcou. No Inspector as opções ficam na
+/// ordem original, e "correta" continua sendo o índice nessa ordem. O registro
+/// grava o texto da opção escolhida e a letra em que ela apareceu.
+///
 /// A tela é montada por código (como o PauseMenuUI), então a cena só precisa
 /// de câmera, EventSystem e este componente. Perguntas editáveis no Inspector.
 /// O visual usa o tema Laboratório (Resources/TemaLaboratorio, ver TemaLabUI).
@@ -53,72 +58,79 @@ public class Questionario : MonoBehaviour
         new Pergunta
         {
             bloco = "Física e movimento",
-            enunciado = "Num jogo 2D na Unity, qual comando lê as setas (ou A/D) que o jogador aperta?",
-            opcoes = new[] { "transform.position", "Input.GetAxis(\"Horizontal\")", "Vector3.up", "Time.deltaTime" },
-            correta = 1
+            enunciado = "Num script de movimento 2D, qual linha lê se o jogador está apertando as setas para os lados (ou A/D)?",
+            opcoes = new[] { "Input.GetAxis(\"Vertical\")", "Input.GetButtonDown(\"Jump\")", "Input.GetAxis(\"Horizontal\")", "Input.GetButton(\"Fire1\")" },
+            correta = 2
         },
         new Pergunta
         {
             bloco = "Física e movimento",
             enunciado = "Você colocou um personagem na cena, deu Play, e ele fica parado no ar. O que falta nele pra cair?",
-            opcoes = new[] { "Um Collider2D com Is Trigger ligado", "Um SpriteRenderer", "Um Rigidbody2D", "O método Start" },
-            correta = 2
+            opcoes = new[] { "Um Collider2D com Is Trigger ligado", "Um Rigidbody2D", "Um SpriteRenderer", "Um Gravity Scale maior no Transform" },
+            correta = 1
         },
         new Pergunta
         {
             bloco = "Física e movimento",
             enunciado = "Agora o personagem cai, mas atravessa o chão. O que resolve?",
-            opcoes = new[] { "Collider2D no personagem e no chão, com Is Trigger desligado", "Aumentar o Gravity Scale pra ele pesar mais", "Colocar um Rigidbody2D no chão pra ele segurar o personagem", "Ligar o Is Trigger do chão pra ele perceber o personagem" },
+            opcoes = new[] { "Aumentar o Gravity Scale pra ele pesar mais", "Pôr um Rigidbody2D no chão pra segurar o personagem", "Ligar o Is Trigger do chão pra ele sentir o personagem", "Um Collider2D sólido no personagem e outro no chão" },
+            correta = 3
+        },
+        new Pergunta
+        {
+            bloco = "Física e movimento",
+            enunciado = "O código do pulo é if (Input.GetButtonDown(\"Jump\") && isGrounded). O que acontece se apagar o \"&& isGrounded\"?",
+            opcoes = new[] { "Dá pra pular de novo no ar, sem parar", "Ele passa a pular mais alto", "Ele não consegue mais pular", "Ele pula sozinho, sem apertar nada" },
             correta = 0
         },
         new Pergunta
         {
             bloco = "Física e movimento",
-            enunciado = "Por que o código do pulo confere se o personagem está no chão (isGrounded)?",
-            opcoes = new[] { "Pra ele pular mais alto quando sai do chão", "Pra ele não pular de novo enquanto está no ar", "Pra gravidade puxar ele de volta depois do pulo", "Pra ele andar mais rápido enquanto está no chão" },
+            enunciado = "Por que o script da câmera move ela no LateUpdate, e não no Update?",
+            opcoes = new[] { "Pra ela rodar uma vez só, quando a fase começa", "Pra ela se mover depois que o personagem já andou naquele frame", "Pra ela seguir o ritmo da física, num relógio próprio", "Pra ela chegar no personagem devagar, sem tranco" },
             correta = 1
         },
         new Pergunta
         {
             bloco = "Interação e vida",
-            enunciado = "Uma porta abre quando o jogador chega perto dela. Nessa interação, \"chegar perto\" é:",
-            opcoes = new[] { "A consequência", "A animação", "A ação", "O Rigidbody2D" },
+            enunciado = "Um painel abre a porta quando o jogador aperta E perto dele, mas só se ele já pegou um cartão. Qual é a ação, a condição e a consequência?",
+            opcoes = new[] { "Ação: abrir a porta · Condição: apertar E · Consequência: ter o cartão", "Ação: ter o cartão · Condição: apertar E · Consequência: abrir a porta", "Ação: apertar E · Condição: ter o cartão · Consequência: abrir a porta", "Ação: apertar E · Condição: abrir a porta · Consequência: ter o cartão" },
             correta = 2
         },
         new Pergunta
         {
             bloco = "Interação e vida",
-            enunciado = "Um espinho tira 1 ponto de vida quando o jogador encosta nele. Qual é a consequência?",
-            opcoes = new[] { "Encostar no espinho", "Tirar 1 ponto de vida", "O collider do espinho", "A barra de vida" },
-            correta = 1
+            enunciado = "O espinho tem um Collider2D com Is Trigger ligado. Qual código faz ele tirar vida só do jogador?",
+            opcoes = new[] { "OnTriggerEnter2D, conferindo se o outro tem a tag Player", "OnCollisionEnter2D, conferindo se o outro tem a tag Player", "OnTriggerEnter2D, tirando vida de quem entrar, sem conferir", "OnCollisionEnter2D, conferindo o nome do sprite que encostou" },
+            correta = 0
         },
         new Pergunta
         {
             bloco = "Interação e vida",
-            enunciado = "O espinho tem um Collider2D com Is Trigger ligado. Que função do script dele roda quando alguém entra na área, e como ele sabe que foi o jogador?",
-            opcoes = new[] { "Update, comparando a posição do espinho com a do jogador a cada frame", "OnCollisionEnter2D, conferindo o nome do sprite que encostou", "Start, conferindo se quem chegou tem um Rigidbody2D", "OnTriggerEnter2D, conferindo se o outro objeto tem a tag Player" },
+            enunciado = "A vida do jogador cai de 3 pra 2, mas a barra na tela continua mostrando 3. O que falta?",
+            opcoes = new[] { "Atualizar a barra no Start, quando a fase começa", "Ligar o Raycast Target da imagem da barra", "Apagar a barra com Destroy e criar outra no lugar", "Um evento que avisa a barra toda vez que a vida muda" },
             correta = 3
         },
         new Pergunta
         {
             bloco = "Animação",
-            enunciado = "Uma animação de corrida num jogo 2D é feita de:",
-            opcoes = new[] { "Uma sequência de sprites (frames) trocados bem rápido", "Um único sprite que estica e encolhe enquanto ele corre", "Um Rigidbody2D com mais velocidade pra mexer as pernas", "Um Collider2D maior que acompanha o movimento das pernas" },
-            correta = 0
+            enunciado = "A corrida toca uma vez e o personagem fica congelado no último frame, mesmo continuando a andar. O que ajustar no clipe?",
+            opcoes = new[] { "Aumentar o Sample Rate de 12 pra 24 FPS", "Ligar o Loop Time", "Colocar o Speed em -1", "Pôr um Animation Event no último frame" },
+            correta = 1
         },
         new Pergunta
         {
             bloco = "Animação",
-            enunciado = "O personagem tem as animações Idle e Corrida no Animator. O que faz ele passar de Idle pra Corrida quando começa a andar?",
-            opcoes = new[] { "Ligar o Loop Time do clipe de corrida", "Colocar os frames da corrida logo depois dos do Idle, no mesmo clipe", "Uma transição que confere o parâmetro velocidadeX > 0.1", "Aumentar o Sample Rate do clipe Idle pra ele acabar mais rápido" },
-            correta = 2
+            enunciado = "No Animator, um personagem tem os estados Parado e Andando e um parâmetro velocidade. Qual condição vai na seta de Parado para Andando?",
+            opcoes = new[] { "estaNoChao == false", "velocidade < 0.1", "Esperar o clipe Parado terminar (Exit Time)", "velocidade > 0.1" },
+            correta = 3
         },
         new Pergunta
         {
             bloco = "IA",
-            enunciado = "Um inimigo anda de um lado pro outro e, quando o jogador chega perto, começa a correr atrás dele. O que faz ele trocar de comportamento?",
-            opcoes = new[] { "Uma animação diferente que toca quando ele vê o jogador", "Uma regra que confere a distância até o jogador a cada frame", "O Rigidbody2D do inimigo, que empurra ele até o jogador", "O botão que o jogador aperta quando chega perto dele" },
-            correta = 1
+            enunciado = "Um robô patrulha e, quando o jogador chega perto, começa a persegui-lo. O que faz ele trocar de estado?",
+            opcoes = new[] { "Uma regra que confere a distância até o jogador a cada frame", "Uma animação de corrida que toca no Animator do robô", "Um temporizador que troca de estado a cada poucos segundos", "O OnCollisionEnter2D, quando o jogador encosta no robô" },
+            correta = 0
         },
         new Pergunta
         {
@@ -136,7 +148,7 @@ public class Questionario : MonoBehaviour
     private const float MargemX = 80f;
 
     // Título das perguntas: faixa de 2 linhas na fonte 50. Enunciado que
-    // passa disso (ex.: pergunta 9, 3 linhas) ganha a versão "longa": fonte
+    // passa disso (ex.: a pergunta do painel com cartão, 3 linhas) ganha a versão "longa": fonte
     // um pouco menor, faixa de 3 linhas e opções mais baixas, pra caber tudo
     // sem a 3ª linha ficar escondida atrás da opção A.
     private const float TopoTitulo = 50f;
@@ -189,6 +201,9 @@ public class Questionario : MonoBehaviour
     private Button botaoConfirmar;
     private int marcada = -1;
     private bool pulando;
+    // Ordem sorteada das alternativas da pergunta atual: ordemOpcoes[letra] =
+    // índice da opção em Pergunta.opcoes. "marcada" é a letra (posição na tela).
+    private int[] ordemOpcoes = new int[0];
 
     private void Start()
     {
@@ -365,10 +380,11 @@ public class Questionario : MonoBehaviour
         ((HorizontalLayoutGroup)pontosRoot.GetComponent<HorizontalLayoutGroup>()).childAlignment = TextAnchor.MiddleRight;
 
         LimparOpcoes();
-        for (int i = 0; i < p.opcoes.Length; i++)
+        ordemOpcoes = OrdemSorteada(p.opcoes.Length);
+        for (int i = 0; i < ordemOpcoes.Length; i++)
         {
             int escolha = i;
-            CriarOpcao((char)('A' + i), p.opcoes[i], () => Marcar(escolha));
+            CriarOpcao((char)('A' + i), p.opcoes[ordemOpcoes[i]], () => Marcar(escolha));
         }
 
         marcada = -1;
@@ -419,6 +435,22 @@ public class Questionario : MonoBehaviour
         Responder(escolha);
     }
 
+    // Fisher-Yates: cada ordem das alternativas tem a mesma chance.
+    private static int[] OrdemSorteada(int n)
+    {
+        int[] ordem = new int[n];
+        for (int i = 0; i < n; i++)
+        {
+            ordem[i] = i;
+        }
+        for (int i = n - 1; i > 0; i--)
+        {
+            int j = UnityEngine.Random.Range(0, i + 1);
+            (ordem[i], ordem[j]) = (ordem[j], ordem[i]);
+        }
+        return ordem;
+    }
+
     private void AtualizarFaixa()
     {
         for (int i = 0; i < marcasDasOpcoes.Count; i++)
@@ -428,17 +460,18 @@ public class Questionario : MonoBehaviour
             letrasDasOpcoes[i].color = esta ? TemaLabUI.Ciano : TemaLabUI.CorTexto;
         }
 
-        bool tem = marcada >= 0 && marcada < perguntas[atual].opcoes.Length;
+        bool tem = marcada >= 0 && marcada < ordemOpcoes.Length;
         faixaTexto.text = tem
-            ? $"Sua resposta: <color=#E8EEF9>{(char)('A' + marcada)} · <noparse>{perguntas[atual].opcoes[marcada]}</noparse></color>"
+            ? $"Sua resposta: <color=#E8EEF9>{(char)('A' + marcada)} · <noparse>{perguntas[atual].opcoes[ordemOpcoes[marcada]]}</noparse></color>"
             : "Escolha uma opção e depois confirme.";
         botaoConfirmar.interactable = tem;
         botaoTrocar.gameObject.SetActive(tem);
     }
 
-    private void Responder(int escolha)
+    private void Responder(int letra)
     {
         Pergunta p = perguntas[atual];
+        int escolha = ordemOpcoes[letra];
         bool certa = escolha == p.correta;
 
         if (certa)
@@ -449,7 +482,7 @@ public class Questionario : MonoBehaviour
         }
 
         RegistroAprendizagem.Registrar(Prefixo + "_resposta",
-            $"Q{atual + 1} | {p.bloco} | {p.opcoes[escolha]} | {(certa ? "certa" : "errada")}");
+            $"Q{atual + 1} | {p.bloco} | {p.opcoes[escolha]} | {(certa ? "certa" : "errada")} | letra {(char)('A' + letra)}");
 
         atual++;
         if (atual < perguntas.Length)
